@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SHELL</title>
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=0.5, maximum-scale=0.5 initial-scale=0.5"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+    <script src="js/jquery.validate.min.js"></script>
+    <script src="js/init.js?v=4"></script>
+
+    <link href="css/sl_rezet.css" rel="stylesheet">
+    <link href="css/sl_style.css?v=4" rel="stylesheet">
+</head>
+<body>
+<div class="sl_wrap">
+<!-- Loading page -->
+<section class="js_activate sl_bg_p1 sl_bg_pt1 show_top_index" data-page="#loading">
+    <div class="sl_circle_load sl_circle_bg">
+        <div class="sl_load_pro">
+            <div class="sl_load_bar" data-href="#home"></div>
+        </div>
+        <div class="sl_title_loading">
+            INDLÆSER ...
+        </div>
+    </div>
+</section>
+<!-- Home page -->
+<section class="js_dissable disable_form_elements" data-page="#home">
+    <div class="sl_topbar">
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_bg_p1 sl_wheel_pt">
+        <div class="sl_wheel_box">
+            <a class="sl_wheel_buy js_button_click" href="#wash_list"></a>
+            <div class="sl_wb_topshadow"></div>
+            <div class="sl_wheel_segments">
+                <a class="sl_part sl_part_t js_animate_rotation js_button_click" data-rotation="rotate_180" href="#profile"></a>
+                <a class="sl_part sl_part_r js_animate_rotation js_button_click" data-rotation="rotate_90" href="#wash_info"></a>
+                <a class="sl_part sl_part_b js_animate_rotation js_button_click" data-rotation="rotate_0" href="#contact"></a>
+                <a class="sl_part sl_part_l js_animate_rotation js_button_click" data-rotation="rotate_270" href="#find_washer" ></a>
+            </div>
+        </div>
+        <div class="sl_box_location_txt">
+            <div class="sl_simpl_style_1">
+                DIN POSITION:
+            </div>
+            <div class="sl_desc_box sl_m_zero">
+                <h2 class="sl_loc_title sl_loc_title">
+                    Møllevej 5 Shell Dragør
+                </h2>
+            </div>
+            <div class="sl_simpl_style_2">
+                DENNE STATION BENYTTER WASHTEC
+            </div>
+        </div>
+        <div class="sl_bbtn_next js_move_to_top">
+            DIT SPECIAL TILBUD
+            <div class="offer_information">
+                <div class="sl_body">
+                    <div class="sl_cola_box">
+                        <div class="sl_cola_title">
+                            DIT SPECIAL TILBUD!
+                        </div>
+                        <div class="sl_top_price">
+                            <table class="sl_table_sel sl_ss_37">
+                                <tr>
+                                    <td class="wmt_ta_r">
+                                        25,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Wash list page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_list" >
+    <div class="sl_topbar">
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_navbox">
+            <div class="wmt_clear sl_box_padb">
+                <div class="sl_left_navbox">
+                    <a class="sl_back_btn js_button_click" href="#home"></a>
+                    <div class="sl_title sl_title_pad2">
+                        TILBAGE
+                    </div>
+                    <div class="sl_title sl_title_pad3">
+                        <a class="js_button_click" href="#">
+                            <img src="img/info.png" alt="">
+                        </a>
+                    </div>
+                </div>
+                <div class="sl_right_navbox">
+                    <div class="sl_title sl_title_pad">
+                        VÆLG DIN VASK:
+                    </div>
+                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pwsxl">
+                        <p class="sl_sbtn_light"></p>
+                        <div class="sl_title_sel">
+                            <table class="sl_table_sel">
+                                <tr>
+                                    <td class="sl_tsel_td_1">
+                                        PERFECT WASH SHINE XL
+                                    </td>
+                                    <td class="sl_tsel_td_2">
+                                        219,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pws">
+                        <p class="sl_sbtn_light"></p>
+                        <div class="sl_title_sel">
+                            <table class="sl_table_sel">
+                                <tr>
+                                    <td class="sl_tsel_td_1">
+                                        PERFECT WASH SHINE
+                                    </td>
+                                    <td class="sl_tsel_td_2">
+                                        159,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pw">
+                        <p class="sl_sbtn_light"></p>
+                        <div class="sl_title_sel">
+                            <table class="sl_table_sel">
+                                <tr>
+                                    <td class="sl_tsel_td_1">
+                                        PERFECT WASH
+                                    </td>
+                                    <td class="sl_tsel_td_2">
+                                        119,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sl_select_btn js_button_click" data-href="#wash_details_standart">
+                        <p class="sl_sbtn_light"></p>
+                        <div class="sl_title_sel">
+                            <table class="sl_table_sel">
+                                <tr>
+                                    <td class="sl_tsel_td_1">
+                                        STANDARD
+                                    </td>
+                                    <td class="sl_tsel_td_2">
+                                        99,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="sl_select_btn js_button_click" data-href="#wash_details_express">
+                        <p class="sl_sbtn_light"></p>
+                        <div class="sl_title_sel">
+                            <table class="sl_table_sel">
+                                <tr>
+                                    <td class="sl_tsel_td_1">
+                                        EXPRESS
+                                    </td>
+                                    <td class="sl_tsel_td_2">
+                                        69,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sl_desc_box sl_desc_box_marl">
+                <h2 class="sl_desk_title">
+                    INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Shell var først i Danmark med at lancere et
+                    unikt vaskeprogram, der er tilpasset årstiderne
+                    - og som skifter indhold og sæbeprodukter
+                    fire gange om året.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Wash details PWSXL page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_details_pwsxl">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_title">
+            DIT VALG:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <div class="sl_price_tap">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td class="sl_td_tab">
+                            PERFECT WASH SHINE XL 219,-
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_desc_box sl_desc_box_h">
+                <h2 class="sl_desk_title">
+                    VASK INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Perfect Wash SHINE XL: Perfect Wash plus dobbelt Shine
+                    polering, samt vandafvisende RainTec for optimeret udsyn
+                </p>
+
+            </div>
+            <!--
+            <a class="sl_btn js_button_click" href="#wash_list">
+                <p class="sl_btn_light"></p>
+                <p class="sl_btn_text">
+                    ANNULLER
+                </p>
+            </a>
+            -->
+            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Wash details PWS page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_details_pws">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_title">
+            DIT VALG:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <div class="sl_price_tap">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td class="sl_td_tab">
+                            PERFECT WASH SHINE 159,-
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_desc_box sl_desc_box_h">
+                <h2 class="sl_desk_title">
+                    VASK INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Perfect Wash Shine : Perfect Wash plus Shine
+                    powering for ekstra glans.
+                </p>
+
+            </div>
+            <!--
+            <a class="sl_btn js_button_click" href="#wash_list">
+                <p class="sl_btn_light"></p>
+                <p class="sl_btn_text">
+                    ANNULLER
+                </p>
+            </a>
+            -->
+            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Wash details PW page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_details_pw">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_title">
+            DIT VALG:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <div class="sl_price_tap">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td class="sl_td_tab">
+                            PERFECT WASH 119,-
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_desc_box sl_desc_box_h">
+                <h2 class="sl_desk_title">
+                    VASK INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Perfect Wash: Ekstra højtryksspuling, ekstra
+                    skumforvask, ekstra undervognsskyl og duft og voks
+                </p>
+
+            </div>
+            <!--
+            <a class="sl_btn js_button_click" href="#wash_list">
+                <p class="sl_btn_light"></p>
+                <p class="sl_btn_text">
+                    ANNULLER
+                </p>
+            </a>
+            -->
+            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Wash details Standart page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_details_standart">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_title">
+            DIT VALG:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <div class="sl_price_tap">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td class="sl_td_tab">
+                            STANDARD 99,-
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_desc_box sl_desc_box_h">
+                <h2 class="sl_desk_title">
+                    VASK INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Standard : Insektrens, skumforvask, sidehøjtryk og
+                    børstevask
+                </p>
+
+            </div>
+            <!--
+            <a class="sl_btn js_button_click" href="#wash_list">
+                <p class="sl_btn_light"></p>
+                <p class="sl_btn_text">
+                    ANNULLER
+                </p>
+            </a>
+            -->
+            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Wash details Express page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_details_express">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_topbar_shadow"></div>
+    <div class="sl_body">
+        <div class="sl_title">
+            DIT VALG:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <div class="sl_price_tap">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td class="sl_td_tab">
+                            EXPRESS 69,-
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_desc_box sl_desc_box_h">
+                <h2 class="sl_desk_title">
+                    VASK INFO:
+                </h2>
+                <p class="sl_desc_text">
+                    Express : Insektrens og sidehøjtryk
+                </p>
+            </div>
+            <!--
+            <a class="sl_btn js_button_click" href="#wash_list">
+                <p class="sl_btn_light"></p>
+                <p class="sl_btn_text">
+                    ANNULLER
+                </p>
+            </a>
+            -->
+            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+            </a>
+        </div>
+    </div>
+</section>
+<!-- Get Credit card info page -->
+<section class="js_dissable disable_form_elements" data-page="#get_creadit_card_details">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#wash_details_pwsxl">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            KREDITKORT INFORMATION:
+        </div>
+        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#">
+                <div class="sl_desc_box sl_desc_box_h">
+                    <input class="sl_cred_numer" type="text" pattern="\d*" name="card_number" placeholder="KREDITKORT NUMMER" maxlength="16">
+                    <input class="sl_cred_numer sl_cred_mrd" name="card_mrd" type="text" pattern="\d*" placeholder="MRD" maxlength="2">
+                    <input class="sl_cred_numer sl_cred_ar" name="card_ar" type="text" pattern="\d*" placeholder="ÅR" maxlength="2">
+                    <input class="sl_cred_numer sl_cred_cvc lastInForm" name="card_cvs" type="text" pattern="\d*" placeholder="CVC" maxlength="3">
+                </div>
+                <div class="wmt_clear">
+                    <a class="sl_btn wmt_f_l js_button_click" href="#login" data-method="reset_form">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            LOGIN
+                        </p>
+                    </a>
+                    <a class="sl_btn wmt_f_r check_form js_button_click" href="#get_profile_info">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            NÆSTE
+                        </p>
+                    </a>
+                </div>
+            </form>
+            <div class="sl_title sl_simpl_style_6">
+                <a class="js_button_click" href="#">
+                    <img alt="" src="img/info.png">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- login page -->
+<section class="js_dissable disable_form_elements" data-page="#login">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#get_creadit_card_details">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            LOGIN
+        </div>
+        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#" class="js_login_form">
+                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <!--<input class="sl_cred_mrd" type="text">-->
+                    <!--<input class="sl_cred_ar" type="text">-->
+                    <!--<input class="sl_cred_cvc" type="text">-->
+                </div>
+                <a class="sl_btn check_form js_button_click" href="#thank_you">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        LOGIN
+                    </p>
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Get profile info page-->
+<section class="js_dissable disable_form_elements" data-page="#get_profile_info">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#get_creadit_card_details">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            DINE KONTAKT INFO:
+        </div>
+        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#">
+                <div class="sl_desc_box">
+                    <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:">
+                    <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:">
+                    <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:">
+                    <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:">
+                    <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="password" placeholder="KODE:" maxlength="4">
+                    <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1">
+                    <label class="sl_check_label" for="c1">
+                        <span></span>
+                        MODTAG NYHEDSBREV
+                    </label>
+                </div>
+                <a href="#thank_you" class="sl_buy_btn check_form js_button_click">
+
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Thank page -->
+<section class="js_dissable disable_form_elements" data-page="#thank_you">
+    <div class="sl_topbar">
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_thabk_box">
+        <div class="sl_simpl_style_9">
+            <img src="img/thank.png" alt="">
+        </div>
+        <div class="sl_tak_textbox">
+            Tak <span class="wmt_fw_n">for DIT KØB!</span>
+        </div>
+    </div>
+    <div class="sl_btn_ok js_button_click">
+        <div class="sl_inok js_button_click" data-href="#start_wash" data-method="show_offer">
+            <p>OK</p>
+        </div>
+    </div>
+</section>
+<!-- Start wash page -->
+<section class="js_dissable disable_form_elements" data-page="#start_wash">
+    <div class="sl_topbar">
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body sl_ss_32">
+        <!--<div class="sl_bbtn_next sl_bbtn_next_down">-->
+            <!--SKUB NED, FOR AT SE DIT SPECIAL TILBUD-->
+        <!--</div>-->
+        <div class="sl_price_box sl_ss_31">
+            <div class="sl_desc_box sl_ss_28">
+                <h2 class="sl_desk_title">
+                    ADVARSEL!
+                </h2>
+                <p class="sl_desc_text">
+                    Start ikke din vask, før din bil holder<br>
+                    på plads i vaskehallen
+                </p>
+            </div>
+            <div class="sl_box_location_txt wmt_o_h wmt_p_0">
+                <div class="sl_desc_box wmt_p_r sl_ss_29">
+                    <p class="sl_btn_light_2"></p>
+                    <h2 class="sl_loc_title sl_ss24 sl_ss_30">
+                        Start vask
+                    </h2>
+                    <div class="sl_ss34">
+                        <div class="sl_inok sl_ss_33 js_button_move"  data-href="#home" data-method="wash_info">
+                            <p><img src="img/ip_arrow.png" alt=""></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sl_bbtn_next js_move_to_top">
+            DIT SPECIAL TILBUD
+            <div class="offer_information">
+                <div class="sl_body">
+                    <div class="sl_cola_box">
+                        <div class="sl_cola_title">
+                            DIT SPECIAL TILBUD!
+                        </div>
+                        <div class="sl_top_price">
+                            <table class="sl_table_sel sl_ss_37">
+                                <tr>
+                                    <td class="wmt_ta_r">
+                                        25,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Wash info page -->
+<section class="js_dissable disable_form_elements" data-page="#wash_info" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" href="#home">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_bg_p1 sl_ss27">
+        <div class="sl_wrapper_t sl_simpl_style_5 js_time_wash">
+            <div class="sl_pie sl_spinner"></div>
+            <div class="sl_pie sl_filler"></div>
+            <div class="sl_mask"></div>
+            <div class="sl_border_ts"></div>
+            <div class="sl_dot"></div>
+        </div>
+        <div class="sl_box_location_txt wmt_o_h">
+            <div class="sl_desc_box wmt_p_r sl_ss_23">
+                <p class="sl_btn_light_2"></p>
+                <h2 class="sl_loc_title sl_ss24">
+                    RESTERENDE TID:&nbsp;&nbsp;<span class="js_wash_timer">0:00</span>
+                </h2>
+            </div>
+        </div>
+        <div class="sl_box_location_txt wmt_o_h">
+            <div class="sl_desc_box sl_m_zero wmt_p_r sl_ss_23">
+                <p class="sl_btn_light_2 sl_ss2"></p>
+                <h2 class="sl_loc_title sl_ss24 sl_ss_26 js_process_description">
+                    INTET KØB REGISTRERET
+                </h2>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Profile page -->
+<section class="js_dissable disable_form_elements" data-page="#profile" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#home">
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body wmt_p_r sl_ss_41">
+        <div class="sl_ss_40 wmt_p_r">
+            <img class="sl_status_im" src="img/status.png" alt="">
+        </div>
+        <form method="post" action="#" class="should_not_be_reseted">
+            <div class="sl_right_navbox sl_ss_38">
+                <div class="sl_ss_42">VASK INFO</div>
+                <input class="sl_cred_numer sl_ss_43" type="text" name="first_name" placeholder="FORNAVN:">
+                <input class="sl_cred_numer sl_ss_43" type="text" name="last_name" placeholder="EFTERNAVN:">
+                <input class="sl_cred_numer sl_ss_43" type="text" name="address" placeholder="ADRESSE:">
+                <input class="sl_cred_numer sl_ss_43" type="text" name="postnumber" placeholder="BY/POSTNUMMER:">
+                <input class="sl_cred_numer sl_ss_43" type="text" name="email" placeholder="EMAIL:">
+                <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="password" placeholder="KODE:" maxlength="4">
+                <input class="sl_cred_numer sl_ss_43 lastInForm" type="tel" name="phone" placeholder="TELEFONNUMMER:">
+            </div>
+            <div class="wmt_clear sl_ss_45">
+                <a class="sl_btn wmt_f_l sl_ss_44 js_button_click" href="#profile_payment_options">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        PAYMENT OPTIONS
+                    </p>
+                </a>
+                <a class="sl_btn wmt_f_r sl_ss_44 check_form js_button_click" href="#home">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        CREATE LOGIN
+                    </p>
+                </a>
+            </div>
+        </form>
+        <div class="sl_sbtn_light sl_ss_39"></div>
+    </div>
+</section>
+<!-- Profile page 2-->
+<section class="js_dissable disable_form_elements" data-page="#profile_payment_options">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" data-href="#profile">
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body wmt_p_r sl_ss_41">
+        <div class="sl_ss_40 wmt_p_r">
+            <img class="sl_status_im" src="img/status.png" alt="">
+        </div>
+        <div class="sl_right_navbox sl_ss_38">
+            <div class="sl_ss_42">KREDITKORT INFORMATION:</div>
+            <form method="post" action="#" class="should_not_be_reseted">
+                <div class="sl_desc_box sl_desc_box_h">
+                    <input class="sl_cred_numer" type="text" pattern="\d*" name="card_number" placeholder="KREDITKORT NUMMER" maxlength="16">
+                    <input class="sl_cred_numer sl_cred_mrd" name="card_mrd" type="text" pattern="\d*" placeholder="MRD" maxlength="2">
+                    <input class="sl_cred_numer sl_cred_ar" name="card_ar" type="text" pattern="\d*" placeholder="ÅR" maxlength="2">
+                    <input class="sl_cred_numer sl_cred_cvc lastInForm" name="card_cvs" type="text" pattern="\d*" placeholder="CVC" maxlength="3">
+                </div>
+                <div class="wmt_clear">
+                    <a class="sl_btn wmt_f_l js_button_click" href="#profile">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            TILBAGE
+                        </p>
+                    </a>
+                    <a class="sl_btn wmt_f_r js_button_click check_form" href="#profile">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            GEM
+                        </p>
+                    </a>
+                </div>
+            </form>
+        </div>
+        <div class="sl_sbtn_light sl_ss_39"></div>
+    </div>
+</section>
+<!-- Contact page -->
+<section class="js_dissable disable_form_elements" data-page="#contact" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" href="#home">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_10">
+            KONTAKT
+        </div>
+        <div class="sl_price_box sl_simpl_style_11">
+            <div class="sl_desc_box sl_simpl_style_5">
+                <h2 class="sl_desk_title sl_k_title">
+                    SHELL DANMARK
+                </h2>
+                <p class="sl_desc_text sk_k_text">
+                    GASOLINvej 7<br>
+                    BENZIN ØEN<br>
+                    TELEFON: 33553355<br>
+                    Email: <a class="show_as_text" href="mailto:suport@shell.dk">suport@shell.dk</a>
+                </p>
+                <a class="sl_btn sl_simpl_style_12" href="tel:33333333">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        RING
+                    </p>
+                </a>
+            </div>
+            <img src="img/map.jpg" alt="">
+        </div>
+    </div>
+</section>
+<!-- Find washer page -->
+<section class="js_dissable disable_form_elements" data-page="#find_washer" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" href="#home">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_10">
+            FIND NÆRMESTE VASK
+        </div>
+        <div class="sl_price_box sl_simpl_style_11">
+            <img src="img/map.jpg" id="searching_results" alt="">
+            <div class="sl_title_pad3">
+                <a class="sl_btn sl_btn_w sl_simpl_style_13 js_button_click" href="#find_washer_params">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        AVANCERET SØGNING
+                    </p>
+                </a>
+                <a class="sl_btn sl_btn_w sl_simpl_style_12" href="tel:33333333">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        RING OP
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Find washer params -->
+<section class="js_dissable disable_form_elements" data-page="#find_washer_params">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" href="#find_washer">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body sl_bg_p1 sl_simpl_style_19">
+        <div class="sl_top_title_c">
+            <table class="sl_table_sel">
+                <tr>
+                    <td>
+                        FIND NÆRMESTE VASK
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="sl_price_box sl_simpl_style_11">
+            <form method="post" action="#" class="should_not_be_reseted" data-method="find_washer">
+                <div class="sl_desc_box sl_light_box sl_simpl_style_5 wmt_ta_l sl_simpl_style_15">
+                    <h2 class="sl_desk_title sl_c_title">
+                        VASKE TEKNOLOGIER
+                    </h2>
+                    <div class="sl_simpl_style_14 sl_title_pad2">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service1">
+                        <label class="sl_check_label sl_simpl_style_16" for="service1">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Washtec Softcare2 Pro</span>
+                    </div>
+                    <div class="sl_simpl_style_14">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service2">
+                        <label class="sl_check_label sl_simpl_style_16" for="service2">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Power dry</span>
+                    </div>
+                    <div class="sl_simpl_style_14">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service3">
+                        <label class="sl_check_label sl_simpl_style_16" for="service3">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Vaccume Cleaner</span>
+                    </div>
+                    <div class="sl_simpl_style_14">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service4">
+                        <label class="sl_check_label sl_simpl_style_16" for="service4">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">No scratch wash</span>
+                    </div>
+                    <div class="sl_simpl_style_14">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service5">
+                        <label class="sl_check_label sl_simpl_style_16" for="service5">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Tire wash</span>
+                    </div>
+                    <div class="sl_simpl_style_14">
+                        <input class="sl_check" type="checkbox" name="send_news" id="service6">
+                        <label class="sl_check_label sl_simpl_style_16" for="service6">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Truckwash</span>
+                    </div>
+                    <div class="sl_simpl_style_14 sl_simpl_style_17">
+                        <input class="sl_check lastInForm" type="checkbox" name="send_news" id="service7">
+                        <label class="sl_check_label sl_simpl_style_16" for="service7">
+                            <span></span>
+                        </label>
+                        <span class="js_button_click" data-href="#service_info">Wax pro sulution</span>
+                    </div>
+                    <a class="sl_btn sl_simpl_style_12 sl_simpl_style_18 check_form js_button_click" href="#find_washer">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            START SØGNING
+                        </p>
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- Service info page -->
+<section class="js_dissable disable_form_elements" data-page="#service_info">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_button_click" href="#find_washer_params">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body sl_bg_p1 sl_simpl_style_19">
+        <div class="sl_top_title_c">
+            <table class="sl_table_sel">
+                <tr>
+                    <td>
+                        FIND NÆRMESTE VASK
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="sl_price_box sl_simpl_style_11">
+            <div class="sl_desc_box sl_light_box sl_simpl_style_20">
+                <img src="img/services.jpg" alt="">
+                <div class="sl_simpl_style_21">
+                    Softcare2 Pro tilbyder den seneste teknologi<br>
+                    "Turbonozzle", en kræftfuld alligevel blid<br>
+                    højttryk ShineTec-polering med en "reparations<br>
+                    effekt"
+                </div>
+                <a class="sl_btn sl_ss_22 js_button_click" href="#find_washer_params">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        OK
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
+<!--<script src="_xprecise/xprecise.min.js"></script>-->
+</div>
+</body>
+</html>

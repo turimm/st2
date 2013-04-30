@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap = "http://phonegap.com/ns/1.0" id= "washtec" version="0.9">
+        <name>WashTec</name>
+        <preference name="orientation" value="portrait" />
+        <preference name="show-splash-screen-spinner" value="false" />
+        <icon src="img/appi.png" width="144" height="144" />
+    <gap:splash src="splash.png" />
+    </widget>
