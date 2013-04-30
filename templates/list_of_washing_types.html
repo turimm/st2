@@ -1,0 +1,20 @@
+<div class="sl_title sl_title_pad">
+    VÆLG DIN VASK:
+</div>
+{% for washing_type in station.washing_types %}
+    <div class="sl_select_btn js_button_click" data-href="#washing_type_{{ washing_type.washing_id }}">
+        <p class="sl_sbtn_light"></p>
+        <div class="sl_title_sel">
+            <table class="sl_table_sel">
+                <tr>
+                    <td class="sl_tsel_td_1">
+                        {{ washing_type.title }}
+                    </td>
+                    <td class="sl_tsel_td_2">
+                        {{washing_type.cost}},-
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endfor %}

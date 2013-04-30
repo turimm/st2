@@ -9,7 +9,7 @@
 document.ontouchmove =  function(e){
     e.preventDefault();
 }
-
+var station = null;
 var transition_in_progress = false;
 var login = false;
 
@@ -225,7 +225,36 @@ function wash_info(elem){
 function show_offer(elem){
     $(".offer_information").parent().css({"display": "block"})
 }
+
+function render_to(url_to_template, locals){
+    var strReturn = "";
+    $.ajax({
+        url: url_to_template,
+        success: function(html) {
+            var tmpl = swig.compile(html);
+            locals['filename'] = locals.hasOwnProperty("filename") ? locals.filename : url_to_template;
+            strReturn = tmpl(locals);
+        },
+        async:false
+    });
+    return strReturn;
+}
+
 $(document).ready(function(){
+    $.get(
+        "http://shell.d1.wmtcloud.tk/shell/?lat=49.232488&lon=28.4310370000001",
+        function(response){
+            if (response.length){
+                console.log(response[0]);
+                station = response[0];
+                $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
+                $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
+                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}))
+
+            }
+        }
+        ,"json"
+    );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
@@ -320,7 +349,7 @@ $(document).ready(function(){
             move_sections($(this), animation_ended);
         });
     }
-    $(".js_button_click").on("click", function(event){
+    $(document).on("click", ".js_button_click", function(event){
         if(!transition_in_progress) {
             if($(this).hasClass("js_animate_rotation")){
                 transition_in_progress = true;

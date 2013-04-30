@@ -10,6 +10,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="js/swig.pack.min.js"></script>
     <script src="js/init.js?v=4"></script>
 
     <link href="css/sl_rezet.css" rel="stylesheet">
@@ -52,7 +53,7 @@
                 DIN POSITION:
             </div>
             <div class="sl_desc_box sl_m_zero">
-                <h2 class="sl_loc_title sl_loc_title">
+                <h2 class="sl_loc_title sl_loc_title js_wash_station">
                     Møllevej 5 Shell Dragør
                 </h2>
             </div>
@@ -106,92 +107,94 @@
                         </a>
                     </div>
                 </div>
-                <div class="sl_right_navbox">
-                    <div class="sl_title sl_title_pad">
-                        VÆLG DIN VASK:
-                    </div>
-                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pwsxl">
-                        <p class="sl_sbtn_light"></p>
-                        <div class="sl_title_sel">
-                            <table class="sl_table_sel">
-                                <tr>
-                                    <td class="sl_tsel_td_1">
-                                        PERFECT WASH SHINE XL
-                                    </td>
-                                    <td class="sl_tsel_td_2">
-                                        219,-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pws">
-                        <p class="sl_sbtn_light"></p>
-                        <div class="sl_title_sel">
-                            <table class="sl_table_sel">
-                                <tr>
-                                    <td class="sl_tsel_td_1">
-                                        PERFECT WASH SHINE
-                                    </td>
-                                    <td class="sl_tsel_td_2">
-                                        159,-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="sl_select_btn js_button_click" data-href="#wash_details_pw">
-                        <p class="sl_sbtn_light"></p>
-                        <div class="sl_title_sel">
-                            <table class="sl_table_sel">
-                                <tr>
-                                    <td class="sl_tsel_td_1">
-                                        PERFECT WASH
-                                    </td>
-                                    <td class="sl_tsel_td_2">
-                                        119,-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="sl_select_btn js_button_click" data-href="#wash_details_standart">
-                        <p class="sl_sbtn_light"></p>
-                        <div class="sl_title_sel">
-                            <table class="sl_table_sel">
-                                <tr>
-                                    <td class="sl_tsel_td_1">
-                                        STANDARD
-                                    </td>
-                                    <td class="sl_tsel_td_2">
-                                        99,-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    <div class="sl_select_btn js_button_click" data-href="#wash_details_express">
-                        <p class="sl_sbtn_light"></p>
-                        <div class="sl_title_sel">
-                            <table class="sl_table_sel">
-                                <tr>
-                                    <td class="sl_tsel_td_1">
-                                        EXPRESS
-                                    </td>
-                                    <td class="sl_tsel_td_2">
-                                        69,-
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                <div class="sl_right_navbox js_washer_types_list">
+
+
+                    <!--<div class="sl_title sl_title_pad">-->
+                        <!--VÆLG DIN VASK:-->
+                    <!--</div>-->
+                    <!--<div class="sl_select_btn js_button_click" data-href="#wash_details_pwsxl">-->
+                        <!--<p class="sl_sbtn_light"></p>-->
+                        <!--<div class="sl_title_sel">-->
+                            <!--<table class="sl_table_sel">-->
+                                <!--<tr>-->
+                                    <!--<td class="sl_tsel_td_1">-->
+                                        <!--PERFECT WASH SHINE XL-->
+                                    <!--</td>-->
+                                    <!--<td class="sl_tsel_td_2">-->
+                                        <!--219,--->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="sl_select_btn js_button_click" data-href="#wash_details_pws">-->
+                        <!--<p class="sl_sbtn_light"></p>-->
+                        <!--<div class="sl_title_sel">-->
+                            <!--<table class="sl_table_sel">-->
+                                <!--<tr>-->
+                                    <!--<td class="sl_tsel_td_1">-->
+                                        <!--PERFECT WASH SHINE-->
+                                    <!--</td>-->
+                                    <!--<td class="sl_tsel_td_2">-->
+                                        <!--159,--->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="sl_select_btn js_button_click" data-href="#wash_details_pw">-->
+                        <!--<p class="sl_sbtn_light"></p>-->
+                        <!--<div class="sl_title_sel">-->
+                            <!--<table class="sl_table_sel">-->
+                                <!--<tr>-->
+                                    <!--<td class="sl_tsel_td_1">-->
+                                        <!--PERFECT WASH-->
+                                    <!--</td>-->
+                                    <!--<td class="sl_tsel_td_2">-->
+                                        <!--119,--->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="sl_select_btn js_button_click" data-href="#wash_details_standart">-->
+                        <!--<p class="sl_sbtn_light"></p>-->
+                        <!--<div class="sl_title_sel">-->
+                            <!--<table class="sl_table_sel">-->
+                                <!--<tr>-->
+                                    <!--<td class="sl_tsel_td_1">-->
+                                        <!--STANDARD-->
+                                    <!--</td>-->
+                                    <!--<td class="sl_tsel_td_2">-->
+                                        <!--99,--->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="sl_select_btn js_button_click" data-href="#wash_details_express">-->
+                        <!--<p class="sl_sbtn_light"></p>-->
+                        <!--<div class="sl_title_sel">-->
+                            <!--<table class="sl_table_sel">-->
+                                <!--<tr>-->
+                                    <!--<td class="sl_tsel_td_1">-->
+                                        <!--EXPRESS-->
+                                    <!--</td>-->
+                                    <!--<td class="sl_tsel_td_2">-->
+                                        <!--69,--->
+                                    <!--</td>-->
+                                <!--</tr>-->
+                            <!--</table>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </div>
             </div>
             <div class="sl_desc_box sl_desc_box_marl">
                 <h2 class="sl_desk_title">
                     INFO:
                 </h2>
-                <p class="sl_desc_text">
+                <p class="sl_desc_text js_station_info">
                     Shell var først i Danmark med at lancere et
                     unikt vaskeprogram, der er tilpasset årstiderne
                     - og som skifter indhold og sæbeprodukter
@@ -201,259 +204,259 @@
         </div>
     </div>
 </section>
-<!-- Wash details PWSXL page -->
-<section class="js_dissable disable_form_elements" data-page="#wash_details_pwsxl">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+<!--&lt;!&ndash; Wash details PWSXL page &ndash;&gt;-->
+<!--<section class="js_dissable disable_form_elements" data-page="#wash_details_pwsxl">-->
+    <!--<div class="sl_topbar">-->
+        <!--<div class="sl_menu_button js_button_click" data-href="#wash_list">-->
 
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_topbar_shadow"></div>
-    <div class="sl_body">
-        <div class="sl_title">
-            DIT VALG:
-        </div>
-        <div class="sl_title_yshadow"></div>
-        <div class="sl_price_box">
-            <div class="sl_price_tap">
-                <table class="sl_table_sel">
-                    <tr>
-                        <td class="sl_td_tab">
-                            PERFECT WASH SHINE XL 219,-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="sl_desc_box sl_desc_box_h">
-                <h2 class="sl_desk_title">
-                    VASK INFO:
-                </h2>
-                <p class="sl_desc_text">
-                    Perfect Wash SHINE XL: Perfect Wash plus dobbelt Shine
-                    polering, samt vandafvisende RainTec for optimeret udsyn
-                </p>
+        <!--</div>-->
+        <!--<div class="sl_logo_mic">-->
+            <!--<img src="img/logo_mic.png" alt="">-->
+        <!--</div>-->
+        <!--<div class="sl_topbar_shadow"></div>-->
+    <!--</div>-->
+    <!--<div class="sl_topbar_shadow"></div>-->
+    <!--<div class="sl_body">-->
+        <!--<div class="sl_title">-->
+            <!--DIT VALG:-->
+        <!--</div>-->
+        <!--<div class="sl_title_yshadow"></div>-->
+        <!--<div class="sl_price_box">-->
+            <!--<div class="sl_price_tap">-->
+                <!--<table class="sl_table_sel">-->
+                    <!--<tr>-->
+                        <!--<td class="sl_td_tab">-->
+                            <!--PERFECT WASH SHINE XL 219,--->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<div class="sl_desc_box sl_desc_box_h">-->
+                <!--<h2 class="sl_desk_title">-->
+                    <!--VASK INFO:-->
+                <!--</h2>-->
+                <!--<p class="sl_desc_text">-->
+                    <!--Perfect Wash SHINE XL: Perfect Wash plus dobbelt Shine-->
+                    <!--polering, samt vandafvisende RainTec for optimeret udsyn-->
+                <!--</p>-->
 
-            </div>
-            <!--
-            <a class="sl_btn js_button_click" href="#wash_list">
-                <p class="sl_btn_light"></p>
-                <p class="sl_btn_text">
-                    ANNULLER
-                </p>
-            </a>
-            -->
-            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+            <!--</div>-->
+            <!--&lt;!&ndash;-->
+            <!--<a class="sl_btn js_button_click" href="#wash_list">-->
+                <!--<p class="sl_btn_light"></p>-->
+                <!--<p class="sl_btn_text">-->
+                    <!--ANNULLER-->
+                <!--</p>-->
+            <!--</a>-->
+            <!--&ndash;&gt;-->
+            <!--<a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">-->
 
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Wash details PWS page -->
-<section class="js_dissable disable_form_elements" data-page="#wash_details_pws">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; Wash details PWS page &ndash;&gt;-->
+<!--<section class="js_dissable disable_form_elements" data-page="#wash_details_pws">-->
+    <!--<div class="sl_topbar">-->
+        <!--<div class="sl_menu_button js_button_click" data-href="#wash_list">-->
 
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_topbar_shadow"></div>
-    <div class="sl_body">
-        <div class="sl_title">
-            DIT VALG:
-        </div>
-        <div class="sl_title_yshadow"></div>
-        <div class="sl_price_box">
-            <div class="sl_price_tap">
-                <table class="sl_table_sel">
-                    <tr>
-                        <td class="sl_td_tab">
-                            PERFECT WASH SHINE 159,-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="sl_desc_box sl_desc_box_h">
-                <h2 class="sl_desk_title">
-                    VASK INFO:
-                </h2>
-                <p class="sl_desc_text">
-                    Perfect Wash Shine : Perfect Wash plus Shine
-                    powering for ekstra glans.
-                </p>
+        <!--</div>-->
+        <!--<div class="sl_logo_mic">-->
+            <!--<img src="img/logo_mic.png" alt="">-->
+        <!--</div>-->
+        <!--<div class="sl_topbar_shadow"></div>-->
+    <!--</div>-->
+    <!--<div class="sl_topbar_shadow"></div>-->
+    <!--<div class="sl_body">-->
+        <!--<div class="sl_title">-->
+            <!--DIT VALG:-->
+        <!--</div>-->
+        <!--<div class="sl_title_yshadow"></div>-->
+        <!--<div class="sl_price_box">-->
+            <!--<div class="sl_price_tap">-->
+                <!--<table class="sl_table_sel">-->
+                    <!--<tr>-->
+                        <!--<td class="sl_td_tab">-->
+                            <!--PERFECT WASH SHINE 159,--->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<div class="sl_desc_box sl_desc_box_h">-->
+                <!--<h2 class="sl_desk_title">-->
+                    <!--VASK INFO:-->
+                <!--</h2>-->
+                <!--<p class="sl_desc_text">-->
+                    <!--Perfect Wash Shine : Perfect Wash plus Shine-->
+                    <!--powering for ekstra glans.-->
+                <!--</p>-->
 
-            </div>
-            <!--
-            <a class="sl_btn js_button_click" href="#wash_list">
-                <p class="sl_btn_light"></p>
-                <p class="sl_btn_text">
-                    ANNULLER
-                </p>
-            </a>
-            -->
-            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+            <!--</div>-->
+            <!--&lt;!&ndash;-->
+            <!--<a class="sl_btn js_button_click" href="#wash_list">-->
+                <!--<p class="sl_btn_light"></p>-->
+                <!--<p class="sl_btn_text">-->
+                    <!--ANNULLER-->
+                <!--</p>-->
+            <!--</a>-->
+            <!--&ndash;&gt;-->
+            <!--<a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">-->
 
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Wash details PW page -->
-<section class="js_dissable disable_form_elements" data-page="#wash_details_pw">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; Wash details PW page &ndash;&gt;-->
+<!--<section class="js_dissable disable_form_elements" data-page="#wash_details_pw">-->
+    <!--<div class="sl_topbar">-->
+        <!--<div class="sl_menu_button js_button_click" data-href="#wash_list">-->
 
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_topbar_shadow"></div>
-    <div class="sl_body">
-        <div class="sl_title">
-            DIT VALG:
-        </div>
-        <div class="sl_title_yshadow"></div>
-        <div class="sl_price_box">
-            <div class="sl_price_tap">
-                <table class="sl_table_sel">
-                    <tr>
-                        <td class="sl_td_tab">
-                            PERFECT WASH 119,-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="sl_desc_box sl_desc_box_h">
-                <h2 class="sl_desk_title">
-                    VASK INFO:
-                </h2>
-                <p class="sl_desc_text">
-                    Perfect Wash: Ekstra højtryksspuling, ekstra
-                    skumforvask, ekstra undervognsskyl og duft og voks
-                </p>
+        <!--</div>-->
+        <!--<div class="sl_logo_mic">-->
+            <!--<img src="img/logo_mic.png" alt="">-->
+        <!--</div>-->
+        <!--<div class="sl_topbar_shadow"></div>-->
+    <!--</div>-->
+    <!--<div class="sl_topbar_shadow"></div>-->
+    <!--<div class="sl_body">-->
+        <!--<div class="sl_title">-->
+            <!--DIT VALG:-->
+        <!--</div>-->
+        <!--<div class="sl_title_yshadow"></div>-->
+        <!--<div class="sl_price_box">-->
+            <!--<div class="sl_price_tap">-->
+                <!--<table class="sl_table_sel">-->
+                    <!--<tr>-->
+                        <!--<td class="sl_td_tab">-->
+                            <!--PERFECT WASH 119,--->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<div class="sl_desc_box sl_desc_box_h">-->
+                <!--<h2 class="sl_desk_title">-->
+                    <!--VASK INFO:-->
+                <!--</h2>-->
+                <!--<p class="sl_desc_text">-->
+                    <!--Perfect Wash: Ekstra højtryksspuling, ekstra-->
+                    <!--skumforvask, ekstra undervognsskyl og duft og voks-->
+                <!--</p>-->
 
-            </div>
-            <!--
-            <a class="sl_btn js_button_click" href="#wash_list">
-                <p class="sl_btn_light"></p>
-                <p class="sl_btn_text">
-                    ANNULLER
-                </p>
-            </a>
-            -->
-            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+            <!--</div>-->
+            <!--&lt;!&ndash;-->
+            <!--<a class="sl_btn js_button_click" href="#wash_list">-->
+                <!--<p class="sl_btn_light"></p>-->
+                <!--<p class="sl_btn_text">-->
+                    <!--ANNULLER-->
+                <!--</p>-->
+            <!--</a>-->
+            <!--&ndash;&gt;-->
+            <!--<a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">-->
 
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Wash details Standart page -->
-<section class="js_dissable disable_form_elements" data-page="#wash_details_standart">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; Wash details Standart page &ndash;&gt;-->
+<!--<section class="js_dissable disable_form_elements" data-page="#wash_details_standart">-->
+    <!--<div class="sl_topbar">-->
+        <!--<div class="sl_menu_button js_button_click" data-href="#wash_list">-->
 
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_topbar_shadow"></div>
-    <div class="sl_body">
-        <div class="sl_title">
-            DIT VALG:
-        </div>
-        <div class="sl_title_yshadow"></div>
-        <div class="sl_price_box">
-            <div class="sl_price_tap">
-                <table class="sl_table_sel">
-                    <tr>
-                        <td class="sl_td_tab">
-                            STANDARD 99,-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="sl_desc_box sl_desc_box_h">
-                <h2 class="sl_desk_title">
-                    VASK INFO:
-                </h2>
-                <p class="sl_desc_text">
-                    Standard : Insektrens, skumforvask, sidehøjtryk og
-                    børstevask
-                </p>
+        <!--</div>-->
+        <!--<div class="sl_logo_mic">-->
+            <!--<img src="img/logo_mic.png" alt="">-->
+        <!--</div>-->
+        <!--<div class="sl_topbar_shadow"></div>-->
+    <!--</div>-->
+    <!--<div class="sl_topbar_shadow"></div>-->
+    <!--<div class="sl_body">-->
+        <!--<div class="sl_title">-->
+            <!--DIT VALG:-->
+        <!--</div>-->
+        <!--<div class="sl_title_yshadow"></div>-->
+        <!--<div class="sl_price_box">-->
+            <!--<div class="sl_price_tap">-->
+                <!--<table class="sl_table_sel">-->
+                    <!--<tr>-->
+                        <!--<td class="sl_td_tab">-->
+                            <!--STANDARD 99,--->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<div class="sl_desc_box sl_desc_box_h">-->
+                <!--<h2 class="sl_desk_title">-->
+                    <!--VASK INFO:-->
+                <!--</h2>-->
+                <!--<p class="sl_desc_text">-->
+                    <!--Standard : Insektrens, skumforvask, sidehøjtryk og-->
+                    <!--børstevask-->
+                <!--</p>-->
 
-            </div>
-            <!--
-            <a class="sl_btn js_button_click" href="#wash_list">
-                <p class="sl_btn_light"></p>
-                <p class="sl_btn_text">
-                    ANNULLER
-                </p>
-            </a>
-            -->
-            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+            <!--</div>-->
+            <!--&lt;!&ndash;-->
+            <!--<a class="sl_btn js_button_click" href="#wash_list">-->
+                <!--<p class="sl_btn_light"></p>-->
+                <!--<p class="sl_btn_text">-->
+                    <!--ANNULLER-->
+                <!--</p>-->
+            <!--</a>-->
+            <!--&ndash;&gt;-->
+            <!--<a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">-->
 
-            </a>
-        </div>
-    </div>
-</section>
-<!-- Wash details Express page -->
-<section class="js_dissable disable_form_elements" data-page="#wash_details_express">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_button_click" data-href="#wash_list">
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+<!--&lt;!&ndash; Wash details Express page &ndash;&gt;-->
+<!--<section class="js_dissable disable_form_elements" data-page="#wash_details_express">-->
+    <!--<div class="sl_topbar">-->
+        <!--<div class="sl_menu_button js_button_click" data-href="#wash_list">-->
 
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_topbar_shadow"></div>
-    <div class="sl_body">
-        <div class="sl_title">
-            DIT VALG:
-        </div>
-        <div class="sl_title_yshadow"></div>
-        <div class="sl_price_box">
-            <div class="sl_price_tap">
-                <table class="sl_table_sel">
-                    <tr>
-                        <td class="sl_td_tab">
-                            EXPRESS 69,-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="sl_desc_box sl_desc_box_h">
-                <h2 class="sl_desk_title">
-                    VASK INFO:
-                </h2>
-                <p class="sl_desc_text">
-                    Express : Insektrens og sidehøjtryk
-                </p>
-            </div>
-            <!--
-            <a class="sl_btn js_button_click" href="#wash_list">
-                <p class="sl_btn_light"></p>
-                <p class="sl_btn_text">
-                    ANNULLER
-                </p>
-            </a>
-            -->
-            <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+        <!--</div>-->
+        <!--<div class="sl_logo_mic">-->
+            <!--<img src="img/logo_mic.png" alt="">-->
+        <!--</div>-->
+        <!--<div class="sl_topbar_shadow"></div>-->
+    <!--</div>-->
+    <!--<div class="sl_topbar_shadow"></div>-->
+    <!--<div class="sl_body">-->
+        <!--<div class="sl_title">-->
+            <!--DIT VALG:-->
+        <!--</div>-->
+        <!--<div class="sl_title_yshadow"></div>-->
+        <!--<div class="sl_price_box">-->
+            <!--<div class="sl_price_tap">-->
+                <!--<table class="sl_table_sel">-->
+                    <!--<tr>-->
+                        <!--<td class="sl_td_tab">-->
+                            <!--EXPRESS 69,--->
+                        <!--</td>-->
+                    <!--</tr>-->
+                <!--</table>-->
+            <!--</div>-->
+            <!--<div class="sl_desc_box sl_desc_box_h">-->
+                <!--<h2 class="sl_desk_title">-->
+                    <!--VASK INFO:-->
+                <!--</h2>-->
+                <!--<p class="sl_desc_text">-->
+                    <!--Express : Insektrens og sidehøjtryk-->
+                <!--</p>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;-->
+            <!--<a class="sl_btn js_button_click" href="#wash_list">-->
+                <!--<p class="sl_btn_light"></p>-->
+                <!--<p class="sl_btn_text">-->
+                    <!--ANNULLER-->
+                <!--</p>-->
+            <!--</a>-->
+            <!--&ndash;&gt;-->
+            <!--<a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">-->
 
-            </a>
-        </div>
-    </div>
-</section>
+            <!--</a>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
 <!-- Get Credit card info page -->
 <section class="js_dissable disable_form_elements" data-page="#get_creadit_card_details">
     <div class="sl_topbar">

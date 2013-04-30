@@ -1,0 +1,55 @@
+{% for washing_type in station.washing_types %}
+    <section class="js_dissable disable_form_elements" data-page="#washing_type_{{ washing_type.washing_id }}">
+        <div class="sl_topbar">
+            <div class="sl_menu_button js_button_click" data-href="#wash_list">
+
+            </div>
+            <div class="sl_logo_mic">
+                <img src="img/logo_mic.png" alt="">
+            </div>
+            <div class="sl_topbar_shadow"></div>
+        </div>
+        <div class="sl_topbar_shadow"></div>
+        <div class="sl_body">
+            <div class="sl_title">
+                DIT VALG:
+            </div>
+            <div class="sl_title_yshadow"></div>
+            <div class="sl_price_box">
+                <div class="sl_price_tap">
+                    <table class="sl_table_sel">
+                        <tr>
+                            <td class="sl_td_tab">
+                                <!--TODO : add check for cost-->
+                                {{ washing_type.title }} {% if "." in  washing_type.cost %}{% filter replace "." "!"  %}{{ washing_type.cost }}{% endfilter %} {% else %} {{ washing_type.cost }},-{% endif %}
+                                <!--PERFECT WASH SHINE XL 219-->
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="sl_desc_box sl_desc_box_h">
+                    <h2 class="sl_desk_title">
+                        VASK INFO:
+                    </h2>
+                    <p class="sl_desc_text">
+                        {{ washing_type.title }}: {{ washing_type.description }}
+                        <!--Perfect Wash SHINE XL: Perfect Wash plus dobbelt Shine-->
+                        <!--polering, samt vandafvisende RainTec for optimeret udsyn-->
+                    </p>
+
+                </div>
+                <!--
+                <a class="sl_btn js_button_click" href="#wash_list">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        ANNULLER
+                    </p>
+                </a>
+                -->
+                <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+
+                </a>
+            </div>
+        </div>
+    </section>
+{% endfor %}
