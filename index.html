@@ -394,7 +394,7 @@
         </div>
         <div class="sl_title_yshadow sl_simpl_style_4"></div>
         <div class="sl_price_box">
-            <form method="post" action="#">
+            <form method="post" action="#" data-method="update_profile">
                 <div class="sl_desc_box sl_desc_box_h">
                     <input class="sl_cred_numer" type="text" pattern="\d*" name="card_number" placeholder="KREDITKORT NUMMER" maxlength="16">
                     <input class="sl_cred_numer sl_cred_mrd" name="card_mrd" type="text" pattern="\d*" placeholder="MRD" maxlength="2">
@@ -402,13 +402,13 @@
                     <input class="sl_cred_numer sl_cred_cvc lastInForm" name="card_cvs" type="text" pattern="\d*" placeholder="CVC" maxlength="3">
                 </div>
                 <div class="wmt_clear">
-                    <a class="sl_btn wmt_f_l js_button_click" href="#login" data-method="reset_form">
+                    <a class="sl_btn wmt_f_l js_login_button js_button_click" href="#login" data-method="reset_form" disabled="disabled">
                         <p class="sl_btn_light"></p>
                         <p class="sl_btn_text">
                             LOGIN
                         </p>
                     </a>
-                    <a class="sl_btn wmt_f_r check_form js_button_click" href="#get_profile_info">
+                    <a class="sl_btn wmt_f_r check_form js_button_click" href="#get_profile_info" >
                         <p class="sl_btn_light"></p>
                         <p class="sl_btn_text">
                             NÆSTE
@@ -478,7 +478,7 @@
         </div>
         <div class="sl_title_yshadow sl_simpl_style_4"></div>
         <div class="sl_price_box">
-            <form method="post" action="#">
+            <form method="post" action="#" data-method="update_profile" data-variable="true">
                 <div class="sl_desc_box">
                     <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:">
                     <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:">

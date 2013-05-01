@@ -13,7 +13,7 @@ var station = null;
 var transition_in_progress = false;
 var login = false;
 var order = null;
-
+var profile = {};
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
     ORDER_PPAYMENT_DONE = 2,
@@ -191,10 +191,12 @@ Working with methods of forms etc.
 Try to imitate real mechanisms
 ***/
 function activate_method(elem){
+    console.log(elem)
     var variable = variable | null;
     var method = $(elem).data("method") ? $(elem).data("method") : null;
     var variable = $(elem).data("variable") ? $(elem).data("variable") : null;
     try {
+        console.log(method);
         method = eval(method);
         method(elem, variable);
     } catch (e) {}
@@ -256,6 +258,20 @@ function render_to(url_to_template, locals){
     });
     return strReturn;
 }
+
+function update_profile(elem, finish_profile){
+    var form = (elem).closest("section").find("form");
+    form.find("input, textarea").each(function(){
+       console.log($(this).attr("name"));
+       if($(this).attr("name")){
+           profile[$(this).attr("name")] = $(this).is("[type=checkbox]") ? $(this).is(":checked"): $(this).val();
+       }
+    });
+    if(finish_profile){
+        //TODO: Need to send profile to server and set cookies
+        console.log(profile);
+    }
+}
 /********************************************/
 /*                   Ordering functions     */
 /********************************************/
@@ -278,6 +294,19 @@ function start_order(elem, variable){
             break;
         }
     }
+//    if(!profile.hasOwnProperty("code")){
+//        if($(".js_login_button").hasClass("js_button_click")){
+//            $(".js_login_button").removeClass("js_button_click")
+//            if (!$(".js_login_button").hasClass("sl_btn_dissabled"))
+//                $(".js_login_button").addClass("sl_btn_dissabled");
+//        }
+//    } else {
+//        if(!$(".js_login_button").hasClass("js_button_click")){
+//            $(".js_login_button").addClass("js_button_click")
+//            if ($(".js_login_button").hasClass("sl_btn_dissabled"))
+//                $(".js_login_button").removeClass("sl_btn_dissabled");
+//        }
+//    }
 }
 
 $(document).ready(function(){
