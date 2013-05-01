@@ -20,6 +20,65 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
+function onResume(){
+    activate_position();
+}
+
+function onLoad(){
+    if (!DEBUG_MODE){
+        document.addEventListener("deviceready", onDeviceReady, false);
+    } else {
+        if (typeof navigator.device == undefined){
+            document.addEventListener("deviceready", onDeviceReady, false);
+        } else {
+            onDeviceReady();
+        }
+    }
+}
+
+function onDeviceReady() {
+    activate_position();
+    document.addEventListener("resume", onResume, false);
+}
+
+/********************Work with position of user*****************************/
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
+    console.log("Connect to server");
+    $.get(
+        "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
+        function(response){
+            console.log("Response", response);
+            if (response.length){
+                station = response[0];
+                $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
+                $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
+                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}))
+
+            } else {
+                $(".js_wash_station").html("Kan ikke forbinde til server");
+            }
+        }
+        ,"json"
+    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
+}
+
+//TODO: NEED TO UPDATE TEXTS AND PLACES
+function errorFunction(err) {
+    if(err.code == 1) {
+        $(".js_wash_station").html("Kan ikke forbinde til server");
+    }else if( err.code == 2) {
+        $(".js_wash_station").html("Position is unavailable!");
+    }
+}
+
+function activate_position() {
+    if (navigator.geolocation) {
+        navigator.geolocation.watchPosition(successFunction, errorFunction);
+    }
+}
+
 function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*/){
     var start_time = new Date(),
         elem = elem,
@@ -309,44 +368,9 @@ function start_order(elem, variable){
 //    }
 }
 
-/********************Work with position of user*****************************/
-function successFunction(position) {
-    var lat = position.coords.latitude;
-    var lng = position.coords.longitude;
-    console.log("Connect to server");
-    $.get(
-        "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
-        function(response){
-            console.log("Response", response);
-            if (response.length){
-                station = response[0];
-                $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
-                $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
-                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}))
 
-            } else {
-                $(".js_wash_station").html("Kan ikke forbinde til server");
-            }
-        }
-        ,"json"
-    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
-}
-
-//TODO: NEED TO UPDATE TEXTS AND PLACES
-function errorFunction(err) {
-    if(err.code == 1) {
-        alert("Error: Access is denied!");
-    }else if( err.code == 2) {
-        alert("Error: Position is unavailable!");
-    }
-}
 
 $(document).ready(function(){
-    if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(successFunction, errorFunction);
-    } else {
-        alert('Geolocation is required for this page, but your browser doesn&apos;t support it. Try it with a browser that does, such as Opera 10.60.');
-    }
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
