@@ -309,9 +309,12 @@ function start_order(elem, variable){
 //    }
 }
 
-$(document).ready(function(){
+/********************Work with position of user*****************************/
+function successFunction(position) {
+    var lat = position.coords.latitude;
+    var lng = position.coords.longitude;
     $.get(
-        "http://shell.d1.wmtcloud.tk/shell/?lat=49.232488&lon=28.4310370000001",
+        "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
                 station = response[0];
@@ -323,6 +326,28 @@ $(document).ready(function(){
         }
         ,"json"
     );
+}
+
+function errorFunction(err) {
+    if(err.code == 1) {
+        alert("Error: Access is denied!");
+    }else if( err.code == 2) {
+        alert("Error: Position is unavailable!");
+    }
+}
+
+$(document).ready(function(){
+    console.log("Try geolocation");
+    if (navigator.geolocation) {
+        console.log("Can be used");
+        var options = {
+            timeout:10000,
+            maximumAge: 5000
+        };
+        navigator.geolocation.watchPosition(successFunction, errorFunction, options);
+    } else {
+        alert('Geolocation is required for this page, but your browser doesn&apos;t support it. Try it with a browser that does, such as Opera 10.60.');
+    }
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
