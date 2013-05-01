@@ -26,7 +26,7 @@ function onResume(){
     activate_position();
 }
 
-function onLoad(){
+
     if (!DEBUG_MODE){
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
@@ -36,7 +36,7 @@ function onLoad(){
             onDeviceReady();
         }
     }
-}
+
 
 function onDeviceReady() {
     activate_position();
