@@ -1,7 +1,7 @@
 {% for washing_type in station.washing_types %}
     <section class="js_dissable disable_form_elements" data-page="#washing_type_{{ washing_type.washing_id }}">
         <div class="sl_topbar">
-            <div class="sl_menu_button js_button_click" data-href="#wash_list">
+            <div class="sl_menu_button js_back_button js_button_click" data-href="#wash_list">
 
             </div>
             <div class="sl_logo_mic">
@@ -46,7 +46,7 @@
                     </p>
                 </a>
                 -->
-                <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details">
+                <a class="sl_buy_btn js_button_click" href="#get_creadit_card_details" data-method="start_order" data-variable="{{ washing_type.washing_id }}">
 
                 </a>
             </div>

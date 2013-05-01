@@ -12,6 +12,13 @@ document.ontouchmove =  function(e){
 var station = null;
 var transition_in_progress = false;
 var login = false;
+var order = null;
+
+/*Codes for order state*/
+var ORDER_IN_PROCESS = 1,
+    ORDER_PPAYMENT_DONE = 2,
+    ORDER_WORK_STARTED = 3,
+    ORDER_WORK_ENDED = 4;
 
 function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*/){
     var start_time = new Date(),
@@ -134,6 +141,11 @@ function simulateTouchEvents(oo, bIgnoreChilds) {
 function move_sections(elem, callback){
     var parent_section = $(elem).parents("section");
     var href = get_href($(elem));
+    if ($(elem).is("section")){
+        parent_section = $("section.js_activate");
+        href = $(elem).data("page");
+        transition_in_progress = false;
+    }
     var activate_section = $("section[data-page=" + href +"]");
     if (href=="#home"){
         var sections = $(".js_pushed").not("[data-page=#home]");
@@ -179,10 +191,12 @@ Working with methods of forms etc.
 Try to imitate real mechanisms
 ***/
 function activate_method(elem){
+    var variable = variable | null;
     var method = $(elem).data("method") ? $(elem).data("method") : null;
+    var variable = $(elem).data("variable") ? $(elem).data("variable") : null;
     try {
         method = eval(method);
-        method(elem);
+        method(elem, variable);
     } catch (e) {}
 }
 function find_washer(elem){
@@ -238,6 +252,29 @@ function render_to(url_to_template, locals){
         async:false
     });
     return strReturn;
+}
+/********************************************/
+/*                   Ordering functions     */
+/********************************************/
+
+function start_order(elem, variable){
+    if(!variable){
+        //TODO: Need to add custom alert
+        console.log("Wrong washing type")
+        move_sections($(elem).closest("section"), animation_ended);
+        return false;
+    }
+    $(".js_back_button_to_washing_description").data({"href": $(elem).closest("section").data("page")})
+    order = {};
+    order["washer_id"] = variable;
+    order["type"] = ORDER_IN_PROCESS;
+    for(var washing_key in station.washing_types){
+        var washing_type = station.washing_types[washing_key];
+        if(washing_type.washing_id == order["washer_id"]){
+            order["price"] = washing_type.cost;
+            break;
+        }
+    }
 }
 
 $(document).ready(function(){
