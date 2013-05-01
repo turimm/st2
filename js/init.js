@@ -23,6 +23,7 @@ var ORDER_IN_PROCESS = 1,
 var DEBUG_MODE = false;
 
 function onResume(){
+    alert("Resume")
     activate_position();
 }
 
@@ -39,6 +40,7 @@ function onResume(){
 
 
 function onDeviceReady() {
+    alert("device ready");
     activate_position();
     document.addEventListener("resume", onResume, false);
 }
