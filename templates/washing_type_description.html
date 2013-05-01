@@ -21,7 +21,7 @@
                         <tr>
                             <td class="sl_td_tab">
                                 <!--TODO : add check for cost-->
-                                {{ washing_type.title }} {% if "." in  washing_type.cost %}{% filter replace "." "!"  %}{{ washing_type.cost }}{% endfilter %} {% else %} {{ washing_type.cost }},-{% endif %}
+                                {{ washing_type.title }} {% if "." in  washing_type.cost %}{% filter replace "\." "," "g"  %}{{ washing_type.cost }}{% endfilter %} {% else %} {{ washing_type.cost }},-{% endif %}
                                 <!--PERFECT WASH SHINE XL 219-->
                             </td>
                         </tr>

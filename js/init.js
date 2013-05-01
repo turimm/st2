@@ -211,7 +211,7 @@ function wash_info(elem){
         }
         if(!$(".js_time_wash").hasClass("show_time_to_wash")){
             $(".js_time_wash").addClass("show_time_to_wash");
-            $(".js_wash_timer").text("5:00")
+            $(".js_wash_timer").text("5:00");
             $(".js_process_description").text("PROCESS - UNDERVOGNSSKYL");//TO DO: Should be changed in the future to context variable
             timer($(".js_wash_timer"), 300, function(){
                 $(".js_time_wash").removeClass("show_time_to_wash");
@@ -240,6 +240,9 @@ function show_offer(elem){
     $(".offer_information").parent().css({"display": "block"})
 }
 
+function try_order(elem){
+
+}
 function render_to(url_to_template, locals){
     var strReturn = "";
     $.ajax({
@@ -282,7 +285,6 @@ $(document).ready(function(){
         "http://shell.d1.wmtcloud.tk/shell/?lat=49.232488&lon=28.4310370000001",
         function(response){
             if (response.length){
-                console.log(response[0]);
                 station = response[0];
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
@@ -388,6 +390,7 @@ $(document).ready(function(){
     }
     $(document).on("click", ".js_button_click", function(event){
         if(!transition_in_progress) {
+
             if($(this).hasClass("js_animate_rotation")){
                 transition_in_progress = true;
                 var rotate_to = $(this).data("rotation") ? $(this).data("rotation") : "";
@@ -418,7 +421,6 @@ $(document).ready(function(){
         } else {
             if($(elem).hasClass("sl_bbtn_next_down")) $(elem).removeClass("sl_bbtn_next_down");
         }
-        console.log(!$(elem).hasClass("sl_bbtn_next_down") && $(elem).hasClass("js_move_to_top"));
     });
     slideOn($("section .js_button_move"), 408, 0, "left", function(elem, position){
         if(position) move_sections($(elem), animation_ended)

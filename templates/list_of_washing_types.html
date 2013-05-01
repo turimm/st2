@@ -11,7 +11,7 @@
                         {{ washing_type.title }}
                     </td>
                     <td class="sl_tsel_td_2">
-                        {{washing_type.cost}},-
+                        {% if "." in  washing_type.cost %}{% filter replace "\." "," "g"  %}{{ washing_type.cost }}{% endfilter %} {% else %} {{ washing_type.cost }},-{% endif %}
                     </td>
                 </tr>
             </table>
