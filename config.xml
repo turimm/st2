@@ -5,4 +5,7 @@
         <preference name="show-splash-screen-spinner" value="false" />
         <icon src="img/appi.png" width="144" height="144" />
     <gap:splash src="splash.png" />
+    <plugins>
+        <plugin name="Geolocation" value="CDVLocation" />
+    </plugins>
     </widget>

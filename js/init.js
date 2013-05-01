@@ -340,11 +340,7 @@ $(document).ready(function(){
     console.log("Try geolocation");
     if (navigator.geolocation) {
         console.log("Can be used");
-        var options = {
-            timeout:10000,
-            maximumAge: 5000
-        };
-        navigator.geolocation.watchPosition(successFunction, errorFunction, options);
+        navigator.geolocation.watchPosition(successFunction, errorFunction);
     } else {
         alert('Geolocation is required for this page, but your browser doesn&apos;t support it. Try it with a browser that does, such as Opera 10.60.');
     }
