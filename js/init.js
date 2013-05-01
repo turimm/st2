@@ -313,21 +313,26 @@ function start_order(elem, variable){
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
+    console.log("Connect to server");
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
+            console.log("Response", response);
             if (response.length){
                 station = response[0];
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}))
 
+            } else {
+                $(".js_wash_station").html("Kan ikke forbinde til server");
             }
         }
         ,"json"
-    );
+    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
 }
 
+//TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
     if(err.code == 1) {
         alert("Error: Access is denied!");
@@ -337,9 +342,7 @@ function errorFunction(err) {
 }
 
 $(document).ready(function(){
-    console.log("Try geolocation");
     if (navigator.geolocation) {
-        console.log("Can be used");
         navigator.geolocation.watchPosition(successFunction, errorFunction);
     } else {
         alert('Geolocation is required for this page, but your browser doesn&apos;t support it. Try it with a browser that does, such as Opera 10.60.');
