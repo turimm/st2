@@ -229,7 +229,7 @@ function move_sections(elem, callback){
 }
 function animation_ended(elem){
     var was_rotated = $(elem).data("rotation") ? $(elem).data("rotation") : null;
-    $('section').on('webkitTransitionEnd moztransitionend transitionend oTransitionEnd', function () {
+    $('div.sl_wrap').on('webkitTransitionEnd moztransitionend transitionend oTransitionEnd', "section", function () {
         if($("section.js_dissable, section.js_pushed").not(".disable_form_elements").length){
             $("section.js_dissable, section.js_pushed").not(".disable_form_elements").addClass("disable_form_elements");
         }
