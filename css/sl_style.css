@@ -1564,4 +1564,33 @@ section.disable_form_elements form, section.disable_form_elements a {
     .wmt_ta_r {
         text-align: right;
     }
+
+    .sl_prev_button{
+        height: 75px;
+        width: 78px;
+        background: url("img/buttons.png") no-repeat 0 -7px;
+        position: absolute;
+        top: 420px;
+        left: 10px;
+        z-index: 999;
+
+    }
+    .sl_prev_button:hover{
+        background: url("img/buttons.png") no-repeat 0 -82px;
+        cursor: pointer;
+    }
+    .sl_next_button{
+
+        height: 75px;
+        width: 78px;
+        background: url("img/buttons.png") no-repeat 0 -160px;
+        position: absolute;
+        top: 420px;
+        right: 10px;
+        z-index: 999;
+    }
+    .sl_next_button:hover{
+        background: url("img/buttons.png") no-repeat 0 -235px;
+        cursor: pointer;
+    }
     /*-------------*/

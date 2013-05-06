@@ -47,11 +47,9 @@ function onDeviceReady() {
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    console.log("Connect to server");
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
-            console.log("Response", response);
             if (response.length){
                 station = response[0];
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
@@ -59,14 +57,36 @@ function successFunction(position) {
                 $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+                // add slides fallery for speciall offers
+                if ((".js_gallery").length >1){
+                    function onAfter(curr,next,opts){
+                    var index=opts.currSlide;
+                    $('.prev_offer')[index==0?'hide':'show']();
+                    $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
+                }
+                $(".js_gallery").cycle({
+                    fx:     'scrollHorz',
+                    prev:   '.prev_offer',
+                    next:   '.next_offer',
+                    after:   onAfter,
+                    timeout: 0,
+                    fit :1,
+                    width: "640"
+               });
+                }
+                // try to hide block if not exist special offers
+                if (!station.special_offers.length){
+                    $(".js_move_to_top").hide();
 
-
+                }
             } else {
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
         }
         ,"json"
-    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
+    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");
+                $(".sl_bbtn_next").hide();
+                });
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
@@ -217,8 +237,9 @@ function move_sections(elem, callback){
         sections.addClass("animation_stopped");
         sections.removeClass("js_pushed").addClass("js_dissable");
     }
+
     if(activate_section.length && !activate_section.hasClass("js_activate")){
-        var move_to_class = activate_section.hasClass("js_dissable") ? "js_pushed": "js_dissable"
+        var move_to_class = activate_section.hasClass("js_dissable") ? "js_pushed": "js_dissable";
         parent_section.removeClass("js_activate").addClass(move_to_class);
         if(activate_section.hasClass("disable_form_elements")) {
             activate_section.removeClass("disable_form_elements")
@@ -228,6 +249,9 @@ function move_sections(elem, callback){
         transition_in_progress = false;
     }
     activate_method(elem);
+    if (href=="#start_wash" && station && station.special_offers.length ===0){
+        $(".js_move_to_top").hide();
+    }
     callback(elem);
 }
 function animation_ended(elem){
@@ -255,12 +279,10 @@ Working with methods of forms etc.
 Try to imitate real mechanisms
 ***/
 function activate_method(elem){
-    console.log(elem)
     var variable = variable | null;
     var method = $(elem).data("method") ? $(elem).data("method") : null;
     var variable = $(elem).data("variable") ? $(elem).data("variable") : null;
     try {
-        console.log(method);
         method = eval(method);
         method(elem, variable);
     } catch (e) {}
@@ -326,7 +348,6 @@ function render_to(url_to_template, locals){
 function update_profile(elem, finish_profile){
     var form = (elem).closest("section").find("form");
     form.find("input, textarea").each(function(){
-       console.log($(this).attr("name"));
        if($(this).attr("name")){
            profile[$(this).attr("name")] = $(this).is("[type=checkbox]") ? $(this).is(":checked"): $(this).val();
        }
