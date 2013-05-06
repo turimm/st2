@@ -54,7 +54,8 @@ function successFunction(position) {
                 station = response[0];
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
-                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}));
+                $("section[data-page^=#washing_type_]").remove();
+                $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 // add slides fallery for speciall offers
