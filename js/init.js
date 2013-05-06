@@ -20,7 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 function onResume(){
     activate_position();
@@ -56,7 +56,10 @@ function successFunction(position) {
                 station = response[0];
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
-                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}))
+                $(".sl_wrap").append(render_to('templates/washing_type_description.html', {station: station}));
+                $(".js_station_info").html(station.description);
+                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+
 
             } else {
                 $(".js_wash_station").html("Kan ikke forbinde til server");

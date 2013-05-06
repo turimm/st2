@@ -1,0 +1,42 @@
+{% if station.special_offers|length > 1 %}
+
+
+    {% for special_offer in station.special_offers %}
+        <div class="sl_body">
+                    <div class="sl_cola_box" {% if special_offer.product_photo %}style="background: url('{{ special_offer.product_photo }}') no-repeat" {% endif %}>
+                        <div class="sl_cola_title">
+                            DIT SPECIAL TILBUD!
+                        </div>
+                        <div class="sl_top_price">
+                            <table class="sl_table_sel sl_ss_37">
+                                <tr>
+                                    <td class="wmt_ta_r" >
+                                        {% if "." in  special_offer.price_discount %}{% filter replace "\." "," "g"  %}{{ special_offer.price_discount }}{% endfilter %} {% else %} {{ special_offer.price_discount }},-{% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+        </div>
+        {% endfor %}
+<script type="text/javascript">
+    $(document).ready(function(){
+            function onAfter(curr,next,opts){
+                var index=opts.currSlide;
+                $('#prev')[index==0?'hide':'show']();
+                $('#next')[index==opts.slideCount-1?'hide':'show']();
+            }
+            $(".offer_information").cycle({
+                fx:     'scrollHorz',
+                prev:   '#prev',
+                next:   '#next',
+                after:   onAfter,
+                timeout: 0
+                                          });
+    });
+</script>
+{% endif%}
+
+
+
+
