@@ -57,18 +57,18 @@ function successFunction(position) {
                 $("section[data-page^=#washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
-                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+                $(".js_offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 // add slides fallery for speciall offers
                 if ((".js_gallery").length >1){
                     function onAfter(curr,next,opts){
                     var index=opts.currSlide;
-                    $('.prev_offer')[index==0?'hide':'show']();
-                    $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
+                    $('#prev')[index==0?'hide':'show']();
+                    $('#next')[index==opts.slideCount-1?'hide':'show']();
                 }
                 $(".js_gallery").cycle({
                     fx:     'scrollHorz',
-                    prev:   '.prev_offer',
-                    next:   '.next_offer',
+                    prev:   '#prev',
+                    next:   '#next',
                     after:   onAfter,
                     timeout: 0,
                     fit :1,
