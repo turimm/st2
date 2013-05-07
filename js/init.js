@@ -74,6 +74,14 @@ function successFunction(position) {
                     fit :1,
                     width: "640"
                });
+                    $(".js_gallery").touchwipe({
+                          wipeLeft: function() {
+                                $(".js_gallery").cycle("next");
+                          },
+                          wipeRight: function() {
+                                $(".js_gallery").cycle("prev");
+                          }
+                    });
                 }
                 // try to hide block if not exist special offers
                 if (!station.special_offers.length){
@@ -398,7 +406,7 @@ function start_order(elem, variable){
 
 
 $(document).ready(function(){
-    simulateTouchEvents(".js_move_to_top, .js_button_move, .prev_offer, .next_offer");
+    simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
             $(this).removeClass("sl_bbtn_next_down");
