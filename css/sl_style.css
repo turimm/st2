@@ -1565,7 +1565,24 @@ section.disable_form_elements form, section.disable_form_elements a {
         text-align: right;
     }
 
-    /*.sl_prev_button{*/
+    /*-------------*/
+
+
+ /*  ADD by Nikola Novitski*/
+@-webkit-keyframes geo_location /* Safari and Chrome */
+{
+from {background: #383838;}
+to {background: #5a0000;}
+}
+
+    .geo_location_error{
+        -webkit-animation: geo_location 0.6s;
+        -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-iteration-count: 3;
+    }
+
+
+       /*.sl_prev_button{*/
         /*height: 136px;*/
         /*width: 136px;*/
         /*background: url("img/buttons.png") no-repeat 0 0;*/
@@ -1595,18 +1612,3 @@ section.disable_form_elements form, section.disable_form_elements a {
     /*}*/
 
 
-@-webkit-keyframes geo_location /* Safari and Chrome */
-{
-from {background: #383838;}
-to {background: #5a0000;}
-}
-
-    .geo_location_error{
-        -webkit-animation: geo_location 0.6s;
-        -webkit-animation-timing-function: ease-in-out;
-        -webkit-animation-iteration-count: 3;
-    }
-
-
-
-    /*-------------*/

@@ -73,14 +73,15 @@ function successFunction(position) {
 //                        $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
 //                    }
                 $(".js_gallery").cycle({
-                    fx:     'none',
+                    fx:     'scrollHorz',
                     prev:   '.prev_offer',
                     next:   '.next_offer',
 //                    after:   onAfter,
                     timeout: 0,
                     easing:  'easeInOutBack',
                     fit :1,
-                    width: "640"
+                    width: "640",
+                    speed: 300
                });
                     $(".js_gallery").touchwipe({
                           wipeLeft: function() {
