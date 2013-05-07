@@ -20,7 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = true;
+var DEBUG_MODE = false;
 
 function onResume(){
     activate_position();
