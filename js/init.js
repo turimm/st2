@@ -20,7 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 function onResume(){
     activate_position();
@@ -47,6 +47,7 @@ function onDeviceReady() {
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
+    $(".js_exist_geolocation").removeClass("js_exist_geolocation");
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
@@ -509,7 +510,13 @@ $(document).ready(function(){
     }
     $(document).on("click", ".js_button_click", function(event){
         if(!transition_in_progress) {
-
+            // display error if no have goe location
+            if($(this).hasClass("js_exist_geolocation")){
+                    var $wash_station = $(".js_wash_station").parent();
+                    $wash_station.addClass("geo_location_error");
+                    $wash_station.on("webkitAnimationEnd", function(){$wash_station.removeClass("geo_location_error");});
+                return false;
+            }
             if($(this).hasClass("js_animate_rotation")){
                 transition_in_progress = true;
                 var rotate_to = $(this).data("rotation") ? $(this).data("rotation") : "";

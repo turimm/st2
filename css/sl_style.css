@@ -1593,4 +1593,20 @@ section.disable_form_elements form, section.disable_form_elements a {
         /*background: url("img/buttons.png") no-repeat 0 -409px;*/
         /*cursor: pointer;*/
     /*}*/
+
+
+@-webkit-keyframes geo_location /* Safari and Chrome */
+{
+from {background: #383838;}
+to {background: #C50000;}
+}
+
+    .geo_location_error{
+        -webkit-animation: geo_location 0.5s;
+        -webkit-animation-timing-function: ease-out;
+        -webkit-animation-iteration-count: 3;
+    }
+
+
+
     /*-------------*/
