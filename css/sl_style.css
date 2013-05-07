@@ -1438,10 +1438,10 @@ div.js_move_to_top {
     height: 1096px;
     left: 640px;
     transition-property: left;
-    transition-duration: .5s;
+    transition-duration: .6s;
     transition-timing-function: easy-in;
     -webkit-transition: left;
-    -webkit-transition-duration: .3s;
+    -webkit-transition-duration: .6s;
     -webkit-transition-timing-function: easy-in;
     overflow: hidden;
 }

@@ -20,7 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 function onResume(){
     activate_position();
@@ -84,10 +84,8 @@ function successFunction(position) {
                     });
 
                     var $special_offers = $(".js_move_to_top").find(".js_special_offer_info");
-                    console.log($special_offers);
-                    console.log($special_offers.length);
                     for ( i=0; i<$special_offers.length; i++){
-                        $special_offers[i].outerText += " ( " +$special_offers.length + " ) "
+                        $special_offers[i].outerText = " <<  " +$special_offers[i].outerText+ "  >> "
                     }
                 }
                 // try to hide block if not exist special offers
@@ -137,6 +135,7 @@ function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*
     setTimeout(show_left_time, 1000);
 }
 function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback ){
+    console.log(cur_elem, cur_limit_max, cur_limit_min, cur_axis);
     var elem = cur_elem,
         limit_max = (typeof cur_limit_max != 'undefined') ? cur_limit_max: 0,
         limit_min = (typeof cur_limit_min != 'undefined') ? cur_limit_min: (-900),
@@ -146,6 +145,7 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
         style = {};
         $(elem).draggable({
             scroll:false,
+            distance: 100,
             axis: (axis == "top" ? "y" : "x"),
             handle: ".js_move_to_top",
             grid: [25,25],
@@ -259,8 +259,13 @@ function move_sections(elem, callback){
         transition_in_progress = false;
     }
     activate_method(elem);
-    if (href=="#start_wash" && station && station.special_offers.length ===0){
-        $(".js_move_to_top").hide();
+
+    // hide element  if station have not special_offers
+    if (href=="#start_wash" && station){
+        if (station.special_offers.length ===0){
+            $(".js_move_to_top").hide();
+        }
+
     }
     callback(elem);
 }
@@ -374,7 +379,7 @@ function update_profile(elem, finish_profile){
 function start_order(elem, variable){
     if(!variable){
         //TODO: Need to add custom alert
-        console.log("Wrong washing type")
+        console.log("Wrong washing type");
         move_sections($(elem).closest("section"), animation_ended);
         return false;
     }
