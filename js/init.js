@@ -145,7 +145,7 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
         style = {};
         $(elem).draggable({
             scroll:false,
-            distance: 100,
+            distance: 500,
             axis: (axis == "top" ? "y" : "x"),
             handle: ".js_move_to_top",
             grid: [25,25],
