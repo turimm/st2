@@ -20,7 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = false;
+var DEBUG_MODE = true;
 
 function onResume(){
     activate_position();
@@ -57,18 +57,18 @@ function successFunction(position) {
                 $("section[data-page^=#washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
-                $(".js_offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 // add slides fallery for speciall offers
                 if ((".js_gallery").length >1){
                     function onAfter(curr,next,opts){
                     var index=opts.currSlide;
-                    $('#prev')[index==0?'hide':'show']();
-                    $('#next')[index==opts.slideCount-1?'hide':'show']();
+                    $('.prev_offer')[index==0?'hide':'show']();
+                    $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
                 }
                 $(".js_gallery").cycle({
                     fx:     'scrollHorz',
-                    prev:   '#prev',
-                    next:   '#next',
+                    prev:   '.prev_offer',
+                    next:   '.next_offer',
                     after:   onAfter,
                     timeout: 0,
                     fit :1,
@@ -398,7 +398,7 @@ function start_order(elem, variable){
 
 
 $(document).ready(function(){
-    simulateTouchEvents(".js_move_to_top, .js_button_move");
+    simulateTouchEvents(".js_move_to_top, .js_button_move, .prev_offer, .next_offer");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
             $(this).removeClass("sl_bbtn_next_down");
