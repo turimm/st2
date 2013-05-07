@@ -135,7 +135,6 @@ function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*
     setTimeout(show_left_time, 1000);
 }
 function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback ){
-    console.log(cur_elem, cur_limit_max, cur_limit_min, cur_axis);
     var elem = cur_elem,
         limit_max = (typeof cur_limit_max != 'undefined') ? cur_limit_max: 0,
         limit_min = (typeof cur_limit_min != 'undefined') ? cur_limit_min: (-900),
@@ -143,13 +142,15 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
         callback_if_max_position = (typeof callback_if_max_position!= 'undefined' ? callback_if_max_position : true),
         callback = cur_callback||function(){},
         style = {};
+        var start_position;
         $(elem).draggable({
             scroll:false,
-            distance: 500,
             axis: (axis == "top" ? "y" : "x"),
             handle: ".js_move_to_top",
             grid: [25,25],
+            distance : 100,
             start:function (event, ui) {
+                start_position = ui.position[axis];
                 if($(elem).removeClass("js_show_offer_information")){
                     $(elem).removeClass("js_show_offer_information").css({
                         "-webkit-animation": ""
@@ -158,14 +159,13 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
                 }
             },
             drag:function (event, ui) {
-                if (ui.position[axis]> limit_max){
+                if (ui.position[axis]> limit_max ){
                     ui.position[axis] = limit_max;
                     return false;
                 } else if (ui.position[axis] < limit_min){
                     ui.position[axis] = limit_min;
                     return false;
                 }
-
             },
             stop:function (event, ui) {
                 var state;
