@@ -21,6 +21,11 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_ENDED = 4;
 
 var DEBUG_MODE = false;
+alert("web");
+if(navigator.userAgent.match(/iPhone/i)){
+    alert("iPhone");
+    DEBUG_MODE = true;
+}
 
 function onResume(){
     activate_position();
