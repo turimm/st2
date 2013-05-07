@@ -66,11 +66,12 @@ function successFunction(position) {
 //                        $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
 //                    }
                 $(".js_gallery").cycle({
-                    fx:     'scrollHorz',
+                    fx:     'none',
                     prev:   '.prev_offer',
                     next:   '.next_offer',
 //                    after:   onAfter,
-                    timeout: 0,
+//                    timeout: 0.1,
+//                    easing:  'easeInOutBack',
                     fit :1,
                     width: "640"
                });
