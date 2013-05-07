@@ -1598,12 +1598,12 @@ section.disable_form_elements form, section.disable_form_elements a {
 @-webkit-keyframes geo_location /* Safari and Chrome */
 {
 from {background: #383838;}
-to {background: #C50000;}
+to {background: #5a0000;}
 }
 
     .geo_location_error{
-        -webkit-animation: geo_location 0.5s;
-        -webkit-animation-timing-function: ease-out;
+        -webkit-animation: geo_location 0.6s;
+        -webkit-animation-timing-function: ease-in-out;
         -webkit-animation-iteration-count: 3;
     }
 

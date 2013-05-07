@@ -20,11 +20,12 @@ var ORDER_IN_PROCESS = 1,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
 
-var DEBUG_MODE = false;
-alert("web");
-if(navigator.userAgent.match(/iPhone/i)){
-    alert("iPhone");
-    DEBUG_MODE = true;
+var DEBUG_MODE = true;
+ var glob_event = "click";
+// check if device is iPhone or iPad and change variable
+if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
+    DEBUG_MODE = false;
+    glob_event= "touchstart";
 }
 
 function onResume(){
@@ -76,8 +77,8 @@ function successFunction(position) {
                     prev:   '.prev_offer',
                     next:   '.next_offer',
 //                    after:   onAfter,
-//                    timeout: 0.1,
-//                    easing:  'easeInOutBack',
+                    timeout: 0,
+                    easing:  'easeInOutBack',
                     fit :1,
                     width: "640"
                });
@@ -107,7 +108,7 @@ function successFunction(position) {
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
     if(err.code == 1) {
-        $(".js_wash_station").html("Kan ikke forbinde til server");
+        $(".js_wash_station").html("GEOLOCATION ER DEAKTIVERET");
     }else if( err.code == 2) {
         $(".js_wash_station").html("Position is unavailable!");
     }
@@ -513,7 +514,7 @@ $(document).ready(function(){
             move_sections($(this), animation_ended);
         });
     }
-    $(document).on("click", ".js_button_click", function(event){
+    $(document).on(glob_event, ".js_button_click", function(event){
         if(!transition_in_progress) {
             // display error if no have goe location
             if($(this).hasClass("js_exist_geolocation")){
