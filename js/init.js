@@ -59,17 +59,17 @@ function successFunction(position) {
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 // add slides fallery for speciall offers
-                if ((".js_gallery").length >1){
-                    function onAfter(curr,next,opts){
-                    var index=opts.currSlide;
-                    $('.prev_offer')[index==0?'hide':'show']();
-                    $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
-                }
+                if (station.special_offers.length >1){
+//                    function onAfter(curr,next,opts){
+//                        var index=opts.currSlide;
+//                        $('.prev_offer')[index==0?'hide':'show']();
+//                        $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
+//                    }
                 $(".js_gallery").cycle({
                     fx:     'scrollHorz',
                     prev:   '.prev_offer',
                     next:   '.next_offer',
-                    after:   onAfter,
+//                    after:   onAfter,
                     timeout: 0,
                     fit :1,
                     width: "640"
@@ -82,20 +82,21 @@ function successFunction(position) {
                                 $(".js_gallery").cycle("prev");
                           }
                     });
+
+                    var $special_offers = $(".js_move_to_top").find(".js_special_offer_info");
+                    console.log($special_offers);
+                    console.log($special_offers.length);
+                    for ( i=0; i<$special_offers.length; i++){
+                        $special_offers[i].outerText += " ( " +$special_offers.length + " ) "
+                    }
                 }
                 // try to hide block if not exist special offers
-                if (!station.special_offers.length){
-                    $(".js_move_to_top").hide();
-
-                }
             } else {
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
         }
         ,"json"
-    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");
-                $(".sl_bbtn_next").hide();
-                });
+    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES

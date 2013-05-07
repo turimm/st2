@@ -1565,32 +1565,32 @@ section.disable_form_elements form, section.disable_form_elements a {
         text-align: right;
     }
 
-    .sl_prev_button{
-        height: 136px;
-        width: 136px;
-        background: url("img/buttons.png") no-repeat 0 0;
-        position: absolute;
-        top: 420px;
-        left: 10px;
-        z-index: 999;
+    /*.sl_prev_button{*/
+        /*height: 136px;*/
+        /*width: 136px;*/
+        /*background: url("img/buttons.png") no-repeat 0 0;*/
+        /*position: absolute;*/
+        /*top: 420px;*/
+        /*left: 10px;*/
+        /*z-index: 999;*/
 
-    }
-    .sl_prev_button:hover{
-        background: url("img/buttons.png") no-repeat 0 -136px;
-        cursor: pointer;
-    }
-    .sl_next_button{
+    /*}*/
+    /*.sl_prev_button:hover{*/
+        /*background: url("img/buttons.png") no-repeat 0 -136px;*/
+        /*cursor: pointer;*/
+    /*}*/
+    /*.sl_next_button{*/
 
-        height: 136px;
-        width: 136px;
-        background: url("img/buttons.png") no-repeat 0 -273px;
-        position: absolute;
-        top: 420px;
-        right: 10px;
-        z-index: 999;
-    }
-    .sl_next_button:hover{
-        background: url("img/buttons.png") no-repeat 0 -409px;
-        cursor: pointer;
-    }
+        /*height: 136px;*/
+        /*width: 136px;*/
+        /*background: url("img/buttons.png") no-repeat 0 -273px;*/
+        /*position: absolute;*/
+        /*top: 420px;*/
+        /*right: 10px;*/
+        /*z-index: 999;*/
+    /*}*/
+    /*.sl_next_button:hover{*/
+        /*background: url("img/buttons.png") no-repeat 0 -409px;*/
+        /*cursor: pointer;*/
+    /*}*/
     /*-------------*/
