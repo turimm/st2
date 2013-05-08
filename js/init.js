@@ -42,8 +42,6 @@ function show_alert(str){
 }
 
 function onResume(){
-    count_resume ++;
-    show_alert("onResume: "+count_resume);
     activate_position();
 }
 
@@ -61,16 +59,12 @@ function onResume(){
 
 
 function onDeviceReady() {
-    count_device_ready ++;
-    show_alert("onDeviceReady: " +count_device_ready);
     activate_position();
     document.addEventListener("resume", onResume, false);
 }
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-    count_success_function++;
-    show_alert("count_success_function: "+count_success_function);
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     $.get(
@@ -80,9 +74,9 @@ function successFunction(position) {
                 $(".sl_wheel_buy").removeClass("js_no_geolocation");
                 if (station && station.id!== response[0].id){
                     show_alert("CHANGE STATION");
+                    move_sections($("section[data-page=#home]"), animation_ended);
                 }
                 station = response[0];
-                show_alert("station: "+station.id);
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
@@ -153,6 +147,10 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+    }
+    else{
+        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
+        $(".sl_wheel_buy").addClass("js_no_geolocation");
     }
 }
 
@@ -427,7 +425,7 @@ function start_order(elem, variable){
         move_sections($(elem).closest("section"), animation_ended);
         return false;
     }
-    $(".js_back_button_to_washing_description").data({"href": $(elem).closest("section").data("page")})
+    $(".js_back_button_to_washing_description").data({"href": $(elem).closest("section").data("page")});
     order = {};
     order["washer_id"] = variable;
     order["type"] = ORDER_IN_PROCESS;
