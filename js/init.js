@@ -71,7 +71,9 @@ function successFunction(position) {
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
-                $(".sl_wheel_buy").removeClass("js_no_geolocation");
+                if ($(".sl_wheel_buy").hasClass("js_no_geolocation")){
+                    $(".sl_wheel_buy").removeClass("js_no_geolocation");
+                }
                 if (station && station.id!== response[0].id){
                     show_alert("CHANGE STATION");
                     move_sections($("section[data-page=#home]"), animation_ended);
@@ -117,21 +119,26 @@ function successFunction(position) {
                 }
                 // try to hide block if not exist special offers
             } else {
-              //  $(".sl_wheel_buy").hasClass
-                $(".sl_wheel_buy").addClass("js_no_geolocation");
+              if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
+                  $(".sl_wheel_buy").addClass("js_no_geolocation");
+              }
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
         }
         ,"json"
     ).error(function(){
-                    $(".sl_wheel_buy").addClass("js_no_geolocation");
+                    if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
+                        $(".sl_wheel_buy").addClass("js_no_geolocation");
+                     }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
                 });
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    $(".sl_wheel_buy").addClass("js_no_geolocation");
+    if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
+                  $(".sl_wheel_buy").addClass("js_no_geolocation");
+              }
     if(err.code == 1) {
         $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
     }else if( err.code == 2) {
@@ -151,7 +158,9 @@ function activate_position() {
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-        $(".sl_wheel_buy").addClass("js_no_geolocation");
+        if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
+                  $(".sl_wheel_buy").addClass("js_no_geolocation");
+              }
     }
 }
 
