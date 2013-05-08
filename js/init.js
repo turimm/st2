@@ -10,6 +10,7 @@ document.ontouchmove =  function(e){
     e.preventDefault();
 }
 var station = null;
+var glob_previous_station = null;
 var transition_in_progress = false;
 var login = false;
 var order = null;
@@ -19,6 +20,7 @@ var ORDER_IN_PROCESS = 1,
     ORDER_PPAYMENT_DONE = 2,
     ORDER_WORK_STARTED = 3,
     ORDER_WORK_ENDED = 4;
+
 
 var DEBUG_MODE = true;
  var glob_event = "click";
@@ -53,12 +55,21 @@ function onDeviceReady() {
 function successFunction(position) {
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
-    $(".js_exist_geolocation").removeClass("js_exist_geolocation");
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
+                $(".js_no_geolocation").removeClass("js_no_geolocation");
+                glob_previous_station = station;
                 station = response[0];
+                if  (glob_previous_station  && glob_previous_station !== station){
+                    alert("CHANGE STATION");
+                }
+                alert(glob_previous_station);
+                alert(station);
+
+
+
                 $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
@@ -99,11 +110,15 @@ function successFunction(position) {
                 }
                 // try to hide block if not exist special offers
             } else {
+                $(".sl_wheel_buy").addClass("js_no_geolocation");
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
         }
         ,"json"
-    ).error(function(){$(".js_wash_station").html("Kan ikke forbinde til server");});
+    ).error(function(){
+                    $(".sl_wheel_buy").addClass("js_no_geolocation");
+                    $(".js_wash_station").html("Kan ikke forbinde til server");
+                });
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
@@ -518,7 +533,7 @@ $(document).ready(function(){
     $(document).on(glob_event, ".js_button_click", function(event){
         if(!transition_in_progress) {
             // display error if no have goe location
-            if($(this).hasClass("js_exist_geolocation")){
+            if($(this).hasClass("js_no_geolocation")){
                     var $wash_station = $(".js_wash_station").parent();
                     $wash_station.addClass("geo_location_error");
                     $wash_station.on("webkitAnimationEnd", function(){$wash_station.removeClass("geo_location_error");});
