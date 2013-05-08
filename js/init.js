@@ -31,10 +31,11 @@ if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i)))
 
 var count_resume =0;
 var count_device_ready =0;
+var count_success_function =0;
 
 function show_alert(str){
     try {
-        navigator.notification.alert(str, null, 'Besked', "Ok");
+        navigator.notification.alert(str, null, 'Shell', "Ok");
     } catch(e){
         alert(str);
     }
@@ -68,6 +69,8 @@ function onDeviceReady() {
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
+    count_success_function++;
+    show_alert("count_success_function: "+count_success_function);
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     $.get(
@@ -133,18 +136,23 @@ function successFunction(position) {
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
+    $(".sl_wheel_buy").addClass("js_no_geolocation");
     if(err.code == 1) {
         $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
-        $(".sl_wheel_buy").addClass("js_no_geolocation");
     }else if( err.code == 2) {
         $(".js_wash_station").text("Position is unavailable!");
-        $(".sl_wheel_buy").addClass("js_no_geolocation");
+    }
+    else if( err.code == 3) {
+        $(".js_wash_station").text("Connection Timeout!");
+    }
+    else{
+        $(".js_wash_station").html("Geolocation er ikke <br/> installeret");
     }
 }
 
 function activate_position() {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(successFunction, errorFunction);
+        navigator.geolocation.watchPosition(successFunction, errorFunction, {maximumAge:30000});
     }
 }
 
