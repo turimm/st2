@@ -31,9 +31,18 @@ if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i)))
 
 var count_resume =0;
 var count_device_ready =0;
+
+function show_alert(str){
+    try {
+        navigator.notification.alert(str, null, 'Besked', "Ok");
+    } catch(e){
+        alert(str);
+    }
+}
+
 function onResume(){
     count_resume ++;
-    alert("onResume: "+(count_resume));
+    show_alert("onResume: "+count_resume);
     activate_position();
 }
 
@@ -49,9 +58,10 @@ function onResume(){
     }
 
 
+
 function onDeviceReady() {
     count_device_ready ++;
-    alert("onDeviceReady: " +count_device_ready);
+    show_alert("onDeviceReady: " +count_device_ready);
     activate_position();
     document.addEventListener("resume", onResume, false);
 }
@@ -66,10 +76,10 @@ function successFunction(position) {
             if (response.length){
                 $(".sl_wheel_buy").removeClass("js_no_geolocation");
                 if (station && station.id!== response[0].id){
-                    alert("CHANGE STATION");
+                    show_alert("CHANGE STATION");
                 }
                 station = response[0];
-                alert("station: "+station.id);
+                show_alert("station: "+station.id);
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
@@ -124,7 +134,7 @@ function successFunction(position) {
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
     if(err.code == 1) {
-        $(".js_wash_station").text("GEOLOCATION ER <br />DEAKTIVERET");
+        $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
         $(".sl_wheel_buy").addClass("js_no_geolocation");
     }else if( err.code == 2) {
         $(".js_wash_station").text("Position is unavailable!");
