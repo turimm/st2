@@ -1575,12 +1575,24 @@ from {background: #383838;}
 to {background: #5a0000;}
 }
 
-    .geo_location_error{
-        -webkit-animation: geo_location 0.6s;
-        -webkit-animation-timing-function: ease-in-out;
-        -webkit-animation-iteration-count: 3;
-    }
+.geo_location_error{
+    -webkit-animation: geo_location 0.6s;
+    -webkit-animation-timing-function: ease-in-out;
+    -webkit-animation-iteration-count: 3;
+}
 
+/*prv*/
+.sl_geolocation_wrapper{
+    padding:0 10px;
+}
+.sl_geolocation_box{
+    width: 100%;
+    height: 150px;
+}
+.sl_geolocation_box td{
+    text-align: center;
+    vertical-align: middle;
+}
 
        /*.sl_prev_button{*/
         /*height: 136px;*/
@@ -1610,5 +1622,24 @@ to {background: #5a0000;}
         /*background: url("img/buttons.png") no-repeat 0 -409px;*/
         /*cursor: pointer;*/
     /*}*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

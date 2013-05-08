@@ -10,7 +10,6 @@ document.ontouchmove =  function(e){
     e.preventDefault();
 }
 var station = null;
-var glob_previous_station = null;
 var transition_in_progress = false;
 var login = false;
 var order = null;
@@ -23,14 +22,18 @@ var ORDER_IN_PROCESS = 1,
 
 
 var DEBUG_MODE = true;
- var glob_event = "click";
+var glob_event = "click";
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     DEBUG_MODE = false;
     glob_event= "touchstart";
 }
 
+var count_resume =0;
+var count_device_ready =0;
 function onResume(){
+    count_resume ++;
+    alert("onResume: "+(count_resume));
     activate_position();
 }
 
@@ -47,6 +50,8 @@ function onResume(){
 
 
 function onDeviceReady() {
+    count_device_ready ++;
+    alert("onDeviceReady: " +count_device_ready);
     activate_position();
     document.addEventListener("resume", onResume, false);
 }
@@ -59,18 +64,13 @@ function successFunction(position) {
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
-                $(".js_no_geolocation").removeClass("js_no_geolocation");
-                glob_previous_station = station;
-                station = response[0];
-                if  (glob_previous_station  && glob_previous_station !== station){
+                $(".sl_wheel_buy").removeClass("js_no_geolocation");
+                if (station && station.id!== response[0].id){
                     alert("CHANGE STATION");
                 }
-                alert(glob_previous_station);
-                alert(station);
-
-
-
-                $(".js_wash_station").html(station.city + ", "+station.address+ ", "+station.title );
+                station = response[0];
+                alert("station: "+station.id);
+                $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
@@ -124,9 +124,11 @@ function successFunction(position) {
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
     if(err.code == 1) {
-        $(".js_wash_station").html("GEOLOCATION ER DEAKTIVERET");
+        $(".js_wash_station").text("GEOLOCATION ER <br />DEAKTIVERET");
+        $(".sl_wheel_buy").addClass("js_no_geolocation");
     }else if( err.code == 2) {
-        $(".js_wash_station").html("Position is unavailable!");
+        $(".js_wash_station").text("Position is unavailable!");
+        $(".sl_wheel_buy").addClass("js_no_geolocation");
     }
 }
 
@@ -534,7 +536,7 @@ $(document).ready(function(){
         if(!transition_in_progress) {
             // display error if no have goe location
             if($(this).hasClass("js_no_geolocation")){
-                    var $wash_station = $(".js_wash_station").parent();
+                    var $wash_station = $(".js_wash_station").closest(".js_wash_station_parent");
                     $wash_station.addClass("geo_location_error");
                     $wash_station.on("webkitAnimationEnd", function(){$wash_station.removeClass("geo_location_error");});
                 return false;
