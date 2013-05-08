@@ -117,6 +117,7 @@ function successFunction(position) {
                 }
                 // try to hide block if not exist special offers
             } else {
+              //  $(".sl_wheel_buy").hasClass
                 $(".sl_wheel_buy").addClass("js_no_geolocation");
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
