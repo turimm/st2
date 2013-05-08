@@ -129,7 +129,7 @@ function successFunction(position) {
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
                 });
-//     .always(function(){navigator.splashscreen.hide();});
+
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
