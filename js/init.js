@@ -128,7 +128,7 @@ function successFunction(position) {
                         $(".sl_wheel_buy").addClass("js_no_geolocation");
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
-                });
+                }).always(function(){$(".sl_load_bar").stop();});
 
 }
 
