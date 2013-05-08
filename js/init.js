@@ -29,9 +29,6 @@ if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i)))
     glob_event= "touchstart";
 }
 
-var count_resume =0;
-var count_device_ready =0;
-var count_success_function =0;
 
 function show_alert(str){
     try {
@@ -98,10 +95,10 @@ function successFunction(position) {
                     next:   '.next_offer',
 //                    after:   onAfter,
                     timeout: 0,
-                    easing:  'easeInOutBack',
+//                    easing:  'easeInOutBack',
                     fit :1,
                     width: "640",
-                    speed: 300
+                    speed: 500
                });
                     $(".js_gallery").touchwipe({
                           wipeLeft: function() {
@@ -200,7 +197,7 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
             axis: (axis == "top" ? "y" : "x"),
             handle: ".js_move_to_top",
             grid: [25,25],
-            distance : 100,
+            distance : 50,
             start:function (event, ui) {
                 start_position = ui.position[axis];
                 if($(elem).removeClass("js_show_offer_information")){
@@ -563,8 +560,14 @@ $(document).ready(function(){
             // display error if no have goe location
             if($(this).hasClass("js_no_geolocation")){
                     var $wash_station = $(".js_wash_station").closest(".js_wash_station_parent");
-                    $wash_station.addClass("geo_location_error");
-                    $wash_station.on("webkitAnimationEnd", function(){$wash_station.removeClass("geo_location_error");});
+                    if (!$wash_station.hasClass("geo_location_error")){
+                        $wash_station.addClass("geo_location_error");
+                    }
+                    $wash_station.on("webkitAnimationEnd", function(){
+                        if ($wash_station.hasClass("geo_location_error")){
+                            $wash_station.removeClass("geo_location_error");
+                        }
+                    });
                 return false;
             }
             if($(this).hasClass("js_animate_rotation")){
