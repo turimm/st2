@@ -48,7 +48,7 @@ function onResume(){
 }
 
 
-    if (!DEBUG_MODE){
+   if (!DEBUG_MODE){
         document.addEventListener("deviceready", onDeviceReady, false);
     } else {
         if (typeof navigator.device == undefined){
@@ -152,7 +152,7 @@ function errorFunction(err) {
 
 function activate_position() {
     if (navigator.geolocation) {
-        navigator.geolocation.watchPosition(successFunction, errorFunction, {maximumAge:30000});
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
 }
 
