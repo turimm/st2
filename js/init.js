@@ -128,12 +128,23 @@ function successFunction(position) {
                         $(".sl_wheel_buy").addClass("js_no_geolocation");
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
-                }).always(function(){$(".sl_load_bar").stop();});
+                }).always(function(){
+                                  $(".sl_load_bar").css("-webkit-animation", "none");
+                                  if ($(".show_top_index").hasClass("show_top_index")){
+                                        $(".show_top_index").removeClass("show_top_index");
+                                  }
+                                setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+                              });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
+    $(".sl_load_bar").css("-webkit-animation", "none");
+                                  if ($(".show_top_index").hasClass("show_top_index")){
+                                        $(".show_top_index").removeClass("show_top_index");
+                                  }
+                                setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
     if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
                   $(".sl_wheel_buy").addClass("js_no_geolocation");
               }
