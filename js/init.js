@@ -23,6 +23,7 @@ var ORDER_IN_PROCESS = 1,
 
 var DEBUG_MODE = true;
 var glob_event = "click";
+var glob_preloader = false;
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     DEBUG_MODE = false;
@@ -39,6 +40,7 @@ function show_alert(str){
 }
 
 function onResume(){
+    glob_preloader = false;
     activate_position();
 }
 
@@ -56,6 +58,7 @@ function onResume(){
 
 
 function onDeviceReady() {
+    glob_preloader = true;
     activate_position();
     document.addEventListener("resume", onResume, false);
 }
@@ -72,7 +75,6 @@ function successFunction(position) {
                     $(".sl_wheel_buy").removeClass("js_no_geolocation");
                 }
                 if (station && station.id!== response[0].id){
-                    show_alert("CHANGE STATION");
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
                 station = response[0];
@@ -129,22 +131,28 @@ function successFunction(position) {
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
                 }).always(function(){
-                                  $(".sl_load_bar").css("-webkit-animation", "none");
-                                  if ($(".show_top_index").hasClass("show_top_index")){
-                                        $(".show_top_index").removeClass("show_top_index");
+                                  if (glob_preloader){
+                                       $(".sl_load_bar").css("-webkit-animation", "none");
+                                    if ($(".show_top_index").hasClass("show_top_index")){
+                                           $(".show_top_index").removeClass("show_top_index");
+                                    }
+                                  setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
                                   }
-                                setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+
                               });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    $(".sl_load_bar").css("-webkit-animation", "none");
-                                  if ($(".show_top_index").hasClass("show_top_index")){
-                                        $(".show_top_index").removeClass("show_top_index");
-                                  }
-                                setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+    if (glob_preloader){
+        $(".sl_load_bar").css("-webkit-animation", "none");
+          if ($(".show_top_index").hasClass("show_top_index")){
+                $(".show_top_index").removeClass("show_top_index");
+          }
+        setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+    }
+
     if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
                   $(".sl_wheel_buy").addClass("js_no_geolocation");
               }
