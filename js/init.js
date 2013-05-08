@@ -364,7 +364,7 @@ function wash_info(elem){
         if(!$(".js_time_wash").hasClass("show_time_to_wash")){
             $(".js_time_wash").addClass("show_time_to_wash");
             $(".js_wash_timer").text("5:00");
-            $(".js_process_description").text("PROCESS - UNDERVOGNSSKYL");//TO DO: Should be changed in the future to context variable
+            $(".js_process_description").text("PROCESS - UNDERVOGNSSKYL");//TODO: Should be changed in the future to context variable
             timer($(".js_wash_timer"), 300, function(){
                 $(".js_time_wash").removeClass("show_time_to_wash");
                 $(".js_process_description").text("VASK AFSLUTTET");
