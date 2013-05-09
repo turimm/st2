@@ -10,6 +10,5 @@
     <gap:splash src="splash.png" />
     <plugins>
         <plugin name="Geolocation" value="CDVLocation" />
-        <plugin name="SplashScreen" value="CDVSplashScreen" />
     </plugins>
     </widget>

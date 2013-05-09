@@ -482,6 +482,9 @@ function start_order(elem, variable){
 
 
 $(document).ready(function(){
+    if (!DEBUG_MODE){
+        navigator.splashscreen.hide();
+    }
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
