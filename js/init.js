@@ -71,7 +71,9 @@ function onDeviceReady() {
 /********************Work with position of user*****************************/
 function successFunction(position) {
     if (!DEBUG_MODE){
+        setTimeout(function() {
          navigator.splashscreen.show();
+        },5000);
     }
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
