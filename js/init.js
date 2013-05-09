@@ -60,9 +60,12 @@ function onResume(){
 
 
 function onDeviceReady() {
-      if (!DEBUG_MODE){
-         navigator.splashscreen.hide();
-    }
+//      if (!DEBUG_MODE){
+//        setTimeout(function() {
+//            show_alert("onDeviceReady");
+//         navigator.splashscreen.hide();
+//        },500);
+//    }
     glob_preloader = true;
     activate_position();
     document.addEventListener("resume", onResume, false);
@@ -482,8 +485,57 @@ function start_order(elem, variable){
 }
 
 
+  $.preloadImage=function(src,onSuccess,onError)
+    {
+        var img = new Image();
+        img.src=src;
+        var error=false;
+        img.onerror=function(){
+            error=true;
+            if(onError)onError.call(img);
+        }
+        if(error==false)
+        setTimeout(function(){
+            if(img.height>0&&img.width>0){
+                if(onSuccess)onSuccess.call(img);
+                return img;
+            }   else {
+                setTimeout(arguments.callee,5);
+            }
+        },0);
+        return img;
+    }
+
+    $.preloadImages=function(arrayOfImages){
+        $.each(arrayOfImages,function(){
+            $.preloadImage(this);
+        })
+    }
+
 
 $(document).ready(function(){
+ // example
+    $.preloadImage(
+        'css/img/bg_1.jpg',
+        function(){
+    if (!DEBUG_MODE){
+        show_alert("onDeviceReady");
+        navigator.splashscreen.hide();
+    }
+        },
+        function(){
+            alert("2");
+            /*error*/
+        }
+    )
+
+
+
+
+
+
+
+
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
