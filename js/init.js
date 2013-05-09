@@ -27,8 +27,8 @@ var glob_preloader = false;
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     DEBUG_MODE = false;
-//    glob_event= "touchstart";
-    glob_event= "click";
+    glob_event= "touchstart";
+//    glob_event= "click";
 }
 
 
@@ -610,7 +610,7 @@ $(document).ready(function(){
                 }
             } else if($(this).hasClass("check_form")){
                 var form = $(this).parents("form");
-                form.data({"href": get_href($(this))})
+                form.data({"href": get_href($(this))});
                 form.submit();
             } else {
                 transition_in_progress = true;
