@@ -507,7 +507,7 @@ $(document).ready(function(){
         'css/img/bg_1.jpg',
         function(){
             if (!DEBUG_MODE){
-                setTimeout(function(){navigator.splashscreen.hide();},500);
+                setTimeout(function(){navigator.splashscreen.hide();},0);
             }
         },
         function(){
