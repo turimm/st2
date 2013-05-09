@@ -71,6 +71,15 @@ function onDeviceReady() {
     document.addEventListener("resume", onResume, false);
 }
 
+function hide_animation(){
+    if (glob_preloader){
+        $(".sl_load_bar").css("-webkit-animation", "none");
+        if ($(".show_top_index").hasClass("show_top_index")){
+        $(".show_top_index").removeClass("show_top_index");
+    }
+    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+}
+}
 /********************Work with position of user*****************************/
 function successFunction(position) {
 
@@ -133,6 +142,8 @@ function successFunction(position) {
               }
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
+            hide_animation();
+
         }
         ,"json"
     ).error(function(){
@@ -140,29 +151,14 @@ function successFunction(position) {
                         $(".sl_wheel_buy").addClass("js_no_geolocation");
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
-                }).always(function(){
-                                  if (glob_preloader){
-                                       $(".sl_load_bar").css("-webkit-animation", "none");
-                                    if ($(".show_top_index").hasClass("show_top_index")){
-                                           $(".show_top_index").removeClass("show_top_index");
-                                    }
-                                  setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
-                                  }
-
-                              });
+                    hide_animation();
+                });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    if (glob_preloader){
-        $(".sl_load_bar").css("-webkit-animation", "none");
-          if ($(".show_top_index").hasClass("show_top_index")){
-                $(".show_top_index").removeClass("show_top_index");
-          }
-        setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
-    }
-
+    hide_animation();
     if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
                   $(".sl_wheel_buy").addClass("js_no_geolocation");
               }
