@@ -1,6 +1,6 @@
 /**
  * Created with PyCharm.
- * User: turim
+ * User: turim and nikola novitski
  * Date: 13.03.13
  * Time: 15:40
  * To change this template use File | Settings | File Templates.
@@ -55,9 +55,6 @@ function onResume(){
             onDeviceReady();
         }
     }
-
-
-
 function onDeviceReady() {
     glob_preloader = true;
     activate_position();
@@ -510,7 +507,7 @@ $(document).ready(function(){
         'css/img/bg_1.jpg',
         function(){
             if (!DEBUG_MODE){
-                navigator.splashscreen.hide();
+                setTimeout(function(){navigator.splashscreen.hide();},500);
             }
         },
         function(){
