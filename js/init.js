@@ -27,7 +27,8 @@ var glob_preloader = false;
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     DEBUG_MODE = false;
-    glob_event= "touchstart";
+//    glob_event= "touchstart";
+    glob_event= "touchend";
 //    glob_event= "click";
 }
 
