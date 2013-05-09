@@ -61,10 +61,7 @@ function onResume(){
 
 function onDeviceReady() {
       if (!DEBUG_MODE){
-        setTimeout(function() {
-            show_alert("onDeviceReady");
          navigator.splashscreen.hide();
-        },5000);
     }
     glob_preloader = true;
     activate_position();
