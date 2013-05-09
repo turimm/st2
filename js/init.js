@@ -75,6 +75,7 @@ function successFunction(position) {
                     $(".sl_wheel_buy").removeClass("js_no_geolocation");
                 }
                 if (station && station.id!== response[0].id){
+                    alert("CHANGE STATION");
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
                 station = response[0];
