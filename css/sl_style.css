@@ -1,5 +1,4 @@
-   /*____ PRELOAD IMAGES ____*/
-body:after{content: url("img/bg_1.jpg");display:none;}
+
     /*----------reset-------*/
     *{
         -webkit-tap-highlight-color:transparent!important;
@@ -1595,7 +1594,8 @@ to {background: #5a0000;}
     text-align: center;
     vertical-align: middle;
 }
-
+   /*____ PRELOAD IMAGES ____*/
+/*body:after{content: url("img/bg_1.jpg");display:none;}*/
 
        /*.sl_prev_button{*/
         /*height: 136px;*/
