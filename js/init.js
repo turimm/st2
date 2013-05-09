@@ -61,7 +61,7 @@ function onDeviceReady() {
     document.addEventListener("resume", onResume, false);
 }
 
-function hide_animation(){
+function hide_preloader(){
     if (glob_preloader){
         $(".sl_load_bar").css("-webkit-animation", "none");
         if ($(".show_top_index").hasClass("show_top_index")){
@@ -132,7 +132,7 @@ function successFunction(position) {
               }
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
-            hide_animation();
+            hide_preloader();
 
         }
         ,"json"
@@ -141,14 +141,13 @@ function successFunction(position) {
                         $(".sl_wheel_buy").addClass("js_no_geolocation");
                      }
                     $(".js_wash_station").html("Kan ikke forbinde til server");
-                    hide_animation();
+                    hide_preloader();
                 });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    hide_animation();
     if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
                   $(".sl_wheel_buy").addClass("js_no_geolocation");
               }
@@ -163,6 +162,7 @@ function errorFunction(err) {
     else{
         $(".js_wash_station").html("Geolocation er ikke <br/> installeret");
     }
+    hide_preloader();
 }
 
 function activate_position() {
@@ -507,7 +507,12 @@ $(document).ready(function(){
         'css/img/bg_1.jpg',
         function(){
             if (!DEBUG_MODE){
-                setTimeout(function(){navigator.splashscreen.hide();},0);
+                setTimeout(function(){
+                    navigator.splashscreen.hide();
+                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
+                        $(".js_load_bar").addClass("sl_load_bar");
+                    }
+                },0);
             }
         },
         function(){
