@@ -6,7 +6,7 @@
         <preference name="ShowSplashScreenSpinner" value="false" />
         <preference name="auto-hide-splash-screen" value="false" />
         <icon src="img/appi.png" width="144" height="144" />
-    <gap:splash src="splash.jpg" />
+    <gap:splash src="splash.png" />
     <plugins>
         <plugin name="SplashScreen" value="CDVSplashScreen" />
         <plugin name="Geolocation" value="CDVLocation" />
