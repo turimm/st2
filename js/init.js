@@ -70,6 +70,9 @@ function onDeviceReady() {
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
+    if (!DEBUG_MODE){
+         navigator.splashscreen.show();
+    }
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     $.get(
