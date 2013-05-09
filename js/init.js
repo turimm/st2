@@ -60,8 +60,11 @@ function onResume(){
 
 
 function onDeviceReady() {
-     if (!DEBUG_MODE){
-        navigator.splashscreen.hide();
+      if (!DEBUG_MODE){
+        setTimeout(function() {
+            show_alert("onDeviceReady");
+         navigator.splashscreen.hide();
+        },5000);
     }
     glob_preloader = true;
     activate_position();
@@ -70,11 +73,7 @@ function onDeviceReady() {
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-    if (!DEBUG_MODE){
-        setTimeout(function() {
-         navigator.splashscreen.show();
-        },5000);
-    }
+
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     $.get(
