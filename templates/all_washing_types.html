@@ -2,57 +2,72 @@
     <h2 class="sl_desk_title sl_c_title">
         VASKE TEKNOLOGIER
     </h2>
-    {% for washing_type in station.washing%}
+    <table>
+        {% for washing_type in washing_types %}
+            <tr>
+                <td class="sl_simpl_style_14 {% if loop.first %} sl_title_pad2 {% endif %} {% if loop.last %} sl_simpl_style_17 {% endif %}">
+                    <input class="sl_check" type="checkbox" name="send_news" id="washing_type_{{ washing_type.id }}">
+                    <label class="sl_check_label sl_simpl_style_16" for="washing_type_{{ washing_type.id }}">
+                    <span></span>
+                    </label>
+                </td>
+                <td class="sl_simpl_style_14 {% if loop.first %} sl_title_pad2 {% endif %} {% if loop.last %} sl_simpl_style_17 {% endif %}">
+                    <span class="js_button_click" data-href="#service_info">{{ washing_type.title }}</span>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
 
-    <div class="sl_simpl_style_14 sl_title_pad2">
-        <input class="sl_check" type="checkbox" name="send_news" id="service1">
-        <label class="sl_check_label sl_simpl_style_16" for="service1">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Washtec Softcare2 Pro</span>
-    </div>
-    <div class="sl_simpl_style_14">
-        <input class="sl_check" type="checkbox" name="send_news" id="service2">
-        <label class="sl_check_label sl_simpl_style_16" for="service2">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Power dry</span>
-    </div>
-    <div class="sl_simpl_style_14">
-        <input class="sl_check" type="checkbox" name="send_news" id="service3">
-        <label class="sl_check_label sl_simpl_style_16" for="service3">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Vaccume Cleaner</span>
-    </div>
-    <div class="sl_simpl_style_14">
-        <input class="sl_check" type="checkbox" name="send_news" id="service4">
-        <label class="sl_check_label sl_simpl_style_16" for="service4">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">No scratch wash</span>
-    </div>
-    <div class="sl_simpl_style_14">
-        <input class="sl_check" type="checkbox" name="send_news" id="service5">
-        <label class="sl_check_label sl_simpl_style_16" for="service5">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Tire wash</span>
-    </div>
-    <div class="sl_simpl_style_14">
-        <input class="sl_check" type="checkbox" name="send_news" id="service6">
-        <label class="sl_check_label sl_simpl_style_16" for="service6">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Truckwash</span>
-    </div>
-    <div class="sl_simpl_style_14 sl_simpl_style_17">
-        <input class="sl_check lastInForm" type="checkbox" name="send_news" id="service7">
-        <label class="sl_check_label sl_simpl_style_16" for="service7">
-            <span></span>
-        </label>
-        <span class="js_button_click" data-href="#service_info">Wax pro sulution</span>
-    </div>
+
+
+
+
+
+
+    <!--<div class="sl_simpl_style_14">-->
+        <!--<input class="sl_check" type="checkbox" name="send_news" id="service2">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service2">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">Power dry</span>-->
+    <!--</div>-->
+    <!--<div class="sl_simpl_style_14">-->
+        <!--<input class="sl_check" type="checkbox" name="send_news" id="service3">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service3">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">Vaccume Cleaner</span>-->
+    <!--</div>-->
+    <!--<div class="sl_simpl_style_14">-->
+        <!--<input class="sl_check" type="checkbox" name="send_news" id="service4">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service4">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">No scratch wash</span>-->
+    <!--</div>-->
+    <!--<div class="sl_simpl_style_14">-->
+        <!--<input class="sl_check" type="checkbox" name="send_news" id="service5">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service5">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">Tire wash</span>-->
+    <!--</div>-->
+    <!--<div class="sl_simpl_style_14">-->
+        <!--<input class="sl_check" type="checkbox" name="send_news" id="service6">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service6">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">Truckwash</span>-->
+    <!--</div>-->
+    <!--<div class="sl_simpl_style_14 sl_simpl_style_17">-->
+        <!--<input class="sl_check lastInForm" type="checkbox" name="send_news" id="service7">-->
+        <!--<label class="sl_check_label sl_simpl_style_16" for="service7">-->
+            <!--<span></span>-->
+        <!--</label>-->
+        <!--<span class="js_button_click" data-href="#service_info">Wax pro sulution</span>-->
+    <!--</div>-->
+
+
     <a class="sl_btn sl_simpl_style_12 sl_simpl_style_18 check_form js_button_click" href="#find_washer">
         <p class="sl_btn_light"></p>
         <p class="sl_btn_text">

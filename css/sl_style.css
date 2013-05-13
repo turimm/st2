@@ -104,9 +104,7 @@
         height: 60px;
     }
         /*--------------------*/
-    .sl_body {
-        height: 988px;
-    }
+
     .sl_title{
         color: #dfdfdf;
         text-align: center;
@@ -457,6 +455,9 @@
         -webkit-box-shadow: 0 9px 8px rgba(0,0,0,.44);
         -moz-box-shadow: 0 9px 8px rgba(0,0,0,.44);
         box-shadow: 0 9px 8px rgba(0,0,0,.44);
+    }
+    .sl_body {
+        height: 988px;
     }
     .sl_circle_bg{
         background: url("img/circle_load.png") no-repeat;
@@ -946,13 +947,13 @@
 
 /*-----------CHECKERS-------------*/
     .sl_simpl_style_14 {
-        margin-bottom: 20px;
+        padding-bottom: 20px;
     }
     .sl_c_title {
         font-size: 26px;
     }
     .sl_simpl_style_15 {
-        padding: 30px 48px;
+        padding: 30px 24px 30px 48px;
     }
     .sl_simpl_style_16 {
         font-size: 22px;
@@ -962,7 +963,7 @@
         margin-right: 20px;
     }
     .sl_simpl_style_17 {
-        margin-bottom: 54px;
+        padding-bottom: 54px;
     }
     .sl_simpl_style_18 {
         font-size: 22px;

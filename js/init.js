@@ -112,7 +112,7 @@ function successFunction(position) {
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
-//                $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {station: station}));
+                $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {station: station}));
                 // add slides fallery for speciall offers
                 if (station.special_offers.length >1){
 //                    function onAfter(curr,next,opts){
