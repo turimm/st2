@@ -512,7 +512,9 @@ function hideSplash(){
         }
 
 $(document).ready(function(){
+    show_alert("$(document).ready");
         hideSplash();
+    show_alert("hideSplash");
 
 //    $.preloadImage(
 //        'css/img/bg_1.jpg',
