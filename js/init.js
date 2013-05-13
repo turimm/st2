@@ -545,6 +545,7 @@ function initialize_google_map() {
       }
 $(document).ready(function(){
       initialize_google_map();
+
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
