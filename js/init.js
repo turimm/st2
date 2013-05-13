@@ -70,28 +70,49 @@ function hide_preloader(){
     setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 }
 }
+
+function add_no_location(){
+    if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
+        $(".sl_wheel_buy").addClass("js_no_geolocation");
+    }
+    if (!$(".sl_part_b").hasClass("js_no_geolocation")){
+        $(".sl_part_b").addClass("js_no_geolocation");
+    }
+    if (!$(".sl_part_l").hasClass("js_no_geolocation")){
+        $(".sl_part_l").addClass("js_no_geolocation");
+    }
+}
+function remove_no_location(){
+    if ($(".sl_wheel_buy").hasClass("js_no_geolocation")){
+        $(".sl_wheel_buy").removeClass("js_no_geolocation");
+    }
+    if ($(".sl_part_b").hasClass("js_no_geolocation")){
+        $(".sl_part_b").removeClass("js_no_geolocation");
+    }
+    if ($(".sl_part_l").hasClass("js_no_geolocation")){
+        $(".sl_part_l").removeClass("js_no_geolocation");
+    }
+}
 /********************Work with position of user*****************************/
 function successFunction(position) {
-
     var lat = position.coords.latitude;
     var lng = position.coords.longitude;
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
-                if ($(".sl_wheel_buy").hasClass("js_no_geolocation")){
-                    $(".sl_wheel_buy").removeClass("js_no_geolocation");
-                }
-                if (station && station.id!== response[0].id){
+                remove_no_location();
+                if (station && station.id!== response[0]["stations"][0].id){
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
-                station = response[0];
+                station = response[0]["stations"][0];
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+//                $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {station: station}));
                 // add slides fallery for speciall offers
                 if (station.special_offers.length >1){
 //                    function onAfter(curr,next,opts){
@@ -126,9 +147,7 @@ function successFunction(position) {
                 }
                 // try to hide block if not exist special offers
             } else {
-              if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
-                  $(".sl_wheel_buy").addClass("js_no_geolocation");
-              }
+                add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
             hide_preloader();
@@ -136,9 +155,7 @@ function successFunction(position) {
         }
         ,"json"
     ).error(function(){
-                    if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
-                        $(".sl_wheel_buy").addClass("js_no_geolocation");
-                     }
+                    add_no_location();
                     $(".js_wash_station").html("Kan ikke forbinde til server");
                     hide_preloader();
                 });
@@ -147,9 +164,7 @@ function successFunction(position) {
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
-                  $(".sl_wheel_buy").addClass("js_no_geolocation");
-              }
+    add_no_location();
     if(err.code == 1) {
         $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
     }else if( err.code == 2) {
@@ -170,9 +185,7 @@ function activate_position() {
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-        if  (!$(".sl_wheel_buy").hasClass("js_no_geolocation")){
-                  $(".sl_wheel_buy").addClass("js_no_geolocation");
-              }
+        add_no_location();
     }
 }
 
@@ -500,29 +513,29 @@ function start_order(elem, variable){
         })
     }
 
-
+function hideSplashScreen(){
+     if (!DEBUG_MODE){
+                setTimeout(function(){
+                    navigator.splashscreen.hide();
+                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
+                        $(".js_load_bar").addClass("sl_load_bar");
+                    }
+                },0);
+            }
+     else{
+         if (!$(".js_load_bar").hasClass("sl_load_bar")){
+                        $(".js_load_bar").addClass("sl_load_bar");
+                    }
+     }
+}
 $(document).ready(function(){
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
-            if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
-            }
+           hideSplashScreen();
         },
         function(){
-             if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
-            }
+             hideSplashScreen();
         }
     );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
