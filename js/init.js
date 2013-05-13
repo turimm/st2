@@ -14,6 +14,9 @@ var transition_in_progress = false;
 var login = false;
 var order = null;
 var profile = {};
+var geocoder;
+var map;
+var latlng;
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
     ORDER_PPAYMENT_DONE = 2,
@@ -106,14 +109,15 @@ function successFunction(position) {
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
                 station = response[0]["stations"][0];
+                var washing_types = response[1]["washing_types"];
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
-                $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {station: station}));
-                // add slides fallery for speciall offers
+                $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
+//                add slides fallery for speciall offers
                 if (station.special_offers.length >1){
 //                    function onAfter(curr,next,opts){
 //                        var index=opts.currSlide;
@@ -528,7 +532,19 @@ function hideSplashScreen(){
                     }
      }
 }
+
+function initialize_google_map() {
+        geocoder = new google.maps.Geocoder();
+        latlng = new google.maps.LatLng(55.649602, 12.577586);
+        var mapOptions = {
+          zoom: 10,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
+    map.setCenter(latlng);
+      }
 $(document).ready(function(){
+      initialize_google_map();
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
