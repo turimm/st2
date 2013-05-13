@@ -500,12 +500,7 @@ function start_order(elem, variable){
             $.preloadImage(this);
         })
     }
-
-
-$(document).ready(function(){
-    $.preloadImage(
-        'css/img/bg_1.jpg',
-        function(){
+function hideSplash(){
             if (!DEBUG_MODE){
                 setTimeout(function(){
                     navigator.splashscreen.hide();
@@ -514,11 +509,27 @@ $(document).ready(function(){
                     }
                 },0);
             }
-        },
-        function(){
-            /*error*/
         }
-    );
+
+$(document).ready(function(){
+        hideSplash();
+
+//    $.preloadImage(
+//        'css/img/bg_1.jpg',
+//        function(){
+//            if (!DEBUG_MODE){
+//                setTimeout(function(){
+//                    navigator.splashscreen.hide();
+//                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
+//                        $(".js_load_bar").addClass("sl_load_bar");
+//                    }
+//                },0);
+//            }
+//        },
+//        function(){
+//            /*error*/
+//        }
+//    );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
