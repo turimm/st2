@@ -96,6 +96,19 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
+function initialize_google_map(lat, lng) {
+        var mapOptions = {
+          center: new google.maps.LatLng(lat, lng),
+          zoom: 15,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
+        var marker = new google.maps.Marker({
+                map: map,
+                position: mapOptions.center
+            });
+
+      }
 /********************Work with position of user*****************************/
 function successFunction(position) {
     var lat = position.coords.latitude;
@@ -104,6 +117,7 @@ function successFunction(position) {
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
+                initialize_google_map(lat, lng);
                 remove_no_location();
                 if (station && station.id!== response[0]["stations"][0].id){
                     move_sections($("section[data-page=#home]"), animation_ended);
@@ -533,19 +547,8 @@ function hideSplashScreen(){
      }
 }
 
-function initialize_google_map() {
-        geocoder = new google.maps.Geocoder();
-        latlng = new google.maps.LatLng(55.649602, 12.577586);
-        var mapOptions = {
-          zoom: 10,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        }
-        map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
-    map.setCenter(latlng);
-      }
-$(document).ready(function(){
-      initialize_google_map();
 
+$(document).ready(function(){
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
