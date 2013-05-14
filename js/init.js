@@ -96,17 +96,54 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
-function initialize_google_map(lat, lng) {
+function initialize_google_map(lat, lng, markers) {
+//        var markers = [
+//    ['Bondi Beach', -33.890542, 151.274856],
+//    ['Coogee Beach', -33.923036, 151.259052],
+//    ['Cronulla Beach', -34.028249, 151.157507],
+//    ['Manly Beach', -33.80010128657071, 151.28747820854187],
+//    ['Maroubra Beach', -33.950198, 151.259302]
+//];
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
-          zoom: 15,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false
         }
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
-        var marker = new google.maps.Marker({
+
+//        var pinColor = "FE7569";
+        var pinColor = "20712B";
+        var pinImage = new google.maps.MarkerImage( "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|"+pinColor,
+            null, /* size is determined at runtime */
+            null, /* origin is 0,0 */
+            null, /* anchor is bottom center of the scaled image */
+            new google.maps.Size(42, 68));
+        var client = new google.maps.Marker({
                 map: map,
-                position: mapOptions.center
+                position: mapOptions.center,
+                icon: pinImage
             });
+
+        var image = 'img/logo_mic.png';
+        var infowindow = new google.maps.InfoWindow(), marker, i;
+        for (i = 0; i < markers.length; i++) {
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(markers[i][1], markers[i][2]),
+                map: map,
+                icon: image
+            });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(markers[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+
+
+
+
 
       }
 /********************Work with position of user*****************************/
@@ -117,12 +154,21 @@ function successFunction(position) {
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
         function(response){
             if (response.length){
-                initialize_google_map(lat, lng);
+                var $station = response[0]["stations"];
+                var markers =[];
+                console.log($station);
+                for (i = 0; i < $station.length; i ++){
+                    console.log(i);
+
+                    markers.push([$station[i].title, $station[i].lat, $station[i].lon]);
+                }
+                initialize_google_map(lat, lng, markers);
+
                 remove_no_location();
-                if (station && station.id!== response[0]["stations"][0].id){
+                if (station && station.id!== $station[0].id){
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
-                station = response[0]["stations"][0];
+                station = $station[0];
                 var washing_types = response[1]["washing_types"];
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
