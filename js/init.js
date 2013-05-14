@@ -10,13 +10,16 @@ document.ontouchmove =  function(e){
     e.preventDefault();
 }
 var station = null;
+var $glob_stations = null;
 var transition_in_progress = false;
 var login = false;
 var order = null;
 var profile = {};
 var geocoder;
 var map;
-var latlng;
+var glob_lat;
+var glob_lon;
+var glob_markers =[];
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
     ORDER_PPAYMENT_DONE = 2,
@@ -97,13 +100,6 @@ function remove_no_location(){
     }
 }
 function initialize_google_map(lat, lng, markers) {
-//        var markers = [
-//    ['Bondi Beach', -33.890542, 151.274856],
-//    ['Coogee Beach', -33.923036, 151.259052],
-//    ['Cronulla Beach', -34.028249, 151.157507],
-//    ['Manly Beach', -33.80010128657071, 151.28747820854187],
-//    ['Maroubra Beach', -33.950198, 151.259302]
-//];
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 12,
@@ -146,34 +142,75 @@ function initialize_google_map(lat, lng, markers) {
 
 
       }
+function search_stations(_self){
+    var $checkboxes = _self.closest("section").find("input[type=checkbox]:checked");
+    if ($checkboxes.length){
+        if (_self.hasClass("js_no_washing_type")){
+            _self.removeClass("js_no_washing_type");
+        }
+        var checked_wash = [];
+        for (i = 0; i < $checkboxes.length; i++){
+            checked_wash.push(parseInt($checkboxes[i].id.replace("washing_type_",""), 10));
+        }
+        var stations = [];
+        glob_markers =[];
+        for (i = 0; i < $glob_stations.length; i++){
+            var m =[];
+            for(j = 0; j < $glob_stations[i].washing_types.length; j++ ){
+                m.push($glob_stations[i].washing_types[j].washing_id);
+            }
+            var have_washing_types = true;
+            for (k = 0; k < checked_wash.length; k++){
+                if ( $.inArray ( checked_wash[k], m ) < 0 ) {
+                    have_washing_types = false;
+                    break;
+                }
+            }
+            if(have_washing_types){
+                glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
+            }
+
+        }
+        initialize_google_map(glob_lat, glob_lon, glob_markers);
+    }
+    else{
+        if (!_self.hasClass("js_no_washing_type")){
+         _self.addClass("js_no_washing_type");
+        }
+    }
+//    if ($glob_stations.length){ //TODO think about glob_stations exists
+//        console.log($glob_stations);
+//    }
+}
 /********************Work with position of user*****************************/
 function successFunction(position) {
-    var lat = position.coords.latitude;
-    var lng = position.coords.longitude;
+     glob_lat = position.coords.latitude;
+     glob_lon = position.coords.longitude;
     $.get(
-        "http://shell.d1.wmtcloud.tk/shell/?lat=" + lat + "&lon=" + lng,
+        "http://shell.d1.wmtcloud.tk/shell/?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
             if (response.length){
-                var $station = response[0]["stations"];
-                var markers =[];
-                console.log($station);
-                for (i = 0; i < $station.length; i ++){
-                    console.log(i);
-
-                    markers.push([$station[i].title, $station[i].lat, $station[i].lon]);
+                 $glob_stations = response[0]["stations"];
+                // ---------------------------------------
+                // Start for google
+                glob_markers =[];
+                for (i = 0; i < $glob_stations.length; i ++){
+                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
                 }
-                initialize_google_map(lat, lng, markers);
-
+                initialize_google_map(glob_lat, glob_lon, glob_markers);
+                // ------------------------------------------
                 remove_no_location();
-                if (station && station.id!== $station[0].id){
+                if (station && station.id!== $glob_stations[0].id){
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
-                station = $station[0];
+                station = $glob_stations[0];
                 var washing_types = response[1]["washing_types"];
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));
                 $("section[data-page^=#washing_type_]").remove();
+                $("section[data-page^=#description_washing_type_]").remove();
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
+                $(".sl_wrap").append(render_to('templates/washing_type_description2.html', {washing_types: washing_types}));
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
@@ -700,15 +737,30 @@ $(document).ready(function(){
     }
     $(document).on(glob_event, ".js_button_click", function(event){
         if(!transition_in_progress) {
+            if ($(this).hasClass("js_search_stations")){
+                search_stations($(this));
+            }
+            // display error when client not check  washing_type
+            if($(this).hasClass("js_no_washing_type")){
+                if(!$(this).hasClass("shell_error")){
+                    $(this).addClass(("shell_error"));
+                }
+                $(this).on("webkitAnimationEnd", function(){
+                    if($(this).hasClass("shell_error")){
+                        $(this).removeClass("shell_error");
+                    }
+                });
+                return false;
+            }
             // display error if no have goe location
             if($(this).hasClass("js_no_geolocation")){
                     var $wash_station = $(".js_wash_station").closest(".js_wash_station_parent");
-                    if (!$wash_station.hasClass("geo_location_error")){
-                        $wash_station.addClass("geo_location_error");
+                    if (!$wash_station.hasClass("shell_error")){
+                        $wash_station.addClass("shell_error");
                     }
                     $wash_station.on("webkitAnimationEnd", function(){
-                        if ($wash_station.hasClass("geo_location_error")){
-                            $wash_station.removeClass("geo_location_error");
+                        if ($wash_station.hasClass("shell_error")){
+                            $wash_station.removeClass("shell_error");
                         }
                     });
                 return false;

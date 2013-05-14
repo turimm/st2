@@ -1,0 +1,41 @@
+{% for washing_type in washing_types %}
+    <section class="js_dissable disable_form_elements" data-page="#description_washing_type_{{ washing_type.id }}">
+        <div class="sl_topbar">
+            <div class="sl_menu_button js_button_click" href="#find_washer_params">
+
+            </div>
+            <div class="sl_logo_mic">
+                <img src="img/logo_mic.png" alt="">
+            </div>
+            <div class="sl_topbar_shadow"></div>
+        </div>
+        <div class="sl_body sl_bg_p1 sl_simpl_style_19">
+            <div class="sl_top_title_c">
+                <table class="sl_table_sel">
+                    <tr>
+                        <td>
+                            FIND NÆRMESTE VASK
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="sl_price_box sl_simpl_style_11">
+                <div class="sl_desc_box sl_light_box sl_simpl_style_20">
+                    {% if washing_type.washing_type_photo %}
+                        <img src="{{ washing_type.washing_type_photo }}" alt="">
+                    {% endif %}
+                    <!--<img src="img/services.jpg" alt="">-->
+                    <div class="sl_simpl_style_21">
+                        {{ washing_type.description }}
+                    </div>
+                    <a class="sl_btn sl_ss_22 js_button_click" href="#find_washer_params">
+                        <p class="sl_btn_light"></p>
+                        <p class="sl_btn_text">
+                            OK
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endfor %}
