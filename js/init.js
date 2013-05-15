@@ -11,12 +11,14 @@ document.ontouchmove =  function(e){
 }
 var station = null;
 var $glob_stations = null;
+var glob_markersArray=[];
 var transition_in_progress = false;
 var login = false;
 var order = null;
 var profile = {};
 var geocoder;
 var map;
+var map2;
 var glob_lat;
 var glob_lon;
 var glob_markers =[];
@@ -106,7 +108,26 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false
         }
+        var mapOptions2 = {
+          center: new google.maps.LatLng(lat, lng),
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          draggable: false,
+          keyboardShortcuts: false,
+          panControl: false,
+          scaleControl: false,
+          scrollwheel: false,
+          zoomControl: false,
+          disableDoubleClickZoom: true
+        }
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
+        map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
+        var contact = new google.maps.Marker({
+                map: map2,
+                position: mapOptions2.center,
+                icon: "img/logo_mic.png"
+            });
 
 //        var pinColor = "FE7569";
         var pinColor = "20712B";
@@ -130,6 +151,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
                 map: map,
                 icon: image
             });
+            glob_markersArray.push(marker);
             google.maps.event.addListener(marker, 'click', (function(marker, i, phone) {
                 return function() {
                     infowindow.setContent(markers[i][0]);
@@ -140,7 +162,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
 
         }
 if (transition){
-    setTimeout(function(){move_sections(_self, animation_ended)},0);
+    setTimeout(function(){move_sections(_self, animation_ended)},1000);
 }
       }
 $(document).on(glob_event,".js_search_stations", function(){
@@ -214,6 +236,10 @@ function successFunction(position) {
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
                 $(".js_phone_station").attr("href","tel:"+station.phone);
+                // for Contact info
+                $("#js_contact_title").text(station.title);
+                $("#js_contact_info").html(station.address +"<br />" + station.city + "<br /> TELEFON: " + station.phone + "<br /> Email: " + "<a class='show_as_text' href='mailto:" + station.email + "'>"+ station.email + "</a>" );
+                $("#js_phone_nearest_station").attr("href","tel:"+station.phone);
 //                add slides fallery for speciall offers
                 if (station.special_offers.length >1){
 //                    function onAfter(curr,next,opts){
