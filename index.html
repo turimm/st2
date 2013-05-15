@@ -16,7 +16,8 @@
     <script type="text/javascript" src="js/swig.pack.min.js"></script>
     <script src="js/cycle.js"></script>
     <script src="js/jquery.touchwipe.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;language=da"></script>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?sensor=false&amp;language=da"></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
     <script src="js/init.js?v=4"></script>
 </head>
 <body>
@@ -768,7 +769,7 @@
             FIND NÆRMESTE VASK
         </div>
         <div class="sl_price_box sl_simpl_style_11">
-            <div id="google_map_canvas" style="height:560px;width:560px;">
+            <div id="google_map_canvas" class="sl_google_map_canvas">
 
             </div>
 
@@ -780,7 +781,7 @@
                         AVANCERET SØGNING
                     </p>
                 </a>
-                <a class="sl_btn sl_btn_w sl_simpl_style_12" href="tel:33333333">
+                <a class="sl_btn sl_btn_w sl_simpl_style_12 js_phone_station" href="tel:33333333">
                     <p class="sl_btn_light"></p>
                     <p class="sl_btn_text">
                         RING OP

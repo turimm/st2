@@ -1628,6 +1628,16 @@ to {background: #5a0000;}
     /*}*/
 
 
+/*prv*/
+.sl_google_map_canvas{
+    height:560px;
+    width:560px;
+    line-height: 22px;
+    color: #000;
+}
+.sl_google_map_canvas img{
+    max-width: none;
+}
 
 
 

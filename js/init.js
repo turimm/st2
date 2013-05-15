@@ -9,7 +9,6 @@
 document.ontouchmove =  function(e){
     e.preventDefault();
 }
-var infoWindow;
 var station = null;
 var $glob_stations = null;
 var transition_in_progress = false;
@@ -101,7 +100,6 @@ function remove_no_location(){
     }
 }
 function initialize_google_map(lat, lng, markers, transition, _self) {
-//        infowindow = new google.maps.InfoWindow();
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 12,
@@ -122,25 +120,25 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
                 position: mapOptions.center,
                 icon: pinImage
             });
-
+        var phone;
         var image = 'img/logo_mic.png';
         var infowindow = new google.maps.InfoWindow(), marker, i;
         for (i = 0; i < markers.length; i++) {
+            phone = markers[i][3];
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(markers[i][1], markers[i][2]),
                 map: map,
                 icon: image
             });
-            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            google.maps.event.addListener(marker, 'click', (function(marker, i, phone) {
                 return function() {
                     infowindow.setContent(markers[i][0]);
                     infowindow.open(map, marker);
+                    $(".js_phone_station").attr("href", "tel:"+phone)
                 }
-            })(marker, i));
+            })(marker, i, phone));
 
         }
-    console.log(transition);
-    console.log(_self);
 if (transition){
     setTimeout(function(){move_sections(_self, animation_ended)},0);
 }
@@ -178,7 +176,6 @@ $(document).on(glob_event,".js_search_stations", function(){
         for (i = 0; i < $glob_stations.length; i ++){
                     glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
                 }
-
         initialize_google_map(glob_lat, glob_lon, glob_markers, true, $(this));
     }
 
@@ -197,7 +194,7 @@ function successFunction(position) {
                 // Start for google
                 glob_markers =[];
                 for (i = 0; i < $glob_stations.length; i ++){
-                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
+                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon, $glob_stations[i].phone]);
                 }
                 initialize_google_map(glob_lat, glob_lon, glob_markers);
                 // ------------------------------------------
@@ -216,6 +213,7 @@ function successFunction(position) {
                 $(".js_station_info").html(station.description);
                 $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
+                $(".js_phone_station").attr("href","tel:"+station.phone);
 //                add slides fallery for speciall offers
                 if (station.special_offers.length >1){
 //                    function onAfter(curr,next,opts){
