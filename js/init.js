@@ -10,13 +10,12 @@ document.ontouchmove =  function(e){
     e.preventDefault();
 }
 var station = null;
+var glob_markersObj= {};
 var $glob_stations = null;
-var glob_markersArray=[];
 var transition_in_progress = false;
 var login = false;
 var order = null;
 var profile = {};
-var geocoder;
 var map;
 var map2;
 var glob_lat;
@@ -101,8 +100,18 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
-function filter_stations(){
-
+function filter_stations(mas, self){
+    map.setCenter(new google.maps.LatLng(glob_lat,glob_lon));
+    for (i in glob_markersObj){
+        glob_markersObj[i].setMap(null);
+        glob_markersObj[i].setMap(map);
+    }
+    if (mas.length){
+        for (i in mas){
+            glob_markersObj[mas[i]].setMap(null);
+        }
+    }
+    setTimeout(function(){move_sections(self, animation_ended)},0);
 }
 function initialize_google_map(lat, lng, markers, transition, _self) {
         var mapOptions = {
@@ -150,11 +159,13 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         for (i = 0; i < markers.length; i++) {
             phone = markers[i][3];
             marker = new google.maps.Marker({
+                id: "marker_"+markers[i][1]+"_"+markers[i][2],
                 position: new google.maps.LatLng(markers[i][1], markers[i][2]),
                 map: map,
                 icon: image
             });
-            glob_markersArray.push(marker);
+            glob_markersObj[marker.id] = marker;
+
             google.maps.event.addListener(marker, 'click', (function(marker, i, phone) {
                 return function() {
                     infowindow.setContent(markers[i][0]);
@@ -164,9 +175,6 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
             })(marker, i, phone));
 
         }
-if (transition){
-    setTimeout(function(){move_sections(_self, animation_ended)},1000);
-}
       }
 $(document).on(glob_event,".js_search_stations", function(){
     var $checkboxes = $(this).closest("section").find("input[type=checkbox]:checked");
@@ -176,32 +184,27 @@ $(document).on(glob_event,".js_search_stations", function(){
             checked_wash.push(parseInt($checkboxes[i].id.replace("washing_type_",""), 10));
         }
         var stations = [];
-        glob_markers =[];
+        var mas_of_station =[];
         for (i = 0; i < $glob_stations.length; i++){
             var m =[];
             for(j = 0; j < $glob_stations[i].washing_types.length; j++ ){
                 m.push($glob_stations[i].washing_types[j].washing_id);
             }
-            var have_washing_types = true;
+            var have_not_washing_types = false;
             for (k = 0; k < checked_wash.length; k++){
                 if ( $.inArray ( checked_wash[k], m ) < 0 ) {
-                    have_washing_types = false;
+                    have_not_washing_types = true;
                     break;
                 }
             }
-            if(have_washing_types){
-                glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
+            if(have_not_washing_types){
+                mas_of_station.push("marker_"+ $glob_stations[i].lat+"_"+ $glob_stations[i].lon);
             }
-
         }
-        initialize_google_map(glob_lat, glob_lon, glob_markers, true, $(this));
+        filter_stations(mas_of_station, $(this));
     }
     else{
-        glob_markers =[];
-        for (i = 0; i < $glob_stations.length; i ++){
-                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
-                }
-        initialize_google_map(glob_lat, glob_lon, glob_markers, true, $(this));
+        filter_stations([], $(this));
     }
 
 });
