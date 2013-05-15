@@ -101,6 +101,9 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
+function filter_stations(){
+
+}
 function initialize_google_map(lat, lng, markers, transition, _self) {
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
