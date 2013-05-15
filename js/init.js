@@ -9,6 +9,7 @@
 document.ontouchmove =  function(e){
     e.preventDefault();
 }
+var infoWindow;
 var station = null;
 var $glob_stations = null;
 var transition_in_progress = false;
@@ -99,7 +100,8 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
-function initialize_google_map(lat, lng, markers) {
+function initialize_google_map(lat, lng, markers, transition, _self) {
+//        infowindow = new google.maps.InfoWindow();
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 12,
@@ -135,19 +137,17 @@ function initialize_google_map(lat, lng, markers) {
                     infowindow.open(map, marker);
                 }
             })(marker, i));
+
         }
-
-
-
-
-
+    console.log(transition);
+    console.log(_self);
+if (transition){
+    setTimeout(function(){move_sections(_self, animation_ended)},0);
+}
       }
-function search_stations(_self){
-    var $checkboxes = _self.closest("section").find("input[type=checkbox]:checked");
+$(document).on(glob_event,".js_search_stations", function(){
+    var $checkboxes = $(this).closest("section").find("input[type=checkbox]:checked");
     if ($checkboxes.length){
-        if (_self.hasClass("js_no_washing_type")){
-            _self.removeClass("js_no_washing_type");
-        }
         var checked_wash = [];
         for (i = 0; i < $checkboxes.length; i++){
             checked_wash.push(parseInt($checkboxes[i].id.replace("washing_type_",""), 10));
@@ -171,17 +171,19 @@ function search_stations(_self){
             }
 
         }
-        initialize_google_map(glob_lat, glob_lon, glob_markers);
+        initialize_google_map(glob_lat, glob_lon, glob_markers, true, $(this));
     }
     else{
-        if (!_self.hasClass("js_no_washing_type")){
-         _self.addClass("js_no_washing_type");
-        }
+        glob_markers =[];
+        for (i = 0; i < $glob_stations.length; i ++){
+                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon]);
+                }
+
+        initialize_google_map(glob_lat, glob_lon, glob_markers, true, $(this));
     }
-//    if ($glob_stations.length){ //TODO think about glob_stations exists
-//        console.log($glob_stations);
-//    }
-}
+
+});
+
 /********************Work with position of user*****************************/
 function successFunction(position) {
      glob_lat = position.coords.latitude;
@@ -737,9 +739,9 @@ $(document).ready(function(){
     }
     $(document).on(glob_event, ".js_button_click", function(event){
         if(!transition_in_progress) {
-            if ($(this).hasClass("js_search_stations")){
-                search_stations($(this));
-            }
+//            if ($(this).hasClass("js_search_stations")){
+//                search_stations($(this));
+//            }
             // display error when client not check  washing_type
             if($(this).hasClass("js_no_washing_type")){
                 if(!$(this).hasClass("shell_error")){
