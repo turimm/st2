@@ -9,18 +9,22 @@
 document.ontouchmove =  function(e){
     e.preventDefault();
 }
+
 var station = null;
-var glob_markersObj= {};
-var $glob_stations = null;
+
 var transition_in_progress = false;
 var login = false;
 var order = null;
 var profile = {};
 var map;
 var map2;
+var glob_markersObj= {};
+var $glob_stations = null;
 var glob_lat;
 var glob_lon;
 var glob_markers =[];
+var glob_url = "http://0.0.0.0:8000/shell/";
+
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
     ORDER_PPAYMENT_DONE = 2,
@@ -33,6 +37,7 @@ var glob_event = "click";
 var glob_preloader = false;
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
+    glob_url = "http://shell.d1.wmtcloud.tk/shell/";
     DEBUG_MODE = false;
 //    glob_event= "touchstart";
     glob_event= "touchend";
@@ -683,13 +688,27 @@ $(document).ready(function(){
     });
     $("form").on("submit", function(){
         if ($(this).valid()){
-            transition_in_progress = true;
-            move_sections($(this), animation_ended);
+            if ($(this).hasClass("js_create_client")){
+                var $preloader = $(".js_preloader");
+                $preloader.show();
+                var url = $(this).attr("action");
+                $.post(
+                    url,
+                    $(this).serialize(),
+                    function(response){
+                        show_alert(response);
+                    }
+                ).always(function(){setTimeout(function(){$preloader.hide();},1000)});
+            }
+            else{
+                transition_in_progress = true;
+                move_sections($(this), animation_ended);
+            }
         }
         return false;
     });
-
     $("form").each(function(){
+        $(this).attr("action", glob_url+"client/");
         $(this).validate({
             onKeyup : true,
             onSubmit: true,
@@ -748,13 +767,13 @@ $(document).ready(function(){
                     required:true,
                     digits: true
                 },
-                password:{
+                code:{
                     required: true,
                     digits: true,
                     maxlength: 4,
                     minlength: 4
                 },
-                postnumber: {
+                by_post: {
                     required: true
                 }
             },
@@ -812,7 +831,9 @@ $(document).ready(function(){
                 }
             } else if($(this).hasClass("check_form")){
                 var form = $(this).parents("form");
-                form.data({"href": get_href($(this))});
+                if (!form.hasClass("js_create_client")){
+                    form.data({"href": get_href($(this))});
+                }
                 form.submit();
             } else {
                 transition_in_progress = true;
