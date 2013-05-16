@@ -77,7 +77,7 @@ function hide_preloader(){
     if (glob_preloader){
         $(".sl_load_bar").css("-webkit-animation", "none");
         if ($(".show_top_index").hasClass("show_top_index")){
-        $(".show_top_index").removeClass("show_top_index");
+            $(".show_top_index").removeClass("show_top_index");
     }
     setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 }
@@ -107,6 +107,7 @@ function remove_no_location(){
 }
 function filter_stations(mas, self){
     map.setCenter(new google.maps.LatLng(glob_lat,glob_lon));
+    map.setZoom(12);
     for (i in glob_markersObj){
         glob_markersObj[i].setMap(null);
         glob_markersObj[i].setMap(map);
