@@ -25,7 +25,7 @@
                         <img src="{{ washing_type.washing_type_photo }}" alt="">
                     {% endif %}
                     <!--<img src="img/services.jpg" alt="">-->
-                    <div class="sl_simpl_style_21">
+                    <div class="sl_simpl_style_21 {% if washing_type.washing_type_photo %} shell_washing_info {% else %} shell_washing_info_no_photo {% endif %}">
                         {{ washing_type.description }}
                     </div>
                     <a class="sl_btn sl_ss_22 js_button_click" href="#find_washer_params">

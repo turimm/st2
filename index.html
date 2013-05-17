@@ -492,16 +492,17 @@
         <div class="sl_title sl_simpl_style_3">
             DINE KONTAKT INFO:
         </div>
-        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_title_yshadow"></div>
         <div class="sl_price_box">
-            <form method="post" action="#" data-method="update_profile" data-variable="true">
+            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client">
                 <div class="sl_desc_box">
                     <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:">
                     <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:">
                     <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:">
-                    <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:">
+                    <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:">
                     <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:">
                     <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
+                    <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:">
                     <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1">
                     <label class="sl_check_label" for="c1">
                         <span></span>
@@ -648,7 +649,7 @@
         <div class="sl_ss_40 wmt_p_r">
             <img class="sl_status_im" src="img/status.png" alt="">
         </div>
-        <form method="post" action="http://shell.d1.wmtcloud.tk/shell/client/" class="should_not_be_reseted js_create_client">
+        <form method="post" action="http://shell.d1.wmtcloud.tk/shell/client/" class="should_not_be_reseted js_form_client">
             <div class="sl_right_navbox sl_ss_38">
                 <div class="sl_ss_42">VASK INFO</div>
                 <input class="sl_cred_numer sl_ss_43" type="text" name="first_name" placeholder="FORNAVN:">
@@ -656,19 +657,19 @@
                 <input class="sl_cred_numer sl_ss_43" type="text" name="address" placeholder="ADRESSE:">
                 <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:">
                 <input class="sl_cred_numer sl_ss_43" type="text" name="email" placeholder="EMAIL:">
-                <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
+                <input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
                 <input class="sl_cred_numer sl_ss_43 lastInForm" type="tel" name="phone" placeholder="TELEFONNUMMER:">
             </div>
-            <div class="wmt_clear sl_ss_45">
+            <div  class="wmt_clear sl_ss_45" >
                 <a class="sl_btn wmt_f_l sl_ss_44 js_button_click" href="#profile_payment_options">
                     <p class="sl_btn_light"></p>
                     <p class="sl_btn_text">
-                        PAYMENT OPTIONS
+                        LOGIN
                     </p>
                 </a>
-                <a class="sl_btn wmt_f_r sl_ss_44 check_form js_button_click" href="#home">
+                <a class="sl_btn sl_ss_44 check_form js_button_click" href="#home">
                     <p class="sl_btn_light"></p>
-                    <p class="sl_btn_text">
+                    <p class="sl_btn_text" id="js_client_login">
                         CREATE LOGIN
                     </p>
                 </a>

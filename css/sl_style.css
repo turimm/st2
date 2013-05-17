@@ -1019,7 +1019,8 @@
         letter-spacing: 1.2px;
     }
     .sl_ss_22 {
-        bottom: -126px;
+        /*bottom: -126px;*/
+        bottom: -25px;
         font-size: 32px;
         position: relative;
         width: 104px;
@@ -1625,8 +1626,14 @@ to {background: #5a0000;}
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 999;
 }
-
-
+.shell_washing_info{
+    height: 270px;
+    overflow-y: auto;
+}
+.shell_washing_info_no_photo{
+    height: 582px;
+    overflow-y: auto;
+}
 
 
 

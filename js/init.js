@@ -670,6 +670,41 @@ function hideSplashScreen(){
 
 
 $(document).ready(function(){
+    if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
+    else{
+        if (localStorage.length){
+            var $button_user = $("#js_client_login");
+            $button_user.text("UPDATE");
+            var current_input;
+            $button_user.closest("form").find("input").each(function(){
+                current_input = $(this).attr("name");
+                switch (current_input){
+                    case "first_name":
+                        $(this).val(localStorage.getItem("first_name"));
+                        break;
+                    case "last_name":
+                        $(this).val(localStorage.getItem("last_name"));
+                        break;
+                    case "address":
+                        $(this).val(localStorage.getItem("address"));
+                        break;
+                    case "phone":
+                        $(this).val(localStorage.getItem("phone"));
+                        break;
+                    case "email":
+                        $(this).val(localStorage.getItem("email"));
+                        break;
+                    case "by_post":
+                        $(this).val(localStorage.getItem("by_post"));
+                        break;
+                    case "code":
+                        $(this).val(localStorage.getItem("code"));
+                        break;
+                }
+            });
+        }
+        console.log(localStorage.length);
+    }
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
@@ -689,7 +724,7 @@ $(document).ready(function(){
     });
     $("form").on("submit", function(){
         if ($(this).valid()){
-            if ($(this).hasClass("js_create_client")){
+            if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
                 $preloader.show();
                 var url = $(this).attr("action");
@@ -697,8 +732,33 @@ $(document).ready(function(){
                     url,
                     $(this).serialize(),
                     function(response){
-                        show_alert(response);
+                        console.log(response);
+                        switch (response.status){
+                            case "user_are_blocked":
+                                console.log("user_are_blocked");
+                                break;
+                            case "client_create":
+                                localStorage.setItem('first_name', response.client.first_name);
+                                localStorage.setItem('last_name', response.client.last_name);
+                                localStorage.setItem('address', response.client.address);
+                                localStorage.setItem('phone', response.client.phone);
+                                localStorage.setItem('email', response.client.email);
+                                localStorage.setItem('by_post', response.client.by_post);
+                                localStorage.setItem('code', response.client.code);
+                                break;
+                            case "client_update":
+                                localStorage.setItem('first_name', response.client.first_name);
+                                localStorage.setItem('last_name', response.client.last_name);
+                                localStorage.setItem('address', response.client.address);
+                                localStorage.setItem('phone', response.client.phone);
+                                localStorage.setItem('email', response.client.email);
+                                localStorage.setItem('by_post', response.client.by_post);
+                                localStorage.setItem('code', response.client.code);
+                                break;
+                        }
+
                     }
+                    ,"json"
                 ).always(function(){setTimeout(function(){$preloader.hide();},1000)});
             }
             else{
@@ -832,7 +892,7 @@ $(document).ready(function(){
                 }
             } else if($(this).hasClass("check_form")){
                 var form = $(this).parents("form");
-                if (!form.hasClass("js_create_client")){
+                if (!form.hasClass("js_form_client")){
                     form.data({"href": get_href($(this))});
                 }
                 form.submit();
@@ -865,5 +925,12 @@ $(document).ready(function(){
                 }
             return false;
         });*/
+    function isLocalStorageAvailable() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+}
 
 });
