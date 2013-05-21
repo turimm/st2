@@ -786,6 +786,7 @@ $(document).ready(function(){
                         data += $(this).val();
                     });
                     data +="&extra_email="+localStorage.getItem("email")+"&" + $("#js_profile_client").serialize();
+                    console.log("A");
                     console.log(data);
                 }
                 $preloader.show();
