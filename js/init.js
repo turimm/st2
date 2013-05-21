@@ -775,6 +775,7 @@ $(document).ready(function(){
                 var $preloader = $(".js_preloader");
 
                 var $self = $(this);
+                var $profile = $("#js_profile_client");
                 var url = $(this).attr("action");
                 var data = $(this).serialize();
                 console.log("data");
@@ -785,7 +786,7 @@ $(document).ready(function(){
                     $self.find("input").each(function(){
                         data += $(this).val();
                     });
-                    data +="&extra_email="+localStorage.getItem("email")+"&" + $("#js_profile_client").serialize();
+                    data +="&extra_email="+localStorage.getItem("email")+"&" + $profile.serialize();
                     console.log("A");
                     console.log(data);
                 }
@@ -823,9 +824,18 @@ $(document).ready(function(){
                                 $self.data("href", href);
                                 break;
                             case "error_code":
-                                var $code = $self.find("input[name=login_code]");
-                                if ($code.hasClass("valid")){$code.removeClass("valid");}
-                                if (!$code.hasClass("error")){$code.addClass("error");}
+                                if ($self.hasClass("js_update_profile")){
+                                    console.log("error_code");
+                                    $self.find("input").each(function(){
+                                        if ($(this).hasClass("valid")){$(this).removeClass("valid");}
+                                        if (!$(this).hasClass("error")){$(this).addClass("error");}
+                                    });
+                                }
+                                else{
+                                    var $code = $self.find("input[name=login_code]");
+                                    if ($code.hasClass("valid")){$code.removeClass("valid");}
+                                    if (!$code.hasClass("error")){$code.addClass("error");}
+                                }
                                 break;
                             case "client_not_exist":
                                 var $login_email = $self.find("input[name=login_email]");
@@ -845,9 +855,21 @@ $(document).ready(function(){
                                 $preloader.hide();
                                 break;
                             case "email_exist":
-                                var $email = $self.find("input[name=email]");
-                                if ($email.hasClass("valid")){$email.removeClass("valid");}
-                                if (!$email.hasClass("error")){$email.addClass("error");}
+                                if ($self.hasClass("js_update_profile")){
+                                    $self.find("input").each(function(){
+                                        $(this).val("");
+                                    });
+                                    var mail = $profile.find("input[name=email]");
+                                    if (mail.hasClass("valid")){mail.removeClass("valid");}
+                                    if (!mail.hasClass("error")){mail.addClass("error");}
+                                    transition_in_progress = true;
+                                    move_sections($self, animation_ended);
+                                }
+                                else{
+                                    var $email = $self.find("input[name=email]");
+                                    if ($email.hasClass("valid")){$email.removeClass("valid");}
+                                    if (!$email.hasClass("error")){$email.addClass("error");}
+                                }
                                 $preloader.hide();
                                 break;
                             case "client_update":
@@ -860,10 +882,13 @@ $(document).ready(function(){
                                 localStorage.setItem('by_post', response.client.by_post);
                                 localStorage.setItem('code', response.client.code);
                                 set_profile();
-                                if (response.status =="login_success"){
-                                    transition_in_progress = true;
-                                    move_sections($self, animation_ended);
+                                if (response.status ==="client_update"){
+                                     $self.find("input").each(function(){
+                                        $(this).val("");
+                                    });
                                 }
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
                                 $preloader.hide();
                                 break;
                         }
