@@ -779,7 +779,7 @@ $(document).ready(function(){
                 var data = $(this).serialize();
                 console.log("data");
                 console.log(data);
-                console.log("url: " + url)
+                console.log("url: " + url);
                 if ($self.hasClass("js_update_profile")){
                     data = "extra_code=";
                     $self.find("input").each(function(){
