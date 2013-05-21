@@ -35,6 +35,10 @@ var ORDER_IN_PROCESS = 1,
 var DEBUG_MODE = true;
 var glob_event = "click";
 var glob_preloader = false;
+var glob_block_current_client = false;
+if (localStorage.getItem("blocked")){
+    glob_block_current_client = true;
+}
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     glob_url = "http://shell.d1.wmtcloud.tk/shell/";
@@ -52,11 +56,38 @@ function show_alert(str){
     }
 }
 
+function check_if_client_blocked(){
+    console.log("run function check_if_client_blocked");
+    if (glob_block_current_client){
+        var data = {email:localStorage.getItem("email")};
+        console.log(data);
+         console.log($(".js_load_bar").data("href"));
+        $.ajax({
+        url: glob_url + "client/check/",
+        type: "POST",
+        data: data,
+        success: function(response) {
+            console.log(response);
+            if (response.client ==="unblocked"){
+                console.log("response.client: unblocked");
+                glob_block_current_client = false;
+                localStorage.removeItem("blocked");
+            }
+        },
+        async:false,
+        dataType: "json"
+    });
+
+    }
+}
 function onResume(){
     glob_preloader = false;
     activate_position();
 }
-
+$.validator.addMethod('english_email', function(value) {
+    return value.match(/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/gi);
+    },
+    'Please enter a valid email address.');
 
    if (!DEBUG_MODE){
         document.addEventListener("deviceready", onDeviceReady, false);
@@ -68,6 +99,7 @@ function onResume(){
         }
     }
 function onDeviceReady() {
+    check_if_client_blocked();
     glob_preloader = true;
     activate_position();
     document.addEventListener("resume", onResume, false);
@@ -79,6 +111,10 @@ function hide_preloader(){
         if ($(".show_top_index").hasClass("show_top_index")){
             $(".show_top_index").removeClass("show_top_index");
     }
+     if (glob_block_current_client){
+         $(".js_load_bar").data("href","#block_page");
+         $("#shell_blocked_email").text(localStorage.getItem("email"));
+     }
     setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 }
 }
@@ -572,6 +608,7 @@ function render_to(url_to_template, locals){
             strReturn = tmpl(locals);
         },
         async:false
+//        isLocal: true
     });
     return strReturn;
 }
@@ -667,13 +704,20 @@ function hideSplashScreen(){
                     }
      }
 }
-
-
-$(document).ready(function(){
-    if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
+function isLocalStorageAvailable() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+}
+function set_profile(){
+     if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
         if (localStorage.length){
             var $button_user = $("#js_client_login");
+            var $parent  = $button_user.parent(); // link
+            if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
             $button_user.text("UPDATE");
             var current_input;
             $button_user.closest("form").find("input").each(function(){
@@ -703,8 +747,11 @@ $(document).ready(function(){
                 }
             });
         }
-        console.log(localStorage.length);
+        console.log("localStorage.length: "+localStorage.length);
     }
+}
+$(document).ready(function(){
+    set_profile();
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
@@ -726,18 +773,66 @@ $(document).ready(function(){
         if ($(this).valid()){
             if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
-                $preloader.show();
+
+                var $self = $(this);
                 var url = $(this).attr("action");
+                var data = $(this).serialize();
+                console.log("data");
+                console.log(data);
+                console.log("url: " + url)
+                if ($self.hasClass("js_update_profile")){
+                    data = "extra_code=";
+                    $self.find("input").each(function(){
+                        data += $(this).val();
+                    });
+                    data +="&extra_email="+localStorage.getItem("email")+"&" + $("#js_profile_client").serialize();
+                    console.log(data);
+                }
+                $preloader.show();
                 $.post(
                     url,
-                    $(this).serialize(),
+                    data,
                     function(response){
                         console.log(response);
                         switch (response.status){
                             case "user_are_blocked":
-                                console.log("user_are_blocked");
+//                                var $client_forms = $("form.js_form_client");
+//                                $client_forms.find("input").each(function(){
+//                                    $(this).attr('disabled','disabled');
+//                                    if (!$(this).hasClass("shell_input_disabled")){
+//                                        $(this).addClass("shell_input_disabled");
+//                                    }
+//                                });
+//                                $client_forms.find("a").each(function(){
+//                                    $(this).removeAttr("href");
+//                                    if (!$(this).hasClass("form_disabled")){
+//                                        $(this).addClass("form_disabled");
+//                                    }
+//                                });
+                                var email = localStorage.getItem("email");
+                                if (response.email.toLowerCase() === email.toLowerCase()){
+                                    localStorage.setItem("blocked","1")
+                                }
+                                var href = $self.data("href");
+                                $self.data("href","#block_page");
+                                $("#shell_blocked_email").text(response.email);
+                                $preloader.hide();
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
+                                $self.data("href", href);
+                                break;
+                            case "error_code":
+                                var $code = $self.find("input[name=login_code]");
+                                if ($code.hasClass("valid")){$code.removeClass("valid");}
+                                if (!$code.hasClass("error")){$code.addClass("error");}
+                                break;
+                            case "client_not_exist":
+                                var $login_email = $self.find("input[name=login_email]");
+                                if ($login_email.hasClass("valid")){$login_email.removeClass("valid");}
+                                if (!$login_email.hasClass("error")){$login_email.addClass("error");}
                                 break;
                             case "client_create":
+                                 move_sections($self, animation_ended);
                                 localStorage.setItem('first_name', response.client.first_name);
                                 localStorage.setItem('last_name', response.client.last_name);
                                 localStorage.setItem('address', response.client.address);
@@ -745,8 +840,17 @@ $(document).ready(function(){
                                 localStorage.setItem('email', response.client.email);
                                 localStorage.setItem('by_post', response.client.by_post);
                                 localStorage.setItem('code', response.client.code);
+                                set_profile();
+                                $preloader.hide();
+                                break;
+                            case "email_exist":
+                                var $email = $self.find("input[name=email]");
+                                if ($email.hasClass("valid")){$email.removeClass("valid");}
+                                if (!$email.hasClass("error")){$email.addClass("error");}
+                                $preloader.hide();
                                 break;
                             case "client_update":
+                            case "login_success":
                                 localStorage.setItem('first_name', response.client.first_name);
                                 localStorage.setItem('last_name', response.client.last_name);
                                 localStorage.setItem('address', response.client.address);
@@ -754,12 +858,18 @@ $(document).ready(function(){
                                 localStorage.setItem('email', response.client.email);
                                 localStorage.setItem('by_post', response.client.by_post);
                                 localStorage.setItem('code', response.client.code);
+                                set_profile();
+                                if (response.status =="login_success"){
+                                    transition_in_progress = true;
+                                    move_sections($self, animation_ended);
+                                }
+                                $preloader.hide();
                                 break;
                         }
 
                     }
                     ,"json"
-                ).always(function(){setTimeout(function(){$preloader.hide();},1000)});
+                ).always(function(){setTimeout(function(){$preloader.hide();},0)});
             }
             else{
                 transition_in_progress = true;
@@ -769,7 +879,9 @@ $(document).ready(function(){
         return false;
     });
     $("form").each(function(){
-        $(this).attr("action", glob_url+"client/");
+        $(this).attr("action", glob_url+"client/create/");
+        if($(this).hasClass("js_update_profile")){$(this).attr("action", glob_url+"client/update/")}
+        if ($(this).hasClass("js_form_login")){ $(this).attr("action", glob_url+"client/login/"); }
         $(this).validate({
             onKeyup : true,
             onSubmit: true,
@@ -794,7 +906,8 @@ $(document).ready(function(){
                 },
                 email: {
                     required:true,
-                    email: true
+                    english_email: true
+//                    email: true
                 },
                 first_name: {
                     required:true
@@ -836,6 +949,16 @@ $(document).ready(function(){
                 },
                 by_post: {
                     required: true
+                },
+                login_code:{
+                    required: true,
+                    digits: true,
+                    maxlength: 4,
+                    minlength: 4
+                },
+                login_email: {
+                    required:true,
+                    english_email: true
                 }
             },
             errorPlacement: function(error, element) { }
@@ -891,11 +1014,25 @@ $(document).ready(function(){
                     setTimeout(function(){move_sections($(this), animation_ended)}, 250);
                 }
             } else if($(this).hasClass("check_form")){
+                console.log("check_form");
                 var form = $(this).parents("form");
                 if (!form.hasClass("js_form_client")){
                     form.data({"href": get_href($(this))});
                 }
-                form.submit();
+                if ($(this).hasClass("js_update_profile")){
+                    if (form.valid()){
+                        transition_in_progress = true;
+                        move_sections($(this), animation_ended);
+                    }
+                }
+//                else if ($(this).hasClass("js_update_client")){
+//                    if (form.valid()){
+//                         console.log("js_update_client");
+//                        $("#js_profile_client").submit();
+//                    }
+//                }
+                else{
+                    form.submit();}
             } else {
                 transition_in_progress = true;
                 move_sections($(this), animation_ended);
@@ -925,12 +1062,6 @@ $(document).ready(function(){
                 }
             return false;
         });*/
-    function isLocalStorageAvailable() {
-        try {
-            return 'localStorage' in window && window['localStorage'] !== null;
-        } catch (e) {
-            return false;
-        }
-}
+
 
 });

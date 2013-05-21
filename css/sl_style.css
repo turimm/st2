@@ -170,6 +170,8 @@
 
     .sl_desc_box_h {
         height: 242px;
+        overflow-y: auto;
+
     }
     .sl_btn{
         height: 56px;
@@ -1635,7 +1637,9 @@ to {background: #5a0000;}
     overflow-y: auto;
 }
 
-
+.shell_input_disabled{
+    color: #7C7C7C;
+}
 
 
 

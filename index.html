@@ -517,6 +517,35 @@
     </div>
 </section>
 <!-- Thank page -->
+    <!--LOGIN PAGE-->
+    <section class="js_dissable disable_form_elements" data-page="#shell_login" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_back_button js_button_click" data-href="#profile">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            DINE KONTAKT INFO:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_form_login" data-href="#profile">
+                <div class="sl_desc_box">
+                    <input class="sl_cred_numer" name="login_email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="login_code" placeholder="KODE:" maxlength="4">
+                </div>
+                <a href="#thank_you" class="sl_buy_btn check_form js_button_click">
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+    <!--END LOGIN PAGE -->
 <section class="js_dissable disable_form_elements" data-page="#thank_you">
     <div class="sl_topbar">
         <div class="sl_logo_mic">
@@ -649,7 +678,7 @@
         <div class="sl_ss_40 wmt_p_r">
             <img class="sl_status_im" src="img/status.png" alt="">
         </div>
-        <form method="post" action="http://shell.d1.wmtcloud.tk/shell/client/" class="should_not_be_reseted js_form_client">
+        <form method="post" action="http://shell.d1.wmtcloud.tk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
             <div class="sl_right_navbox sl_ss_38">
                 <div class="sl_ss_42">VASK INFO</div>
                 <input class="sl_cred_numer sl_ss_43" type="text" name="first_name" placeholder="FORNAVN:">
@@ -661,13 +690,13 @@
                 <input class="sl_cred_numer sl_ss_43 lastInForm" type="tel" name="phone" placeholder="TELEFONNUMMER:">
             </div>
             <div  class="wmt_clear sl_ss_45" >
-                <a class="sl_btn wmt_f_l sl_ss_44 js_button_click" href="#profile_payment_options">
+                <a class="sl_btn wmt_f_l sl_ss_44 js_button_click" href="#shell_login">
                     <p class="sl_btn_light"></p>
                     <p class="sl_btn_text">
                         LOGIN
                     </p>
                 </a>
-                <a class="sl_btn sl_ss_44 check_form js_button_click" href="#home">
+                <a class="sl_btn sl_ss_44 check_form js_button_click" href="#confirmation_code">
                     <p class="sl_btn_light"></p>
                     <p class="sl_btn_text" id="js_client_login">
                         CREATE LOGIN
@@ -926,6 +955,79 @@
 
 <!--<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>-->
 <!--<script src="_xprecise/xprecise.min.js"></script>-->
+
+    <!--BLOCK PAGE -->
+<section class="js_dissable disable_form_elements" data-page="#block_page" >
+    <div class="sl_topbar">
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_10">
+
+        </div>
+        <div class="sl_price_box sl_simpl_style_11">
+            <div class="sl_desc_box sl_simpl_style_5">
+                <h2 class="sl_desk_title sl_k_title" >
+                    Your account has been locked
+
+                </h2>
+                <p class="sl_desc_text sk_k_text">
+                    Please check your email <br />
+                    <span id="shell_blocked_email"></span><br />
+                    and restore your account
+                </p>
+                <!--<a class="sl_btn sl_simpl_style_12" href="tel:33333333">-->
+                    <!--<p class="sl_btn_light"></p>-->
+                    <!--<p class="sl_btn_text">-->
+                        <!--RING-->
+                    <!--</p>-->
+                <!--</a>-->
+            </div>
+        </div>
+    </div>
+</section>
+    <!--END BLOCK PAGE-->
+    <!--CONFIRMATION CODE-->
+<section class="js_dissable disable_form_elements" data-page="#confirmation_code">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_back_button js_button_click" data-href="#profile">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            CONFIRM YOUR CODE
+        </div>
+        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#" class="js_login_form js_update_profile js_form_client">
+                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <!--<input class="sl_cred_mrd" type="text">-->
+                    <!--<input class="sl_cred_ar" type="text">-->
+                    <!--<input class="sl_cred_cvc" type="text">-->
+                </div>
+                <a class="sl_btn check_form js_button_click js_update_client" href="#thank_you">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        UPDATE
+                    </p>
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+ <!-- END CONFIRMATION CODE-->
 </div>
 </body>
 </html>
