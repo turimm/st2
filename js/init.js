@@ -253,19 +253,20 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-    show_alert(glob_lat);
+//    show_alert(glob_lat);
 //    show_alert(position.coords.latitude);
 //    show_alert(glob_lon);
 //    show_alert(position.coords.longitude);
-    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
-        show_alert("successFunction return false;");
-        return false;
-    }
+//    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
+//        show_alert("successFunction return false;");
+//        return false;
+//    }
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
     $.get(
         "http://shell.d1.wmtcloud.tk/shell/?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
+            console.log(response);
             if (response.length){
                  $glob_stations = response[0]["stations"];
                 // ---------------------------------------
@@ -638,12 +639,6 @@ function update_profile(elem, finish_profile){
 /********************************************/
 
 function start_order(elem, variable){
-    if(!variable){
-        //TODO: Need to add custom alert
-        console.log("Wrong washing type");
-        move_sections($(elem).closest("section"), animation_ended);
-        return false;
-    }
     $(".js_back_button_to_washing_description").data({"href": $(elem).closest("section").data("page")});
     order = {};
     order["washing_id"] = variable;
@@ -656,6 +651,7 @@ function start_order(elem, variable){
             break;
         }
     }
+    console.log(order);
 //    if(!profile.hasOwnProperty("code")){
 //        if($(".js_login_button").hasClass("js_button_click")){
 //            $(".js_login_button").removeClass("js_button_click")
@@ -1037,7 +1033,14 @@ $(document).ready(function(){
                 return false;
             }
             if ($(this).hasClass("js_create_order")){
-                 start_order($(this));
+                var washing_id = $(this).data("washing_id");
+                if(!washing_id){
+                    //TODO: Need to add custom alert
+                    console.log("Wrong washing type");
+                    move_sections($(elem).closest("section"), animation_ended);
+                    return false;
+                }
+                 start_order($(this),washing_id);
             }
             if($(this).hasClass("js_animate_rotation")){
                 transition_in_progress = true;
