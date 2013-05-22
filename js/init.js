@@ -20,8 +20,8 @@ var map;
 var map2;
 var glob_markersObj= {};
 var $glob_stations = null;
-var glob_lat;
-var glob_lon;
+var glob_lat = null;
+var glob_lon = null;
 var glob_markers =[];
 var glob_url = "http://0.0.0.0:8000/shell/";
 
@@ -253,14 +253,14 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-//    show_alert(glob_lat);
+    show_alert(glob_lat);
 //    show_alert(position.coords.latitude);
 //    show_alert(glob_lon);
 //    show_alert(position.coords.longitude);
-//    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
-//        show_alert("successFunction return false;");
-//        return false;
-//    }
+    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
+        show_alert("successFunction return false;");
+        return;
+    }
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
     $.get(
@@ -720,6 +720,7 @@ function set_profile(){
      if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
         if (localStorage.length){
+            $("#payment_login").attr("href","#login");
             var $button_user = $("#js_client_login");
             var $parent  = $button_user.parent(); // link
             if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
@@ -892,8 +893,14 @@ $(document).ready(function(){
                                         $(this).val("");
                                     });
                                 }
-                                transition_in_progress = true;
-                                move_sections($self, animation_ended);
+//                                when user come to the payment and not have yet profile
+                                if ($self.hasClass("js_first_login")){
+                                    console.log("js_first_login");
+                                }
+                                else{
+                                    transition_in_progress = true;
+                                    move_sections($self, animation_ended);
+                                }
                                 $preloader.hide();
                                 break;
                         }

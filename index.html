@@ -164,7 +164,7 @@
                     <input class="sl_cred_numer sl_cred_cvc lastInForm" name="card_cvs" type="text" pattern="\d*" placeholder="CVC" maxlength="3">
                 </div>
                 <div class="wmt_clear">
-                    <a class="sl_btn wmt_f_l js_login_button js_button_click" href="#login" data-method="reset_form" disabled="disabled">
+                    <a class="sl_btn wmt_f_l js_login_button js_button_click" id="payment_login" href="#shell_order_login" data-method="reset_form" disabled="disabled">
                         <p class="sl_btn_light"></p>
                         <p class="sl_btn_text">
                             LOGIN
@@ -690,7 +690,7 @@
         </div>
         <div class="sl_title_yshadow"></div>
         <div class="sl_price_box">
-            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_form_login" data-href="#profile">
+            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_form_login js_first_login" data-href="#profile">
                 <div class="sl_desc_box">
                     <input class="sl_cred_numer" name="login_email" type="text" placeholder="EMAIL:">
                     <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="login_code" placeholder="KODE:" maxlength="4">
