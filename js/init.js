@@ -10,7 +10,7 @@ document.ontouchmove =  function(e){
     e.preventDefault();
 }
 
-var station = null;
+var station = null; // the nearest station 1 object
 
 var transition_in_progress = false;
 var login = false;
@@ -253,12 +253,12 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-    alert(glob_lat);
-    alert(position.coords.latitude);
-    alert(glob_lon);
-    alert(position.coords.longitude);
+    show_alert(glob_lat);
+    show_alert(position.coords.latitude);
+    show_alert(glob_lon);
+    show_alert(position.coords.longitude);
     if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
-        alert("successFunction return false;");
+        show_alert("successFunction return false;");
         return false;}
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
@@ -645,12 +645,13 @@ function start_order(elem, variable){
     }
     $(".js_back_button_to_washing_description").data({"href": $(elem).closest("section").data("page")});
     order = {};
-    order["washer_id"] = variable;
+    order["washing_id"] = variable;
     order["type"] = ORDER_IN_PROCESS;
     for(var washing_key in station.washing_types){
         var washing_type = station.washing_types[washing_key];
-        if(washing_type.washing_id == order["washer_id"]){
+        if(washing_type.washing_id == order["washing_id"]){
             order["price"] = washing_type.cost;
+            order["station_id"] = station.id;
             break;
         }
     }
