@@ -253,6 +253,10 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
+    alert(glob_lat);
+    alert(position.coords.latitude);
+    alert(glob_lon);
+    alert(position.coords.longitude);
     if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
         alert("successFunction return false;");
         return false;}
