@@ -14,7 +14,7 @@ var station = null;
 
 var transition_in_progress = false;
 var login = false;
-var order = null;
+var order = {};
 var profile = {};
 var map;
 var map2;
@@ -253,6 +253,9 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
+    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
+        alert("successFunction return false;");
+        return false;}
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
     $.get(
@@ -811,7 +814,7 @@ $(document).ready(function(){
 //                                        $(this).addClass("form_disabled");
 //                                    }
 //                                });
-                                var email = localStorage.getItem("email");
+                                var email = localStorage.getItem("email") || "a";
                                 if (response.email.toLowerCase() === email.toLowerCase()){
                                     localStorage.setItem("blocked","1")
                                 }
@@ -895,7 +898,8 @@ $(document).ready(function(){
 
                     }
                     ,"json"
-                ).always(function(){setTimeout(function(){$preloader.hide();},0)});
+                ).always(function(){setTimeout(function(){$preloader.hide();},0)})
+                    .error(function(){show_alert("Server is not responding")});
             }
             else{
                 transition_in_progress = true;
