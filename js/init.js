@@ -20,8 +20,8 @@ var map;
 var map2;
 var glob_markersObj= {};
 var $glob_stations = null;
-var glob_lat = null;
-var glob_lon = null;
+var glob_lat = "";
+var glob_lon = "";
 var glob_markers =[];
 var glob_url = "http://0.0.0.0:8000/shell/";
 
@@ -257,7 +257,7 @@ function successFunction(position) {
 //    show_alert(position.coords.latitude);
 //    show_alert(glob_lon);
 //    show_alert(position.coords.longitude);
-    if (glob_lat && glob_lon && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
+    if (glob_lat && glob_lon && glob_lat === position.coords.latitude && glob_lon === position.coords.longitude){
         show_alert("successFunction return false;");
         return;
     }
@@ -756,6 +756,18 @@ function set_profile(){
         console.log("localStorage.length: "+localStorage.length);
     }
 }
+function send_order(){
+    var url = glob_url + "order/create/";
+    var data = "";
+    $.post(
+        url,
+        data,
+        function(response){
+            console.log(response);
+        }
+        ,"json"
+    );
+}
 $(document).ready(function(){
     set_profile();
     $.preloadImage(
@@ -857,6 +869,7 @@ $(document).ready(function(){
                                 localStorage.setItem('email', response.client.email);
                                 localStorage.setItem('by_post', response.client.by_post);
                                 localStorage.setItem('code', response.client.code);
+                                localStorage.setItem('client_id', response.client.client_id);
                                 set_profile();
                                 $preloader.hide();
                                 break;
@@ -887,6 +900,7 @@ $(document).ready(function(){
                                 localStorage.setItem('email', response.client.email);
                                 localStorage.setItem('by_post', response.client.by_post);
                                 localStorage.setItem('code', response.client.code);
+                                localStorage.setItem('client_id', response.client.client_id);
                                 set_profile();
                                 if (response.status ==="client_update"){
                                      $self.find("input").each(function(){
@@ -896,6 +910,7 @@ $(document).ready(function(){
 //                                when user come to the payment and not have yet profile
                                 if ($self.hasClass("js_first_login")){
                                     console.log("js_first_login");
+                                    send_order();
                                 }
                                 else{
                                     transition_in_progress = true;
