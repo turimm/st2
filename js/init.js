@@ -254,13 +254,13 @@ $(document).on(glob_event,".js_search_stations", function(){
 /********************Work with position of user*****************************/
 function successFunction(position) {
     show_alert(glob_lat);
-//    show_alert(position.coords.latitude);
-//    show_alert(glob_lon);
-//    show_alert(position.coords.longitude);
-    if (glob_lat && glob_lon && glob_lat === position.coords.latitude && glob_lon === position.coords.longitude){
-        show_alert("successFunction return false;");
-        return;
-    }
+    show_alert(position.coords.latitude);
+    show_alert(glob_lon);
+    show_alert(position.coords.longitude);
+//    if (glob_lat && glob_lon && glob_lat === position.coords.latitude && glob_lon === position.coords.longitude){
+//        show_alert("successFunction return false;");
+//        return;
+//    }
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
     $.get(
@@ -1089,12 +1089,6 @@ $(document).ready(function(){
                         move_sections($(this), animation_ended);
                     }
                 }
-//                else if ($(this).hasClass("js_update_client")){
-//                    if (form.valid()){
-//                         console.log("js_update_client");
-//                        $("#js_profile_client").submit();
-//                    }
-//                }
                 else{
                     form.submit();}
             } else {
