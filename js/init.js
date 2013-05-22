@@ -177,11 +177,25 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         }
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
         map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
-        var contact = new google.maps.Marker({
-                map: map2,
-                position: mapOptions2.center,
-                icon: "img/logo_mic.png"
-            });
+        console.log("$glob_stations");
+        console.log($glob_stations);
+        // Feature for the nearest shell station and current client
+        //  Make an array of the LatLng's of the markers you want to show
+        var LatLngList = new Array (new google.maps.LatLng ($glob_stations[0].lat,$glob_stations[0].lon), mapOptions.center);
+        //  Create a new viewpoint bound
+
+        var bounds = new google.maps.LatLngBounds ();
+        //  Go through each...
+        for (var i = 0, LtLgLen = LatLngList.length; i < LtLgLen; i++) {
+          //  And increase the bounds to take this point
+          bounds.extend (LatLngList[i]);
+        }
+        //  Fit these bounds to the map
+        map.fitBounds (bounds);
+        map2.fitBounds (bounds);
+
+
+
 
 //        var pinColor = "FE7569";
         var pinColor = "20712B";
@@ -190,6 +204,17 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
             null, /* origin is 0,0 */
             null, /* anchor is bottom center of the scaled image */
             new google.maps.Size(42, 68));
+
+        var contact_client = new google.maps.Marker({
+                map: map2,
+                position: mapOptions2.center,
+                icon: pinImage
+            });
+        var contact_station = new google.maps.Marker({
+                map: map2,
+                position: new google.maps.LatLng ($glob_stations[0].lat,$glob_stations[0].lon),
+                icon: 'img/logo_mic.png'
+            });
         var client = new google.maps.Marker({
                 map: map,
                 position: mapOptions.center,
@@ -210,7 +235,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
 
             google.maps.event.addListener(marker, 'click', (function(marker, i, phone) {
                 return function() {
-                    infowindow.setContent(markers[i][0]);
+                    infowindow.setContent(markers[i][0]+"<br />"+markers[i][4]);
                     infowindow.open(map, marker);
                     $(".js_phone_station").attr("href", "tel:"+phone)
                 }
@@ -257,8 +282,9 @@ function successFunction(position) {
 //    show_alert(position.coords.latitude);
 //    show_alert(glob_lon);
 //    show_alert(position.coords.longitude);
-//    if (glob_lat && glob_lon && glob_lat === position.coords.latitude && glob_lon === position.coords.longitude){
-//        show_alert("successFunction return false;");
+//    console.log(position);
+//    if (glob_lat && glob_lon && position && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
+//        show_alert("successFunction return false");
 //        return;
 //    }
      glob_lat = position.coords.latitude;
@@ -273,7 +299,7 @@ function successFunction(position) {
                 // Start for google
                 glob_markers =[];
                 for (i = 0; i < $glob_stations.length; i ++){
-                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon, $glob_stations[i].phone]);
+                    glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon, $glob_stations[i].phone, $glob_stations[i].address]);
                 }
                 initialize_google_map(glob_lat, glob_lon, glob_markers);
                 // ------------------------------------------
@@ -282,6 +308,9 @@ function successFunction(position) {
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
                 station = $glob_stations[0];
+                if (station.washtec == 1 && $(".js_hide_washtec").hasClass("js_hide_washtec")){
+                    $(".js_hide_washtec").removeClass("js_hide_washtec");
+                }
                 var washing_types = response[1]["washing_types"];
                 $(".js_wash_station").text(station.city + ", "+station.address+ ", "+station.title );
                 $(".js_washer_types_list").html(render_to('templates/list_of_washing_types.html', {station: station}));

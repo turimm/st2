@@ -1640,7 +1640,9 @@ to {background: #5a0000;}
 .shell_input_disabled{
     color: #7C7C7C;
 }
-
+.js_hide_washtec{
+    display: none;
+}
 
 
 
