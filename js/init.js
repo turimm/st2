@@ -24,6 +24,7 @@ var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
 var glob_url = "http://0.0.0.0:8000/shell/";
+//var glob_url = "http://shell.d1.wmtcloud.tk/shell/";
 
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
@@ -56,7 +57,7 @@ function show_alert(str){
     }
 }
 
-function check_if_client_blocked(){
+function check_if_client_blocked(on_resume){
     console.log("run function check_if_client_blocked");
     if (glob_block_current_client){
         var data = {email:localStorage.getItem("email")};
@@ -72,6 +73,10 @@ function check_if_client_blocked(){
                 console.log("response.client: unblocked");
                 glob_block_current_client = false;
                 localStorage.removeItem("blocked");
+                if(on_resume){
+                    show_alert("on_resume block_user");
+                    move_sections($("section[data-page=#home]"), animation_ended);
+                }
             }
         },
         async:false,
@@ -81,6 +86,7 @@ function check_if_client_blocked(){
     }
 }
 function onResume(){
+    check_if_client_blocked(true);
     glob_preloader = false;
     activate_position();
 }
@@ -99,7 +105,7 @@ $.validator.addMethod('english_email', function(value) {
         }
     }
 function onDeviceReady() {
-    check_if_client_blocked();
+    check_if_client_blocked(false);
     glob_preloader = true;
     activate_position();
     document.addEventListener("resume", onResume, false);
@@ -193,9 +199,6 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         //  Fit these bounds to the map
         map.fitBounds (bounds);
         map2.fitBounds (bounds);
-
-
-
 
 //        var pinColor = "FE7569";
         var pinColor = "20712B";
