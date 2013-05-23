@@ -58,8 +58,10 @@ function show_alert(str){
 }
 
 function check_if_client_blocked(on_resume){
+    show_alert("check_if_client_blocked");
     console.log("run function check_if_client_blocked");
     if (glob_block_current_client){
+        show_alert("glob_block_current_client true");
         var data = {email:localStorage.getItem("email")};
         console.log(data);
          console.log($(".js_load_bar").data("href"));
@@ -871,6 +873,7 @@ $(document).ready(function(){
                                 $preloader.hide();
                                 transition_in_progress = true;
                                 move_sections($self, animation_ended);
+                                glob_block_current_client = true;
                                 $self.data("href", href);
                                 break;
                             case "error_code":
