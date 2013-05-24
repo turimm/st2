@@ -164,7 +164,7 @@
                     <input class="sl_cred_numer sl_cred_cvc lastInForm" name="card_cvs" type="text" pattern="\d*" placeholder="CVC" maxlength="3">
                 </div>
                 <div class="wmt_clear">
-                    <a class="sl_btn wmt_f_l js_login_button js_button_click" id="payment_login" href="#shell_order_login" data-method="reset_form" disabled="disabled">
+                    <a class="sl_btn wmt_f_l js_login_button js_button_click" id="payment_login" href="#order_login_with_email" data-method="reset_form" disabled="disabled">
                         <p class="sl_btn_light"></p>
                         <p class="sl_btn_text">
                             LOGIN
@@ -186,44 +186,6 @@
         </div>
     </div>
 </section>
-<!-- login page -->
-<section class="js_dissable disable_form_elements" data-page="#login">
-    <div class="sl_topbar">
-        <div class="sl_menu_button js_back_button js_button_click" data-href="#get_creadit_card_details">
-
-        </div>
-        <div class="sl_logo_mic">
-            <img src="img/logo_mic.png" alt="">
-        </div>
-        <div class="sl_topbar_shadow"></div>
-    </div>
-    <div class="sl_body">
-        <div class="sl_title sl_simpl_style_3">
-            LOGIN
-        </div>
-        <div class="sl_title_yshadow sl_simpl_style_4"></div>
-        <div class="sl_price_box">
-            <form method="post" action="#" class="js_login_form">
-                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
-                    <!--<input class="sl_cred_mrd" type="text">-->
-                    <!--<input class="sl_cred_ar" type="text">-->
-                    <!--<input class="sl_cred_cvc" type="text">-->
-                </div>
-                <a class="sl_btn check_form js_button_click" href="#thank_you">
-                    <p class="sl_btn_light"></p>
-                    <p class="sl_btn_text">
-                        LOGIN
-                    </p>
-                </a>
-            </form>
-        </div>
-    </div>
-</section>
-<!-- Get profile info page-->
 <section class="js_dissable disable_form_elements" data-page="#get_profile_info">
     <div class="sl_topbar">
         <div class="sl_menu_button js_back_button js_button_click" data-href="#get_creadit_card_details">
@@ -240,13 +202,13 @@
         </div>
         <div class="sl_title_yshadow"></div>
         <div class="sl_price_box">
-            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client">
+            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">
                 <div class="sl_desc_box">
                     <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:">
                     <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:">
                     <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:">
                     <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:">
-                    <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer" name="free_email" type="text" placeholder="EMAIL:">
                     <!--<input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">-->
                     <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:">
                     <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1">
@@ -445,7 +407,7 @@
                 <a class="sl_btn sl_ss_44 check_form js_button_click" href="#confirmation_code">
                     <p class="sl_btn_light"></p>
                     <p class="sl_btn_text" id="js_client_login">
-                        CREATE LOGIN
+                        CREATE ACCOUNT
                     </p>
                 </a>
             </div>
@@ -673,8 +635,8 @@
     </div>
 </section>
  <!-- END CONFIRMATION CODE-->
-    <!--CREATE ORDER THROUGH the login-->
-<section class="js_dissable disable_form_elements" data-page="#shell_order_login" >
+    <!-- ORDER LOGIN PAGE WITH EMAIL-->
+<section class="js_dissable disable_form_elements" data-page="#order_login_with_email" >
     <div class="sl_topbar">
         <div class="sl_menu_button js_back_button js_button_click" data-href="#get_creadit_card_details">
 
@@ -690,7 +652,7 @@
         </div>
         <div class="sl_title_yshadow"></div>
         <div class="sl_price_box">
-            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_form_login js_first_login" data-href="#profile">
+            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">
                 <div class="sl_desc_box">
                     <input class="sl_cred_numer" name="login_email" type="text" placeholder="EMAIL:">
                     <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="login_code" placeholder="KODE:" maxlength="4">
@@ -701,7 +663,46 @@
         </div>
     </div>
 </section>
- <!--END LOGIN ORDER-->
+ <!--END LOGIN PAGE-->
+    <!--ORDER LOGIN PAGE ONLY WITH CODE-->
+<section class="js_dissable disable_form_elements" data-page="#order_login">
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_back_button js_button_click" data-href="#profile">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            LOGIN
+        </div>
+        <div class="sl_title_yshadow sl_simpl_style_4"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#" class="js_form_client js_order_login js_authorize_client" data-href="#thank_you">
+                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <!--<input class="sl_cred_mrd" type="text">-->
+                    <!--<input class="sl_cred_ar" type="text">-->
+                    <!--<input class="sl_cred_cvc" type="text">-->
+                </div>
+                <a class="sl_btn check_form js_button_click " href="#thank_you">
+                    <p class="sl_btn_light"></p>
+                    <p class="sl_btn_text">
+                        LOGIN
+                    </p>
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+
+    <!--END LOGIN PAGE -->
 </div>
 </body>
 </html>

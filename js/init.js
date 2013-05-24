@@ -58,10 +58,8 @@ function show_alert(str){
 }
 
 function check_if_client_blocked(on_resume){
-    show_alert("check_if_client_blocked");
     console.log("run function check_if_client_blocked");
     if (glob_block_current_client){
-        show_alert("glob_block_current_client true");
         var data = {email:localStorage.getItem("email")};
         console.log(data);
          console.log($(".js_load_bar").data("href"));
@@ -76,7 +74,6 @@ function check_if_client_blocked(on_resume){
                 glob_block_current_client = false;
                 localStorage.removeItem("blocked");
                 if(on_resume){
-                    show_alert("on_resume block_user");
                     move_sections($("section[data-page=#home]"), animation_ended);
                 }
             }
@@ -295,7 +292,7 @@ function successFunction(position) {
      glob_lat = position.coords.latitude;
      glob_lon = position.coords.longitude;
     $.get(
-        "http://shell.d1.wmtcloud.tk/shell/?lat=" + glob_lat + "&lon=" + glob_lon,
+        glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
             console.log(response);
             if (response.length){
@@ -685,6 +682,7 @@ function start_order(elem, variable){
             break;
         }
     }
+    console.log("ORDER");
     console.log(order);
 //    if(!profile.hasOwnProperty("code")){
 //        if($(".js_login_button").hasClass("js_button_click")){
@@ -754,7 +752,7 @@ function set_profile(){
      if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
         if (localStorage.length){
-            $("#payment_login").attr("href","#login");
+            $("#payment_login").attr("href","#order_login");
             var $button_user = $("#js_client_login");
             var $parent  = $button_user.parent(); // link
             if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
@@ -790,17 +788,21 @@ function set_profile(){
         console.log("localStorage.length: "+localStorage.length);
     }
 }
-function send_order(){
-    var url = glob_url + "order/create/";
-    var data = "";
-    $.post(
-        url,
-        data,
-        function(response){
-            console.log(response);
-        }
-        ,"json"
-    );
+
+function setLocalStorage(data){
+    localStorage.setItem('first_name', data.client.first_name);
+    localStorage.setItem('last_name', data.client.last_name);
+    localStorage.setItem('address', data.client.address);
+    localStorage.setItem('phone', data.client.phone);
+    localStorage.setItem('email', data.client.email);
+    localStorage.setItem('by_post', data.client.by_post);
+    localStorage.setItem('code', data.client.code);
+    localStorage.setItem('client_id', data.client.client_id);
+}
+function clearInputPassword(form){
+    form.find("input").each(function(){
+        $(this).val("");
+    });
 }
 $(document).ready(function(){
     set_profile();
@@ -825,7 +827,6 @@ $(document).ready(function(){
         if ($(this).valid()){
             if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
-
                 var $self = $(this);
                 var $profile = $("#js_profile_client");
                 var url = $(this).attr("action");
@@ -839,8 +840,16 @@ $(document).ready(function(){
                         data += $(this).val();
                     });
                     data +="&extra_email="+localStorage.getItem("email")+"&" + $profile.serialize();
-                    console.log("A");
-                    console.log(data);
+                }
+                else if($self.hasClass("js_order_login")){
+                    if ($self.hasClass("js_authorize_client")){
+                        data = "code=";
+                        $self.find("input").each(function(){
+                            data += $(this).val();
+                        });
+                        data +="&email="+localStorage.getItem("email");
+                    }
+                    data += "&order="+JSON.stringify(order);
                 }
                 $preloader.show();
                 $.post(
@@ -897,14 +906,7 @@ $(document).ready(function(){
                                 break;
                             case "client_create":
                                  move_sections($self, animation_ended);
-                                localStorage.setItem('first_name', response.client.first_name);
-                                localStorage.setItem('last_name', response.client.last_name);
-                                localStorage.setItem('address', response.client.address);
-                                localStorage.setItem('phone', response.client.phone);
-                                localStorage.setItem('email', response.client.email);
-                                localStorage.setItem('by_post', response.client.by_post);
-                                localStorage.setItem('code', response.client.code);
-                                localStorage.setItem('client_id', response.client.client_id);
+                                setLocalStorage(response);
                                 set_profile();
                                 $preloader.hide();
                                 break;
@@ -928,29 +930,23 @@ $(document).ready(function(){
                                 break;
                             case "client_update":
                             case "login_success":
-                                localStorage.setItem('first_name', response.client.first_name);
-                                localStorage.setItem('last_name', response.client.last_name);
-                                localStorage.setItem('address', response.client.address);
-                                localStorage.setItem('phone', response.client.phone);
-                                localStorage.setItem('email', response.client.email);
-                                localStorage.setItem('by_post', response.client.by_post);
-                                localStorage.setItem('code', response.client.code);
-                                localStorage.setItem('client_id', response.client.client_id);
+                                setLocalStorage(response);
                                 set_profile();
                                 if (response.status ==="client_update"){
-                                     $self.find("input").each(function(){
-                                        $(this).val("");
-                                    });
+                                     clearInputPassword($self);
                                 }
-//                                when user come to the payment and not have yet profile
-                                if ($self.hasClass("js_first_login")){
-                                    console.log("js_first_login");
-                                    send_order();
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
+                                $preloader.hide();
+                                break;
+                            case "order_create":
+                                if (response.hasOwnProperty("client")){
+                                    setLocalStorage(response);
+                                    set_profile();
                                 }
-                                else{
-                                    transition_in_progress = true;
-                                    move_sections($self, animation_ended);
-                                }
+                                order = {};
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
                                 $preloader.hide();
                                 break;
                         }
@@ -970,7 +966,8 @@ $(document).ready(function(){
     $("form").each(function(){
         $(this).attr("action", glob_url+"client/create/");
         if($(this).hasClass("js_update_profile")){$(this).attr("action", glob_url+"client/update/")}
-        if ($(this).hasClass("js_form_login")){ $(this).attr("action", glob_url+"client/login/"); }
+        else if ($(this).hasClass("js_form_login")){ $(this).attr("action", glob_url+"client/login/"); }
+        else if ($(this).hasClass("js_order_login")){ $(this).attr("action", glob_url+"order/create/"); }
         $(this).validate({
             onKeyup : true,
             onSubmit: true,
@@ -1046,6 +1043,10 @@ $(document).ready(function(){
                     minlength: 4
                 },
                 login_email: {
+                    required:true,
+                    english_email: true
+                },
+                free_email:{
                     required:true,
                     english_email: true
                 }
