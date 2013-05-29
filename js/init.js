@@ -108,7 +108,6 @@ function onDeviceReady() {
 
 
 function hide_preloader(){
-        show_alert("GO PRELOADER");
         if (glob_preloader){
             $(".sl_load_bar").css("-webkit-animation", "none");
             if ($(".show_top_index").hasClass("show_top_index")){
@@ -251,12 +250,10 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         }
         if (glob_preloader){
             google.maps.event.addListenerOnce(map, 'idle', function(){
-            show_alert("try idle1");
-            if (countMap() === 2){show_alert("idle1"); hide_preloader();}
+            if (countMap() === 2){hide_preloader();}
             });
             google.maps.event.addListenerOnce(map2, 'idle', function(){
-                show_alert("try idle2");
-                if (countMap() === 2){show_alert("idle2");hide_preloader();}
+                if (countMap() === 2){hide_preloader();}
             });
         }
       }
@@ -869,7 +866,7 @@ $(document).ready(function(){
                                 $self.data("href", href);
                                 break;
                             case "error_code":
-                                if ($self.hasClass("js_update_profile")){
+                                if ($self.hasClass("js_update_profile") || $self.hasClass("js_order_login")){
                                     $self.find("input").each(function(){
                                         if ($(this).hasClass("valid")){$(this).removeClass("valid");}
                                         if (!$(this).hasClass("error")){$(this).addClass("error");}
