@@ -44,8 +44,8 @@ if (localStorage.getItem("blocked")){
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
     glob_url = "http://shell.d1.wmtcloud.tk/shell/";
     DEBUG_MODE = false;
-//    glob_event= "touchstart";
-    glob_event= "touchend";
+    glob_event= "touchstart";
+//    glob_event= "touchend";
 }
 
 
@@ -58,19 +58,14 @@ function show_alert(str){
 }
 
 function check_if_client_blocked(on_resume){
-    console.log("run function check_if_client_blocked");
     if (glob_block_current_client){
         var data = {email:localStorage.getItem("email")};
-        console.log(data);
-         console.log($(".js_load_bar").data("href"));
         $.ajax({
         url: glob_url + "client/check/",
         type: "POST",
         data: data,
         success: function(response) {
-            console.log(response);
             if (response.client ==="unblocked"){
-                console.log("response.client: unblocked");
                 glob_block_current_client = false;
                 localStorage.removeItem("blocked");
                 if(on_resume){
@@ -110,17 +105,20 @@ function onDeviceReady() {
     document.addEventListener("resume", onResume, false);
 }
 
+
+
 function hide_preloader(){
-    if (glob_preloader){
-        $(".sl_load_bar").css("-webkit-animation", "none");
-        if ($(".show_top_index").hasClass("show_top_index")){
-            $(".show_top_index").removeClass("show_top_index");
-    }
-     if (glob_block_current_client){
-         $(".js_load_bar").data("href","#block_page");
-         $("#shell_blocked_email").text(localStorage.getItem("email"));
-     }
-    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+        show_alert("GO PRELOADER");
+        if (glob_preloader){
+            $(".sl_load_bar").css("-webkit-animation", "none");
+            if ($(".show_top_index").hasClass("show_top_index")){
+                $(".show_top_index").removeClass("show_top_index");
+        }
+         if (glob_block_current_client){
+             $(".js_load_bar").data("href","#block_page");
+             $("#shell_blocked_email").text(localStorage.getItem("email"));
+         }
+        setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 }
 }
 
@@ -161,6 +159,14 @@ function filter_stations(mas, self){
     setTimeout(function(){move_sections(self, animation_ended)},0);
 }
 function initialize_google_map(lat, lng, markers, transition, _self) {
+        function mapLoadCounter(){
+            var currentCount = 0;
+            return function(){
+                currentCount++;
+                return currentCount;
+            };
+}
+        var countMap = mapLoadCounter();
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 12,
@@ -180,10 +186,9 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           zoomControl: false,
           disableDoubleClickZoom: true
         }
+
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
         map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
-        console.log("$glob_stations");
-        console.log($glob_stations);
         // Feature for the nearest shell station and current client
         //  Make an array of the LatLng's of the markers you want to show
         var LatLngList = new Array (new google.maps.LatLng ($glob_stations[0].lat,$glob_stations[0].lon), mapOptions.center);
@@ -244,6 +249,16 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
             })(marker, i, phone));
 
         }
+        if (glob_preloader){
+            google.maps.event.addListenerOnce(map, 'idle', function(){
+            show_alert("try idle1");
+            if (countMap() === 2){show_alert("idle1"); hide_preloader();}
+            });
+            google.maps.event.addListenerOnce(map2, 'idle', function(){
+                show_alert("try idle2");
+                if (countMap() === 2){show_alert("idle2");hide_preloader();}
+            });
+        }
       }
 $(document).on(glob_event,".js_search_stations", function(){
     var $checkboxes = $(this).closest("section").find("input[type=checkbox]:checked");
@@ -303,7 +318,6 @@ function successFunction(position) {
                 for (i = 0; i < $glob_stations.length; i ++){
                     glob_markers.push([$glob_stations[i].title, $glob_stations[i].lat, $glob_stations[i].lon, $glob_stations[i].phone, $glob_stations[i].address]);
                 }
-                initialize_google_map(glob_lat, glob_lon, glob_markers);
                 // ------------------------------------------
                 remove_no_location();
                 if (station && station.id!== $glob_stations[0].id){
@@ -361,18 +375,19 @@ function successFunction(position) {
                     }
                 }
                 // try to hide block if not exist special offers
+                initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
-            hide_preloader();
+//            hide_preloader();
 
         }
         ,"json"
     ).error(function(){
                     add_no_location();
                     $(".js_wash_station").html("Kan ikke forbinde til server");
-                    hide_preloader();
+                    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
                 });
 
 }
@@ -391,7 +406,7 @@ function errorFunction(err) {
     else{
         $(".js_wash_station").html("Geolocation er ikke <br/> installeret");
     }
-    hide_preloader();
+    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 }
 
 function activate_position() {
@@ -653,19 +668,6 @@ function render_to(url_to_template, locals){
     return strReturn;
 }
 
-function update_profile(elem, finish_profile){
-    var form = (elem).closest("section").find("form");
-    form.find("input, textarea").each(function(){
-       if($(this).attr("name")){
-           profile[$(this).attr("name")] = $(this).is("[type=checkbox]") ? $(this).is(":checked"): $(this).val();
-       }
-    });
-    if(finish_profile){
-        //TODO: Need to send profile to server and set cookies
-        console.log(profile);
-    }
-}
-/********************************************/
 /*                   Ordering functions     */
 /********************************************/
 
@@ -682,21 +684,6 @@ function start_order(elem, variable){
             break;
         }
     }
-    console.log("ORDER");
-    console.log(order);
-//    if(!profile.hasOwnProperty("code")){
-//        if($(".js_login_button").hasClass("js_button_click")){
-//            $(".js_login_button").removeClass("js_button_click")
-//            if (!$(".js_login_button").hasClass("sl_btn_dissabled"))
-//                $(".js_login_button").addClass("sl_btn_dissabled");
-//        }
-//    } else {
-//        if(!$(".js_login_button").hasClass("js_button_click")){
-//            $(".js_login_button").addClass("js_button_click")
-//            if ($(".js_login_button").hasClass("sl_btn_dissabled"))
-//                $(".js_login_button").removeClass("sl_btn_dissabled");
-//        }
-//    }
 }
 
   $.preloadImage=function(src,onSuccess,onError)
@@ -785,7 +772,6 @@ function set_profile(){
                 }
             });
         }
-        console.log("localStorage.length: "+localStorage.length);
     }
 }
 
@@ -831,9 +817,6 @@ $(document).ready(function(){
                 var $profile = $("#js_profile_client");
                 var url = $(this).attr("action");
                 var data = $(this).serialize();
-                console.log("data");
-                console.log(data);
-                console.log("url: " + url);
                 if ($self.hasClass("js_update_profile")){
                     data = "extra_code=";
                     $self.find("input").each(function(){
@@ -887,7 +870,6 @@ $(document).ready(function(){
                                 break;
                             case "error_code":
                                 if ($self.hasClass("js_update_profile")){
-                                    console.log("error_code");
                                     $self.find("input").each(function(){
                                         if ($(this).hasClass("valid")){$(this).removeClass("valid");}
                                         if (!$(this).hasClass("error")){$(this).addClass("error");}
@@ -948,6 +930,15 @@ $(document).ready(function(){
                                 transition_in_progress = true;
                                 move_sections($self, animation_ended);
                                 $preloader.hide();
+                                break;
+                            case "form_not_valid":
+                                show_alert("form_not_valid");
+                                break;
+                            case "not_post":
+                                show_alert("not_post");
+                                break;
+                            case "no_order":
+                                show_alert("no_order");
                                 break;
                         }
 
@@ -1094,7 +1085,7 @@ $(document).ready(function(){
                 var washing_id = $(this).data("washing_id");
                 if(!washing_id){
                     //TODO: Need to add custom alert
-                    console.log("Wrong washing type");
+                    show_alert("Wrong washing type");
                     move_sections($(elem).closest("section"), animation_ended);
                     return false;
                 }
@@ -1114,7 +1105,6 @@ $(document).ready(function(){
                     setTimeout(function(){move_sections($(this), animation_ended)}, 250);
                 }
             } else if($(this).hasClass("check_form")){
-                console.log("check_form");
                 var form = $(this).parents("form");
                 if (!form.hasClass("js_form_client")){
                     form.data({"href": get_href($(this))});
