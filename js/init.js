@@ -117,7 +117,7 @@ function hide_preloader(){
              $(".js_load_bar").data("href","#block_page");
              $("#shell_blocked_email").text(localStorage.getItem("email"));
          }
-        setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+        setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 1500);
 }
 }
 
@@ -866,7 +866,7 @@ $(document).ready(function(){
                                 $self.data("href", href);
                                 break;
                             case "error_code":
-                                if ($self.hasClass("js_update_profile") || $self.hasClass("js_order_login")){
+                                if ($self.hasClass("js_update_profile") || $self.hasClass("js_ord_log_pass")){
                                     $self.find("input").each(function(){
                                         if ($(this).hasClass("valid")){$(this).removeClass("valid");}
                                         if (!$(this).hasClass("error")){$(this).addClass("error");}
