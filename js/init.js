@@ -782,12 +782,24 @@ function setLocalStorage(data){
     localStorage.setItem('code', data.client.code);
     localStorage.setItem('client_id', data.client.client_id);
 }
+
+function fakeOrder(){
+    var interval = 2000;
+    $(".hidden_elem").each(function(){
+        var $self = $(this);
+            setTimeout(function(){$self.removeClass("hidden_elem")}, interval);
+        interval += 2000;
+    });
+
+}
+
 function clearInputPassword(form){
     form.find("input").each(function(){
         $(this).val("");
     });
 }
 $(document).ready(function(){
+    console.log($(".hidden_elem"));
     set_profile();
     $.preloadImage(
         'css/img/bg_1.jpg',
@@ -927,6 +939,7 @@ $(document).ready(function(){
                                 transition_in_progress = true;
                                 move_sections($self, animation_ended);
                                 $preloader.hide();
+                                fakeOrder();
                                 break;
                             case "form_not_valid":
                                 show_alert("form_not_valid");

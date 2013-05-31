@@ -1644,7 +1644,17 @@ to {background: #5a0000;}
     display: none;
 }
 
-
+.order_status{
+    font-size: 18px;
+    /*margin-left: 10px;*/
+    margin-bottom: 26px;
+}
+.hidden_elem{
+    display: none;
+}
+.order_status_first{
+     margin-top: 120px;
+}
 
 
 
