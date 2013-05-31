@@ -787,8 +787,11 @@ var dots;
 function fakeOrder(){
     var interval = 2000;
     var element = 0;
-
     $(".hidden_elem").each(function(){
+        if ($(this).hasClass("js_order_button_ok")){
+            console.log("js_order_button_ok");
+            interval -= 1900;
+        }
         var $self = $(this);
             setTimeout(function(){
                 element++;
@@ -796,15 +799,12 @@ function fakeOrder(){
                 switch(element){
                     case 2:
                     case 4:
-                        $self.prev().removeClass("js_dot_wait");
-                        $self.prev().text('...');
-                    break;
                     case 6:
                         $self.prev().removeClass("js_dot_wait");
                         $self.prev().text('...');
-                        interval = -2000;
                     break;
                 }
+
                     dots = window.setInterval( function() {
                         var wait = $('.js_dot_wait').first();
                         if (wait.text().length > 2){
@@ -1094,7 +1094,6 @@ $(document).ready(function(){
 //            if ($(this).hasClass("js_search_stations")){
 //                search_stations($(this));
 //            }
-            console.log($(this));
             // display error when client not check  washing_type
             if($(this).hasClass("js_no_washing_type")){
                 if(!$(this).hasClass("shell_error")){
@@ -1109,7 +1108,6 @@ $(document).ready(function(){
             }
             if($(this).hasClass("js_order_done")){
                 clearInterval(dots);
-                console.log("js_order_done");
                 var $self = $(this);
                 $(".js_waiting").each(function(){
                     if (!$(this).hasClass("js_dot_wait")){
