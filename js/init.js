@@ -785,9 +785,35 @@ function setLocalStorage(data){
 
 function fakeOrder(){
     var interval = 2000;
+    var element = 0;
+    var dots;
+
     $(".hidden_elem").each(function(){
         var $self = $(this);
-            setTimeout(function(){$self.removeClass("hidden_elem")}, interval);
+            setTimeout(function(){
+                element++;
+                clearInterval(dots);
+                switch(element){
+                    case 2:
+                    case 4:
+                    case 6:
+                        $self.prev().removeClass("js_dot_wait");
+                        $self.prev().html('...');
+                    break;
+                }
+
+                    dots = window.setInterval( function() {
+                        var wait = $('.js_dot_wait').first();
+                        if (wait.text().length > 3){
+                            wait.text("");
+                        }
+                        else{
+                            wait.text("."+wait.text()) ;
+                        }
+                        }, 200);
+
+                $self.removeClass("hidden_elem");
+            }, interval);
         interval += 2000;
     });
 
@@ -799,7 +825,6 @@ function clearInputPassword(form){
     });
 }
 $(document).ready(function(){
-    console.log($(".hidden_elem"));
     set_profile();
     $.preloadImage(
         'css/img/bg_1.jpg',
@@ -1127,7 +1152,17 @@ $(document).ready(function(){
                 }
                 else{
                     form.submit();}
-            } else {
+            }
+            else if($(this).hasClass("js_order_done")){
+                var $self = $(this);
+                    $(".js_order_status").delay(2000).each(function(){
+                        if (!$(this).hasClass("hidden_elem")){
+                            $(this).addClass("hidden_elem");
+                        }
+                    });
+
+            }
+            else {
                 transition_in_progress = true;
                 move_sections($(this), animation_ended);
             }
