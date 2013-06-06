@@ -8,7 +8,7 @@
 
 document.ontouchmove =  function(e){
     e.preventDefault();
-}
+};
 
 var station = null; // the nearest station 1 object
 
@@ -870,6 +870,7 @@ $(document).ready(function(){
                         data +="&email="+localStorage.getItem("email");
                     }
                     data += "&order="+JSON.stringify(order);
+                    alert($self.attr('action'));
                 }
                 $preloader.show();
                 $.post(
