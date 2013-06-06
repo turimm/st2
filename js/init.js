@@ -8,7 +8,7 @@
 
 document.ontouchmove =  function(e){
     e.preventDefault();
-}
+};
 
 var station = null; // the nearest station 1 object
 
