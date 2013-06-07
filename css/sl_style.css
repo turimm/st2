@@ -1657,6 +1657,23 @@ to {background: #5a0000;}
 }
 
 
+/*PRV*/
+ .sl_password_items{
+     padding-right: 30px;
+     padding-left: 30px;
+ }
+.sl_password_items input{
+    margin-left:2% ;
+    margin-right:2% ;
+    width: 11%;
+}
+/*.sl_password_items input:first-child{*/
+    /*margin-left: 0;*/
+/*}*/
+/*.sl_password_items input:last-child{*/
+    /*margin-right: 0;*/
+/*}*/
+
 
 
 

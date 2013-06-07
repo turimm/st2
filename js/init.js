@@ -23,8 +23,8 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-var glob_url = "http://0.0.0.0:8000/shell/";
-//var glob_url = "http://shell.d1.wmtcloud.tk/shell/";
+//var glob_url = "http://0.0.0.0:8000/shell/";
+var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
@@ -42,7 +42,7 @@ if (localStorage.getItem("blocked")){
 }
 // check if device is iPhone or iPad and change variable
 if(navigator.userAgent.match(/iPhone/i) || (navigator.userAgent.match(/iPod/i))){
-    glob_url = "http://shell.d1.wmtcloud.tk/shell/";
+    glob_url = "http://shell.wmt.dk/shell/";
     DEBUG_MODE = false;
     glob_event= "touchstart";
 //    glob_event= "touchend";
@@ -296,17 +296,16 @@ function successFunction(position) {
 //    show_alert(position.coords.latitude);
 //    show_alert(glob_lon);
 //    show_alert(position.coords.longitude);
-//    console.log(position);
 //    if (glob_lat && glob_lon && position && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
 //        show_alert("successFunction return false");
 //        return;
 //    }
-     glob_lat = position.coords.latitude;
-     glob_lon = position.coords.longitude;
+//    49.233292,28.466949
+    glob_lat = position.coords.latitude;
+    glob_lon = position.coords.longitude;
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
-            console.log(response);
             if (response.length){
                  $glob_stations = response[0]["stations"];
                 // ---------------------------------------
@@ -332,7 +331,7 @@ function successFunction(position) {
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".sl_wrap").append(render_to('templates/washing_type_description2.html', {washing_types: washing_types}));
                 $(".js_station_info").html(station.description);
-                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+//                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
                 $(".js_phone_station").attr("href","tel:"+station.phone);
                 // for Contact info
@@ -408,6 +407,14 @@ function errorFunction(err) {
 
 function activate_position() {
     if (navigator.geolocation) {
+//        Fake location:
+//        var position = {
+//            coords:{
+//                latitude: 49.233292,
+//                longitude: 28.466949
+//            }
+//        };
+//        successFunction(position);
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
@@ -416,11 +423,15 @@ function activate_position() {
     }
 }
 
+var stop_timer = null;
+
+
 function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*/){
     var start_time = new Date(),
         elem = elem,
         timer = timer,
         callback = callback||function(){};
+        var timeout;
     function show_left_time(){
         var delta = (timer - parseInt((new Date() - start_time)/1000)), minutes, seconds;
 
@@ -428,7 +439,7 @@ function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*
             minutes = parseInt((delta/60));
             seconds = delta - (minutes * 60);
             elem.html(minutes + ":" + ((seconds < 10) ? ("0" + seconds) : seconds));
-            setTimeout(show_left_time, 1000);
+            stop_timer = setTimeout(show_left_time, 1000);
         } else {
             minutes = parseInt((delta/60));
             seconds = delta - (minutes * 60);
@@ -436,8 +447,11 @@ function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*
             callback();
         }
     }
-    setTimeout(show_left_time, 1000);
+    stop_timer = setTimeout(show_left_time, 1000);
+//    timeout = setTimeout(show_left_time, 1000);
 }
+
+
 function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback ){
     var elem = cur_elem,
         limit_max = (typeof cur_limit_max != 'undefined') ? cur_limit_max: 0,
@@ -538,7 +552,7 @@ function simulateTouchEvents(oo, bIgnoreChilds) {
 
 function move_sections(elem, callback){
     var parent_section = $(elem).parents("section");
-    var href = get_href($(elem));
+    var href = get_href(elem);
     if ($(elem).is("section")){
         parent_section = $("section.js_activate");
         href = $(elem).data("page");
@@ -575,7 +589,7 @@ function move_sections(elem, callback){
 }
 function animation_ended(elem){
     var was_rotated = $(elem).data("rotation") ? $(elem).data("rotation") : null;
-    $('div.sl_wrap').on('webkitTransitionEnd moztransitionend transitionend oTransitionEnd', "section", function () {
+     $('div.sl_wrap').on('webkitTransitionEnd moztransitionend transitionend oTransitionEnd', "section", function () {
         if($("section.js_dissable, section.js_pushed").not(".disable_form_elements").length){
             $("section.js_dissable, section.js_pushed").not(".disable_form_elements").addClass("disable_form_elements");
         }
@@ -598,9 +612,10 @@ Working with methods of forms etc.
 Try to imitate real mechanisms
 ***/
 function activate_method(elem){
-    var variable = variable | null;
+//    var variable = variable | null;
+    var variable = null;
     var method = $(elem).data("method") ? $(elem).data("method") : null;
-    var variable = $(elem).data("variable") ? $(elem).data("variable") : null;
+    variable = $(elem).data("variable") ? $(elem).data("variable") : null;
     try {
         method = eval(method);
         method(elem, variable);
@@ -626,17 +641,25 @@ function wash_info(elem){
             });
         }
         setTimeout(function(){
-            var animate_it = $("section[data-page=#home] .js_move_to_top");
-            animate_it.addClass("js_show_offer_information").css({
-                "-webkit-animation": "show_it .5s ease-in 1 forwards"
-            });
+            var animate_it = $("section[data-page=#wash_info] .js_move_to_top");
+            animate_it.addClass("js_show_offer_information");//.css({
+//                "-webkit-animation": "top .5s ease-in 1 forwards",
+//                top: '-1055px',
+//                display: 'block'
+//            });
+            animate_it.show().animate({top: -1055}, 1000);
             setTimeout(function(){
                 if(animate_it.hasClass("js_show_offer_information")) {
-                    animate_it.removeClass("js_show_offer_information").css({
-                        "-webkit-animation": "hide_it .5s ease-in 1 forwards"
+                    animate_it.animate({top: 0}, 1000, function(){
+                        $(this).hide();
                     });
+//                    animate_it.removeClass("js_show_offer_information").css({
+//                        "-webkit-animation": "top .5s ease-in 1 forwards",
+//                        'display': "none",
+//                        top: 0
+//                    });
                 }
-            }, 2000);
+            }, 5000);
         }, 300);
         $("form").not(".should_not_be_reseted").each(function(){
            $(this)[0].reset();
@@ -789,7 +812,6 @@ function fakeOrder(){
     var element = 0;
     $(".hidden_elem").each(function(){
         if ($(this).hasClass("js_order_button_ok")){
-            console.log("js_order_button_ok");
             interval -= 1900;
         }
         var $self = $(this);
@@ -827,6 +849,70 @@ function clearInputPassword(form){
         $(this).val("");
     });
 }
+
+(function($) {
+    jQuery.fn.buildSeparatedFields = function() {
+        return this.each(function() {
+            var $self = $(this);
+            var params = {
+                fields: $self.find('input'),
+                otpMask: (/[^0-9]+/g)
+            };
+            params.fieldsCount = params.fields.length;
+            $.each(params.fields, function(index, field) {
+                if (field) {
+                    $(field).on({
+                        keydown : function(event) {
+                            this.value = "";
+                        },
+                        keyup : function(event) {
+                            var current_val = this.value;
+                            this.value = "";
+                            this.value = (current_val || '').replace(params.otpMask, '');
+                            if ((event.keyCode >= 48 && event.keyCode <= 57) || event.keyCode === 8) {
+                                if (this.value.length === 1) {
+                                    var next = $(this).next('input')[0];
+                                    if (next) {
+                                        this.parentNode.insertBefore(next, this);
+                                        var val = (next.value || '').replace(params.otpMask, '');
+                                        next.value = (this.value || '').replace(params.otpMask, '');
+                                        this.value = val;
+                                    }
+//                                    else{
+//                                        var uncomplete = false;
+//                                        $.each(params.fields, function(_index, _field){
+//                                            if(!_field.value.length)
+//                                                    });
+//
+//
+//                                            $(this).blur();
+//                                        }
+                                }else {
+                                    if (event.keyCode === 8) {
+                                        if(!this.value){
+                                            var previous = this.previousElementSibling;
+                                            if (previous) {
+                                                this.parentNode.insertBefore(previous, $(this).next('input')[0]);
+                                                this.value = previous.value;
+                                                previous.value = "";
+                                            }
+                                        }else{
+                                            this.value = "";
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        focus : function(event) {
+//                            this.value = "";
+                        }
+                    });
+                }
+            });
+        });
+    };
+})(jQuery);
+
 $(document).ready(function(){
     set_profile();
     $.preloadImage(
@@ -839,6 +925,10 @@ $(document).ready(function(){
         }
     );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
+
+    $(".js_password_items").buildSeparatedFields();
+
+
     $("section[data-page=#home] .js_move_to_top").on('animationend mozanimationend webkitAnimationEnd oAnimationEnd msanimationend', function () {
         if($(this).hasClass("sl_bbtn_next_down")){
             $(this).removeClass("sl_bbtn_next_down");
@@ -846,7 +936,138 @@ $(document).ready(function(){
             $(this).addClass("sl_bbtn_next_down");
         }
     });
-    $("form").on("submit", function(){
+
+
+    $('#id_order_form').on("submit", function(event){
+        event.preventDefault();
+        var $form = $(this);
+//        var url = $form.attr('action');
+        var url = glob_url + 'order/create/';
+        var $preloader = $(".js_preloader");
+        var $self = $(this);
+        var $profile = $("#js_profile_client");
+
+
+        if( $form.valid() ){
+            var data = $form.serialize();
+            data += "&order="+JSON.stringify(order);
+
+            $.post(url, data,
+                    function(response){
+                        switch (response.status){
+                            case "user_are_blocked":
+                                var email = localStorage.getItem("email") || "a";
+                                if (response.email.toLowerCase() === email.toLowerCase()){
+                                    localStorage.setItem("blocked","1")
+                                }
+                                var href = $self.data("href");
+                                $self.data("href","#block_page");
+                                $("#shell_blocked_email").text(response.email);
+                                $preloader.hide();
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
+                                glob_block_current_client = true;
+                                $self.data("href", href);
+                                break;
+                            case "error_code":
+                                if ($self.hasClass("js_update_profile") || $self.hasClass("js_ord_log_pass")){
+                                    $self.find("input").each(function(){
+                                        if ($(this).hasClass("valid")){$(this).removeClass("valid");}
+                                        if (!$(this).hasClass("error")){$(this).addClass("error");}
+                                    });
+                                }
+                                else{
+                                    var $code = $self.find("input[name=login_code]");
+                                    if ($code.hasClass("valid")){$code.removeClass("valid");}
+                                    if (!$code.hasClass("error")){$code.addClass("error");}
+                                }
+                                break;
+                            case "client_not_exist":
+                                var $login_email = $self.find("input[name=login_email]");
+                                if ($login_email.hasClass("valid")){$login_email.removeClass("valid");}
+                                if (!$login_email.hasClass("error")){$login_email.addClass("error");}
+                                break;
+                            case "client_create":
+                                 move_sections($self, animation_ended);
+                                setLocalStorage(response);
+                                set_profile();
+                                $preloader.hide();
+                                break;
+                            case "email_exist":
+                                if ($self.hasClass("js_update_profile")){
+                                    $self.find("input").each(function(){
+                                        $(this).val("");
+                                    });
+                                    var mail = $profile.find("input[name=email]");
+                                    if (mail.hasClass("valid")){mail.removeClass("valid");}
+                                    if (!mail.hasClass("error")){mail.addClass("error");}
+                                    transition_in_progress = true;
+                                    move_sections($self, animation_ended);
+                                }
+                                else{
+                                    var $email = $self.find("input[name=email]");
+                                    if ($email.hasClass("valid")){$email.removeClass("valid");}
+                                    if (!$email.hasClass("error")){$email.addClass("error");}
+                                }
+                                $preloader.hide();
+                                break;
+                            case "client_update":
+                            case "login_success":
+                                setLocalStorage(response);
+                                set_profile();
+                                if (response.status ==="client_update"){
+                                     clearInputPassword($self);
+                                }
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
+                                $preloader.hide();
+                                break;
+                            case "order_create":
+                                if (response.hasOwnProperty("client")){
+                                    setLocalStorage(response);
+                                    set_profile();
+                                }
+                                order = {};
+                                transition_in_progress = true;
+                                move_sections($self, animation_ended);
+                                $preloader.hide();
+                                fakeOrder();
+                                break;
+                            case "form_not_valid":
+                                show_alert("form_not_valid");
+                                break;
+                            case "not_post":
+                                show_alert("not_post");
+                                break;
+                            case "no_order":
+                                show_alert("no_order");
+                                break;
+                        }
+
+                    }
+                ,'json');
+        }
+    });
+
+    $('#id_login_form').on("submit", function(event){
+//     ToDo: remove it
+        event.preventDefault();
+        var $form = $(this);
+//        var url = $form.attr('action');
+        var url = glob_url + 'order/create/';
+
+        if( $form.valid() ){
+            var data = $form.serialize();
+            data += "&order="+JSON.stringify(order);
+
+            $.post(url, data, function(response){
+            }, 'json');
+        }
+    });
+
+
+    $("form").not('#id_order_form, #id_login_form').on("submit", function(){
+//    $("form").not('#id_login_form').on("submit", function(){
         if ($(this).valid()){
             if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
@@ -870,14 +1091,12 @@ $(document).ready(function(){
                         data +="&email="+localStorage.getItem("email");
                     }
                     data += "&order="+JSON.stringify(order);
-                    alert($self.attr('action'));
                 }
                 $preloader.show();
                 $.post(
                     url,
                     data,
                     function(response){
-                        console.log(response);
                         switch (response.status){
                             case "user_are_blocked":
 //                                var $client_forms = $("form.js_form_client");
@@ -1160,7 +1379,7 @@ $(document).ready(function(){
                     setTimeout(function(){move_sections($(this), animation_ended)}, 250);
                 }
             } else if($(this).hasClass("check_form")){
-                var form = $(this).parents("form");
+                var form = $(this).closest("form");
                 if (!form.hasClass("js_form_client")){
                     form.data({"href": get_href($(this))});
                 }
@@ -1171,7 +1390,8 @@ $(document).ready(function(){
                     }
                 }
                 else{
-                    form.submit();}
+                    form.submit();
+                }
             }
 
             else {
@@ -1189,7 +1409,10 @@ $(document).ready(function(){
         }
     });
     slideOn($("section .js_button_move"), 408, 0, "left", function(elem, position){
-        if(position) move_sections($(elem), animation_ended)
+        if(position){
+
+            move_sections($(elem), animation_ended)
+        }
     });
 
     /*.on("mouseup",function(event){

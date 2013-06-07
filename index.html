@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="sl_bbtn_next js_move_to_top">
-            <div class="js_special_offer_info">DIT SPECIAL TILBUD</div>
+            <div class="special_offer_info">DIT SPECIAL TILBUD</div>
 
             <div class="offer_information">
                 <div class="sl_body">
@@ -166,6 +166,8 @@
                 </div>
                 <div class="wmt_clear">
                     <a class="sl_btn wmt_f_l js_login_button js_button_click" id="payment_login" href="#order_login_with_email" data-method="reset_form" disabled="disabled">
+                    <!--<a class="sl_btn wmt_f_l js_login_button js_button_click" id="payment_login" href="#order_login" data-method="reset_form" disabled="disabled">-->
+                    <!--<a class="sl_btn wmt_f_l" id="payment_login" href="#order_login_code" data-method="reset_form" disabled="disabled">-->
                         <p class="sl_btn_light"></p>
                         <p class="sl_btn_text">
                             LOGIN
@@ -203,16 +205,18 @@
         </div>
         <div class="sl_title_yshadow"></div>
         <div class="sl_price_box">
-            <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">
+            <!--<form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">-->
+            <form method="post" action="#" id="id_order_form"
+                  data-method="update_profile" data-variable="true" class="" data-href="#thank_you">
                 <div class="sl_desc_box">
-                    <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:">
-                    <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:">
-                    <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:">
-                    <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:">
-                    <input class="sl_cred_numer" name="free_email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:" value="">
+                    <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:" value="">
+                    <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:" value="">
+                    <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:" value="">
+                    <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:" value="">
                     <!--<input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">-->
-                    <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:">
-                    <!--<input class="sl_cred_numer" name="code" type="number" maxlength="4" pattern="\d{4}" placeholder="CODE:">-->
+                    <input class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:" value="">
+                    <input class="sl_cred_numer" name="code" type="tel" maxlength="4" pattern="\d{4}" placeholder="CODE:">
                     <!--<input class="sl_cred_numer" name="code" type="number" maxlength="4" placeholder="CODE:">-->
                     <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1">
                     <label class="sl_check_label" for="c1">
@@ -245,8 +249,8 @@
         <div class="sl_price_box">
             <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_form_login" data-href="#profile">
                 <div class="sl_desc_box">
-                    <input class="sl_cred_numer" name="login_email" type="text" placeholder="EMAIL:">
-                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="login_code" placeholder="KODE:" maxlength="4">
+                    <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
                 </div>
                 <a href="#thank_you" class="sl_buy_btn check_form js_button_click">
                 </a>
@@ -275,7 +279,7 @@
 
     </div>
 
-    <div class="sl_btn_ok hidden_elem  js_order_status js_order_button_ok">
+    <div class="sl_btn_ok hidden_elem js_order_status js_order_button_ok">
         <div class="sl_inok js_button_click js_order_done" data-href="#start_wash" data-method="show_offer">
             <p>OK</p>
         </div>
@@ -310,7 +314,7 @@
                         Start vask
                     </h2>
                     <div class="sl_ss34">
-                        <div class="sl_inok sl_ss_33 js_button_move"  data-href="#home" data-method="wash_info">
+                        <div class="sl_inok sl_ss_33 js_button_move"  data-href="#wash_info" data-method="wash_info">
                             <p><img src="img/ip_arrow.png" alt=""></p>
                         </div>
                     </div>
@@ -319,7 +323,7 @@
         </div>
         <div class="sl_bbtn_next js_move_to_top">
             <div class="js_draggable_offers"></div>
-            <div class="js_special_offer_info">DIT SPECIAL TILBUD</div>
+            <div class="special_offer_info">DIT SPECIAL TILBUD</div>
             <div class="offer_information">
                     <div class="sl_body">
                     <div class="sl_cola_box">
@@ -377,6 +381,28 @@
             </div>
         </div>
     </div>
+            <div class="sl_bbtn_next js_move_to_top">
+            <div class="special_offer_info">DIT SPECIAL TILBUD</div>
+
+            <div class="offer_information">
+                <div class="sl_body">
+                    <div class="sl_cola_box">
+                        <div class="sl_cola_title">
+                            DIT SPECIAL TILBUD!
+                        </div>
+                        <div class="sl_top_price">
+                            <table class="sl_table_sel sl_ss_37">
+                                <tr>
+                                    <td class="wmt_ta_r">
+                                        25,-
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </section>
 <!-- Profile page -->
 <section class="js_dissable disable_form_elements" data-page="#profile" >
@@ -392,7 +418,7 @@
         <div class="sl_ss_40 wmt_p_r">
             <img class="sl_status_im" src="img/status.png" alt="">
         </div>
-        <form method="post" action="http://shell.d1.wmtcloud.tk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
+        <form method="post" action="http://shell.wmt.dk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
             <div class="sl_right_navbox sl_ss_38">
                 <div class="sl_ss_42">VASK INFO</div>
                 <input class="sl_cred_numer sl_ss_43" type="text" name="first_name" placeholder="FORNAVN:">
@@ -621,11 +647,11 @@
         <div class="sl_title_yshadow sl_simpl_style_4"></div>
         <div class="sl_price_box">
             <form method="post" action="#" class="js_login_form js_update_profile js_form_client" data-href="#profile">
-                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
+                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5 sl_password_items js_password_items">
                     <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
                     <!--<input class="sl_cred_mrd" type="text">-->
                     <!--<input class="sl_cred_ar" type="text">-->
                     <!--<input class="sl_cred_cvc" type="text">-->
@@ -660,8 +686,36 @@
         <div class="sl_price_box">
             <form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">
                 <div class="sl_desc_box">
-                    <input class="sl_cred_numer" name="login_email" type="text" placeholder="EMAIL:">
-                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="login_code" placeholder="KODE:" maxlength="4">
+                    <input class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:">
+                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
+                </div>
+                <a href="#thank_you" class="sl_buy_btn check_form js_button_click">
+                </a>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section class="js_dissable disable_form_elements" data-page="#order_login_code" >
+    <div class="sl_topbar">
+        <div class="sl_menu_button js_back_button js_button_click" data-href="#get_creadit_card_details">
+
+        </div>
+        <div class="sl_logo_mic">
+            <img src="img/logo_mic.png" alt="">
+        </div>
+        <div class="sl_topbar_shadow"></div>
+    </div>
+    <div class="sl_body">
+        <div class="sl_title sl_simpl_style_3">
+            DINE KONTAKT INFO:
+        </div>
+        <div class="sl_title_yshadow"></div>
+        <div class="sl_price_box">
+            <form method="post" action="#" id="id_login_form" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">
+                <div class="sl_desc_box">
+                    <input name="email" type="hidden">
+                    <input class="sl_cred_numer sl_ss_43" type="text" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
                 </div>
                 <a href="#thank_you" class="sl_buy_btn check_form js_button_click">
                 </a>
@@ -688,11 +742,11 @@
         <div class="sl_title_yshadow sl_simpl_style_4"></div>
         <div class="sl_price_box">
             <form method="post" action="#" class="js_form_client js_order_login js_authorize_client js_ord_log_pass" data-href="#thank_you">
-                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_l sl_simpl_style_7" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
-                    <input class="sl_cred_numer sl_lognum wmt_f_r lastInForm" name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                <div class="sl_desc_box sl_desc_box_h sl_simpl_style_5 sl_password_items js_password_items">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l " name="password_1" type="text" pattern="\d*" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l " name="password_2" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l" name="password_3" pattern="\d*" type="text" placeholder="0" maxlength="1">
+                    <input class="sl_cred_numer sl_lognum wmt_f_l " name="password_4" type="text" pattern="\d*" placeholder="0" maxlength="1">
                     <!--<input class="sl_cred_mrd" type="text">-->
                     <!--<input class="sl_cred_ar" type="text">-->
                     <!--<input class="sl_cred_cvc" type="text">-->
