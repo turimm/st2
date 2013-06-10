@@ -430,14 +430,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-        var position = {
-            coords:{
-                latitude: 49.233292,
-                longitude: 28.466949
-            }
-        };
-        successFunction(position);
-//        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+//        var position = {
+//            coords:{
+//                latitude: 49.233292,
+//                longitude: 28.466949
+//            }
+//        };
+//        successFunction(position);
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
@@ -968,25 +968,7 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
-    map = new google.maps.Map(document.getElementById('google_map_canvas'), {
-//        center: new google.maps.LatLng(lat, lng),
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        mapTypeControl: false
-    });
-    map2 = new google.maps.Map(document.getElementById('contact_google_map'), {
-//          center: new google.maps.LatLng(lat, lng),
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          mapTypeControl: false,
-          draggable: false,
-          keyboardShortcuts: false,
-          panControl: false,
-          scaleControl: false,
-          scrollwheel: false,
-          zoomControl: false,
-          disableDoubleClickZoom: true
-    });
+
 
     set_profile();
 
