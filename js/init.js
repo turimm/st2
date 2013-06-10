@@ -173,7 +173,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false
-        }
+        };
         var mapOptions2 = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 16,
@@ -186,10 +186,27 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           scrollwheel: false,
           zoomControl: false,
           disableDoubleClickZoom: true
-        }
+        };
 
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
         map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
+
+        if (glob_preloader){
+            google.maps.event.addListenerOnce(map, 'idle', function(){
+                currentMapCount++;
+//                if( currentMapCount >= 2 ){
+//                    hideSplashScreen();
+                    //hide_preloader();
+//                }
+            });
+            google.maps.event.addListenerOnce(map2, 'idle', function(){
+                currentMapCount++;
+//                if( currentMapCount >= 2 ){
+//                    hideSplashScreen();
+//                    hide_preloader();
+//                }
+            });
+        }
         // Feature for the nearest shell station and current client
         //  Make an array of the LatLng's of the markers you want to show
         var LatLngList = new Array (new google.maps.LatLng ($glob_stations[0].lat,$glob_stations[0].lon), mapOptions.center);
@@ -231,7 +248,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         var phone;
         var image = 'img/logo_mic.png';
         var infowindow = new google.maps.InfoWindow(), marker, i;
-        for (i = 0; i < markers.length; i++) {
+        for (var i = 0; i < markers.length; i++) {
             phone = markers[i][3];
             marker = new google.maps.Marker({
                 id: "marker_"+markers[i][1]+"_"+markers[i][2],
@@ -239,6 +256,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
                 map: map,
                 icon: image
             });
+
             glob_markersObj[marker.id] = marker;
 
             google.maps.event.addListener(marker, 'click', (function(marker, i, phone) {
@@ -250,16 +268,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
             })(marker, i, phone));
 
         }
-        if (glob_preloader){
-            google.maps.event.addListenerOnce(map, 'idle', function(){
-                currentMapCount++;
-//                if( currentMapCount >= 2 ){ hide_preloader(); }
-            });
-            google.maps.event.addListenerOnce(map2, 'idle', function(){
-                currentMapCount++;
-//                if( currentMapCount >= 2 ){ hide_preloader(); }
-            });
-        }
+
       }
 $(document).on(glob_event,".js_search_stations", function(){
     var $checkboxes = $(this).closest("section").find("input[type=checkbox]:checked");
@@ -305,8 +314,10 @@ function successFunction(position) {
 //        return;
 //    }
 //    49.233292,28.466949
+
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
+
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
@@ -371,17 +382,17 @@ function successFunction(position) {
                     });
 
                     var $special_offers = $(".js_move_to_top").find(".js_special_offer_info");
-                    for ( i=0; i<$special_offers.length; i++){
+                    for ( var i=0; i<$special_offers.length; i++){
                         $special_offers[i].outerText = " <<  " +$special_offers[i].outerText+ "  >> "
                     }
                 }
                 // try to hide block if not exist special offers
-//                initialize_google_map(glob_lat, glob_lon, glob_markers);
+                initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
-            hide_preloader();
+//            hide_preloader();
 
         }
         ,"json"
@@ -413,14 +424,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-//        var position = {
-//            coords:{
-//                latitude: 49.233292,
-//                longitude: 28.466949
-//            }
-//        };
-//        successFunction(position);
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        var position = {
+            coords:{
+                latitude: 49.233292,
+                longitude: 28.466949
+            }
+        };
+        successFunction(position);
+//        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
@@ -768,12 +779,14 @@ function hideSplashScreen(){
     if( DEBUG_MODE ){
         if (!$(".js_load_bar").hasClass("sl_load_bar")){
             $(".js_load_bar").addClass("sl_load_bar");
+//            hide_preloader();
         }
     }else{
         setTimeout(function(){
             navigator.splashscreen.hide();
              if (!$(".js_load_bar").hasClass("sl_load_bar")){
                 $(".js_load_bar").addClass("sl_load_bar");
+//                 hide_preloader();
             }
         },100);
     }
@@ -1456,12 +1469,12 @@ $(document).ready(function(){
         }
     );
 
-//    var hide_splash_screen = setInterval(function(){
-//        if( currentMapCount >= 2 ){
-//            hide_preloader();
-//            clearInterval( hide_splash_screen );
-//        }
-//    }, 100);
+    var hide_splash_screen = setInterval(function(){
+        if( currentMapCount >= 2 ){
+            hide_preloader();
+            clearInterval( hide_splash_screen );
+        }
+    }, 100);
     /*.on("mouseup",function(event){
             event.stopPropagation();
             slice = Math.abs(slice - parseInt(event.pageY));
