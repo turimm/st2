@@ -331,7 +331,7 @@ function successFunction(position) {
                 $(".sl_wrap").prepend(render_to('templates/washing_type_description.html', {station: station}));
                 $(".sl_wrap").append(render_to('templates/washing_type_description2.html', {washing_types: washing_types}));
                 $(".js_station_info").html(station.description);
-//                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
+                $(".offer_information").html(render_to('templates/list_of_special_offers.html', {station: station}));
                 $(".js_all_washing_types").html(render_to('templates/all_washing_types.html', {washing_types: washing_types}));
                 $(".js_phone_station").attr("href","tel:"+station.phone);
                 // for Contact info
@@ -603,6 +603,8 @@ function animation_ended(elem){
         $("section").off('webkitTransitionEnd moztransitionend transitionend oTransitionEnd');
     });
 }
+
+
 function get_href(elem){
     return $(elem).attr("href") ? $(elem).attr("href") : ($(elem).data("href") ? $(elem).data("href") : "#home");
 }
@@ -612,20 +614,35 @@ Working with methods of forms etc.
 Try to imitate real mechanisms
 ***/
 function activate_method(elem){
-//    var variable = variable | null;
-    var variable = null;
     var method = $(elem).data("method") ? $(elem).data("method") : null;
-    variable = $(elem).data("variable") ? $(elem).data("variable") : null;
-    try {
-        method = eval(method);
-        method(elem, variable);
-    } catch (e) {}
+    var variable = $(elem).data("variable") ? $(elem).data("variable") : null;
+    if( method )
+        try {
+            method = eval(method);
+            method(elem, variable);
+        } catch (e) {
+            console.log(e);
+        }
 }
+
+//function activate_method(elem){
+//    var method = $(elem).data("method") ? $(elem).data("method") : null;
+//    console.log(method);
+//    try {
+//        method = eval(method);
+//        method(elem);
+//    } catch (e) {
+//        console.log(e);
+//    }
+//}
+
 function find_washer(elem){
     if($("#searching_results").length) {
         $("#searching_results").attr("src", "img/map_s.jpg")
     }
 }
+
+
 function wash_info(elem){
     if($(".js_time_wash").length){
         if($(".js_button_move").length) {
@@ -642,24 +659,25 @@ function wash_info(elem){
         }
         setTimeout(function(){
             var animate_it = $("section[data-page=#wash_info] .js_move_to_top");
-            animate_it.addClass("js_show_offer_information");//.css({
-//                "-webkit-animation": "top .5s ease-in 1 forwards",
+//            animate_it.addClass("js_show_offer_information");//.css({
+            animate_it.css({
+                "-webkit-animation": "show_it .5s ease-in 1 forwards"
 //                top: '-1055px',
 //                display: 'block'
-//            });
-            animate_it.show().animate({top: -1055}, 1000);
+            });
+//            animate_it.show().animate({top: -1055}, 1000);
             setTimeout(function(){
                 if(animate_it.hasClass("js_show_offer_information")) {
-                    animate_it.animate({top: 0}, 1000, function(){
-                        $(this).hide();
-                    });
-//                    animate_it.removeClass("js_show_offer_information").css({
-//                        "-webkit-animation": "top .5s ease-in 1 forwards",
+//                    animate_it.animate({top: 0}, 1000, function(){
+//                        $(this).hide();
+//                    });
+                    animate_it.removeClass("js_show_offer_information").css({
+                        "-webkit-animation": "hide_it .5s ease-in 1 forwards"
 //                        'display': "none",
 //                        top: 0
-//                    });
+                    });
                 }
-            }, 5000);
+            }, 3000);
         }, 300);
         $("form").not(".should_not_be_reseted").each(function(){
            $(this)[0].reset();
@@ -668,6 +686,17 @@ function wash_info(elem){
 }
 function show_offer(elem){
     $(".offer_information").parent().css({"display": "block"})
+}
+
+function autofill_order(elem){
+    var $form = $('#id_order_form');
+    $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
+    $form.find('input[name=last_name]').val( localStorage.getItem("last_name") || '' );
+    $form.find('input[name=address]').val( localStorage.getItem("address") || '' );
+    $form.find('input[name=phone]').val( localStorage.getItem("phone") || '' );
+    $form.find('input[name=email]').val( localStorage.getItem("email") || '' );
+    $form.find('input[name=by_post]').val( localStorage.getItem("by_post") || '' );
+    $form.find('input[name=code]').val( '' );
 }
 
 function try_order(elem){
@@ -912,6 +941,7 @@ function clearInputPassword(form){
         });
     };
 })(jQuery);
+
 
 $(document).ready(function(){
     set_profile();
@@ -1429,3 +1459,4 @@ $(document).ready(function(){
 
 
 });
+
