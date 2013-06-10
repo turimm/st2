@@ -74,7 +74,7 @@ function check_if_client_blocked(on_resume){
                 }
             }
         },
-        async:false,
+        async:true,
         dataType: "json"
     });
 
@@ -710,7 +710,7 @@ function render_to(url_to_template, locals){
             locals['filename'] = locals.hasOwnProperty("filename") ? locals.filename : url_to_template;
             strReturn = tmpl(locals);
         },
-        async:false
+        async:true
 //        isLocal: true
     });
     return strReturn;
@@ -947,11 +947,9 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
-//    set_profile();
-
+    set_profile();
 
     simulateTouchEvents(".js_move_to_top, .js_button_move");
-
 
     $(".js_password_items").buildSeparatedFields();
 
