@@ -74,7 +74,7 @@ function check_if_client_blocked(on_resume){
                 }
             }
         },
-        async:true,
+        async:false,
         dataType: "json"
     });
 
@@ -349,18 +349,19 @@ function successFunction(position) {
 //                        $('.prev_offer')[index==0?'hide':'show']();
 //                        $('.next_offer')[index==opts.slideCount-1?'hide':'show']();
 //                    }
-                $(".js_gallery").cycle({
-                    fx:     'scrollHorz',
-                    prev:   '.prev_offer',
-                    next:   '.next_offer',
-//                    after:   onAfter,
-                    timeout: 0,
-//                    easing:  'easeInOutBack',
-                    fit :1,
-                    width: "640",
-                    speed: 500
-               });
-                    $(".js_gallery").touchwipe({
+                    $(".js_gallery")
+                        .cycle({
+                            fx:     'scrollHorz',
+                            prev:   '.prev_offer',
+                            next:   '.next_offer',
+                        //                    after:   onAfter,
+                            timeout: 0,
+                        //                    easing:  'easeInOutBack',
+                            fit :1,
+                            width: "640",
+                            speed: 500
+                        })
+                        .touchwipe({
                           wipeLeft: function() {
                                 $(".js_gallery").cycle("next");
                           },
@@ -375,12 +376,12 @@ function successFunction(position) {
                     }
                 }
                 // try to hide block if not exist special offers
-                initialize_google_map(glob_lat, glob_lon, glob_markers);
+//                initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
-//            hide_preloader();
+            hide_preloader();
 
         }
         ,"json"
@@ -710,7 +711,8 @@ function render_to(url_to_template, locals){
             locals['filename'] = locals.hasOwnProperty("filename") ? locals.filename : url_to_template;
             strReturn = tmpl(locals);
         },
-        async:true
+        async:false,
+        cache: true
 //        isLocal: true
     });
     return strReturn;
@@ -1454,12 +1456,12 @@ $(document).ready(function(){
         }
     );
 
-    var hide_splash_screen = setInterval(function(){
-        if( currentMapCount >= 2 ){
-            hide_preloader();
-            clearInterval( hide_splash_screen );
-        }
-    }, 100);
+//    var hide_splash_screen = setInterval(function(){
+//        if( currentMapCount >= 2 ){
+//            hide_preloader();
+//            clearInterval( hide_splash_screen );
+//        }
+//    }, 100);
     /*.on("mouseup",function(event){
             event.stopPropagation();
             slice = Math.abs(slice - parseInt(event.pageY));
