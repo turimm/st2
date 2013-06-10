@@ -968,7 +968,25 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
-
+    map = new google.maps.Map(document.getElementById('google_map_canvas'), {
+//        center: new google.maps.LatLng(lat, lng),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+    });
+    map2 = new google.maps.Map(document.getElementById('contact_google_map'), {
+//          center: new google.maps.LatLng(lat, lng),
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          draggable: false,
+          keyboardShortcuts: false,
+          panControl: false,
+          scaleControl: false,
+          scrollwheel: false,
+          zoomControl: false,
+          disableDoubleClickZoom: true
+    });
 
     set_profile();
 
