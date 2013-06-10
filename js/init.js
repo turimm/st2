@@ -23,6 +23,7 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
+var currentMapCount = 0;
 //var glob_url = "http://0.0.0.0:8000/shell/";
 var glob_url = "http://shell.wmt.dk/shell/";
 
@@ -158,14 +159,15 @@ function filter_stations(mas, self){
     setTimeout(function(){move_sections(self, animation_ended)},0);
 }
 function initialize_google_map(lat, lng, markers, transition, _self) {
-        function mapLoadCounter(){
-            var currentCount = 0;
-            return function(){
-                currentCount++;
-                return currentCount;
-            };
-}
-        var countMap = mapLoadCounter();
+//        function mapLoadCounter(){
+//            var currentCount = 0;
+//            return function(){
+//                currentCount++;
+//                return currentCount;
+//            };
+//        }
+//
+//        var countMap = mapLoadCounter();
         var mapOptions = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 12,
@@ -250,10 +252,12 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
         }
         if (glob_preloader){
             google.maps.event.addListenerOnce(map, 'idle', function(){
-            if (countMap() === 2){hide_preloader();}
+                currentMapCount++;
+//                if( currentMapCount >= 2 ){ hide_preloader(); }
             });
             google.maps.event.addListenerOnce(map2, 'idle', function(){
-                if (countMap() === 2){hide_preloader();}
+                currentMapCount++;
+//                if( currentMapCount >= 2 ){ hide_preloader(); }
             });
         }
       }
@@ -659,11 +663,8 @@ function wash_info(elem){
         }
         setTimeout(function(){
             var animate_it = $("section[data-page=#wash_info] .js_move_to_top");
-//            animate_it.addClass("js_show_offer_information");//.css({
-            animate_it.css({
+            animate_it.addClass("js_show_offer_information").css({
                 "-webkit-animation": "show_it .5s ease-in 1 forwards"
-//                top: '-1055px',
-//                display: 'block'
             });
 //            animate_it.show().animate({top: -1055}, 1000);
             setTimeout(function(){
@@ -673,8 +674,6 @@ function wash_info(elem){
 //                    });
                     animate_it.removeClass("js_show_offer_information").css({
                         "-webkit-animation": "hide_it .5s ease-in 1 forwards"
-//                        'display': "none",
-//                        top: 0
                     });
                 }
             }, 3000);
@@ -735,48 +734,50 @@ function start_order(elem, variable){
     }
 }
 
-  $.preloadImage=function(src,onSuccess,onError)
-    {
-        var img = new Image();
-        img.src=src;
-        var error=false;
-        img.onerror=function(){
-            error=true;
-            if(onError)onError.call(img);
+$.preloadImage=function(src,onSuccess,onError)
+{
+    var img = new Image();
+    img.src=src;
+    var error=false;
+    img.onerror=function(){
+        error=true;
+        if(onError)onError.call(img);
+    };
+    if(error==false)
+    setTimeout(function(){
+        if(img.height>0&&img.width>0){
+            if(onSuccess)onSuccess.call(img);
+            return img;
+        }   else {
+            setTimeout(arguments.callee,5);
         }
-        if(error==false)
-        setTimeout(function(){
-            if(img.height>0&&img.width>0){
-                if(onSuccess)onSuccess.call(img);
-                return img;
-            }   else {
-                setTimeout(arguments.callee,5);
-            }
-        },0);
-        return img;
-    }
+    },0);
+    return img;
+};
 
-    $.preloadImages=function(arrayOfImages){
-        $.each(arrayOfImages,function(){
-            $.preloadImage(this);
-        })
-    }
+$.preloadImages=function(arrayOfImages){
+    $.each(arrayOfImages,function(){
+        $.preloadImage(this);
+    })
+};
+
 
 function hideSplashScreen(){
-     if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
+    if( DEBUG_MODE ){
+        if (!$(".js_load_bar").hasClass("sl_load_bar")){
+            $(".js_load_bar").addClass("sl_load_bar");
+        }
+    }else{
+        setTimeout(function(){
+            navigator.splashscreen.hide();
+             if (!$(".js_load_bar").hasClass("sl_load_bar")){
+                $(".js_load_bar").addClass("sl_load_bar");
             }
-     else{
-         if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-     }
+        },100);
+    }
 }
+
+
 function isLocalStorageAvailable() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
@@ -784,6 +785,8 @@ function isLocalStorageAvailable() {
             return false;
         }
 }
+
+
 function set_profile(){
      if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
@@ -945,16 +948,10 @@ function clearInputPassword(form){
 
 $(document).ready(function(){
     set_profile();
-    $.preloadImage(
-        'css/img/bg_1.jpg',
-        function(){
-           hideSplashScreen();
-        },
-        function(){
-             hideSplashScreen();
-        }
-    );
+
+
     simulateTouchEvents(".js_move_to_top, .js_button_move");
+
 
     $(".js_password_items").buildSeparatedFields();
 
@@ -1431,6 +1428,8 @@ $(document).ready(function(){
         }
         return false;
     });
+
+
     slideOn($("section .js_move_to_top"), 0, -900, "top", function(elem, position/*True if callback should be activated only when position of elementis max*/){
         if (!position) {
             if(!$(elem).hasClass("sl_bbtn_next_down") && $(elem).hasClass("js_move_to_top")) $(elem).addClass("sl_bbtn_next_down");
@@ -1438,6 +1437,8 @@ $(document).ready(function(){
             if($(elem).hasClass("sl_bbtn_next_down")) $(elem).removeClass("sl_bbtn_next_down");
         }
     });
+
+
     slideOn($("section .js_button_move"), 408, 0, "left", function(elem, position){
         if(position){
 
@@ -1445,6 +1446,22 @@ $(document).ready(function(){
         }
     });
 
+    $.preloadImage(
+        'css/img/bg_1.jpg',
+        function(){
+            hideSplashScreen();
+        },
+        function(){
+            hideSplashScreen();
+        }
+    );
+
+    var hide_splash_screen = setInterval(function(){
+        if( currentMapCount >= 2 ){
+            hide_preloader();
+            clearInterval( hide_splash_screen );
+        }
+    }, 100);
     /*.on("mouseup",function(event){
             event.stopPropagation();
             slice = Math.abs(slice - parseInt(event.pageY));
