@@ -434,7 +434,7 @@ function timer(elem, timer/*Seconds*/, callback/*What to do after timer stopped*
     var start_time = new Date(),
         elem = elem,
         timer = timer,
-        callback = callback||function(){};
+        callback = callback || function(){};
         var timeout;
     function show_left_time(){
         var delta = (timer - parseInt((new Date() - start_time)/1000)), minutes, seconds;
@@ -947,7 +947,7 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
-    set_profile();
+//    set_profile();
 
 
     simulateTouchEvents(".js_move_to_top, .js_button_move");
