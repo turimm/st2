@@ -194,8 +194,8 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           disableDoubleClickZoom: true
         };
 
-        map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
-        map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
+//        map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
+//        map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
 
         if (glob_preloader){
             google.maps.event.addListenerOnce(map, 'idle', function(){
@@ -393,7 +393,7 @@ function successFunction(position) {
                     }
                 }
                 // try to hide block if not exist special offers
-//                initialize_google_map(glob_lat, glob_lon, glob_markers);
+                initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
@@ -968,6 +968,26 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
+    map = new google.maps.Map(document.getElementById('google_map_canvas'), {
+//        center: new google.maps.LatLng(lat, lng),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeControl: false
+    });
+    map2 = new google.maps.Map(document.getElementById('contact_google_map'), {
+//          center: new google.maps.LatLng(lat, lng),
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControl: false,
+          draggable: false,
+          keyboardShortcuts: false,
+          panControl: false,
+          scaleControl: false,
+          scrollwheel: false,
+          zoomControl: false,
+          disableDoubleClickZoom: true
+    });
+
     set_profile();
 
     simulateTouchEvents(".js_move_to_top, .js_button_move");
