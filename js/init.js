@@ -133,6 +133,8 @@ function add_no_location(){
         $(".sl_part_l").addClass("js_no_geolocation");
     }
 }
+
+
 function remove_no_location(){
     if ($(".sl_wheel_buy").hasClass("js_no_geolocation")){
         $(".sl_wheel_buy").removeClass("js_no_geolocation");
@@ -144,6 +146,8 @@ function remove_no_location(){
         $(".sl_part_l").removeClass("js_no_geolocation");
     }
 }
+
+
 function filter_stations(mas, self){
     map.setCenter(new google.maps.LatLng(glob_lat,glob_lon));
     map.setZoom(12);
@@ -156,8 +160,10 @@ function filter_stations(mas, self){
             glob_markersObj[mas[i]].setMap(null);
         }
     }
-    setTimeout(function(){move_sections(self, animation_ended)},0);
+    setTimeout(function(){move_sections(self, animation_ended)},10);
 }
+
+
 function initialize_google_map(lat, lng, markers, transition, _self) {
 //        function mapLoadCounter(){
 //            var currentCount = 0;
@@ -373,12 +379,12 @@ function successFunction(position) {
                             speed: 500
                         })
                         .touchwipe({
-                          wipeLeft: function() {
+                            wipeLeft: function() {
                                 $(".js_gallery").cycle("next");
-                          },
-                          wipeRight: function() {
+                            },
+                            wipeRight: function() {
                                 $(".js_gallery").cycle("prev");
-                          }
+                            }
                     });
 
                     var $special_offers = $(".js_move_to_top").find(".js_special_offer_info");
@@ -387,7 +393,7 @@ function successFunction(position) {
                     }
                 }
                 // try to hide block if not exist special offers
-                initialize_google_map(glob_lat, glob_lon, glob_markers);
+//                initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
@@ -1472,9 +1478,10 @@ $(document).ready(function(){
     var hide_splash_screen = setInterval(function(){
         if( currentMapCount >= 2 ){
             hide_preloader();
+            console.log('loading...');
             clearInterval( hide_splash_screen );
         }
-    }, 100);
+    }, 10);
     /*.on("mouseup",function(event){
             event.stopPropagation();
             slice = Math.abs(slice - parseInt(event.pageY));
