@@ -408,14 +408,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-//        var position = {
-//            coords:{
-//                latitude: 49.233292,
-//                longitude: 28.466949
-//            }
-//        };
-//        successFunction(position);
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        var position = {
+            coords:{
+                latitude: 49.233292,
+                longitude: 28.466949
+            }
+        };
+        successFunction(position);
+//        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
@@ -659,11 +659,8 @@ function wash_info(elem){
         }
         setTimeout(function(){
             var animate_it = $("section[data-page=#wash_info] .js_move_to_top");
-//            animate_it.addClass("js_show_offer_information");//.css({
-            animate_it.css({
+            animate_it.addClass("js_show_offer_information").css({
                 "-webkit-animation": "show_it .5s ease-in 1 forwards"
-//                top: '-1055px',
-//                display: 'block'
             });
 //            animate_it.show().animate({top: -1055}, 1000);
             setTimeout(function(){
@@ -673,8 +670,6 @@ function wash_info(elem){
 //                    });
                     animate_it.removeClass("js_show_offer_information").css({
                         "-webkit-animation": "hide_it .5s ease-in 1 forwards"
-//                        'display': "none",
-//                        top: 0
                     });
                 }
             }, 3000);
@@ -735,48 +730,50 @@ function start_order(elem, variable){
     }
 }
 
-  $.preloadImage=function(src,onSuccess,onError)
-    {
-        var img = new Image();
-        img.src=src;
-        var error=false;
-        img.onerror=function(){
-            error=true;
-            if(onError)onError.call(img);
+$.preloadImage=function(src,onSuccess,onError)
+{
+    var img = new Image();
+    img.src=src;
+    var error=false;
+    img.onerror=function(){
+        error=true;
+        if(onError)onError.call(img);
+    };
+    if(error==false)
+    setTimeout(function(){
+        if(img.height>0&&img.width>0){
+            if(onSuccess)onSuccess.call(img);
+            return img;
+        }   else {
+            setTimeout(arguments.callee,5);
         }
-        if(error==false)
-        setTimeout(function(){
-            if(img.height>0&&img.width>0){
-                if(onSuccess)onSuccess.call(img);
-                return img;
-            }   else {
-                setTimeout(arguments.callee,5);
-            }
-        },0);
-        return img;
-    }
+    },0);
+    return img;
+};
 
-    $.preloadImages=function(arrayOfImages){
-        $.each(arrayOfImages,function(){
-            $.preloadImage(this);
-        })
-    }
+$.preloadImages=function(arrayOfImages){
+    $.each(arrayOfImages,function(){
+        $.preloadImage(this);
+    })
+};
+
 
 function hideSplashScreen(){
-     if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
+    if( DEBUG_MODE ){
+        if (!$(".js_load_bar").hasClass("sl_load_bar")){
+            $(".js_load_bar").addClass("sl_load_bar");
+        }
+    }else{
+        setTimeout(function(){
+            navigator.splashscreen.hide();
+             if (!$(".js_load_bar").hasClass("sl_load_bar")){
+                $(".js_load_bar").addClass("sl_load_bar");
             }
-     else{
-         if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-     }
+        },100);
+    }
 }
+
+
 function isLocalStorageAvailable() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
@@ -784,6 +781,8 @@ function isLocalStorageAvailable() {
             return false;
         }
 }
+
+
 function set_profile(){
      if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
@@ -945,15 +944,17 @@ function clearInputPassword(form){
 
 $(document).ready(function(){
     set_profile();
+
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
-           hideSplashScreen();
+//           hideSplashScreen();
         },
         function(){
-             hideSplashScreen();
+//             hideSplashScreen();
         }
     );
+
     simulateTouchEvents(".js_move_to_top, .js_button_move");
 
     $(".js_password_items").buildSeparatedFields();
