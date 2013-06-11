@@ -171,7 +171,7 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           zoom: 12,
           mapTypeId: google.maps.MapTypeId.ROADMAP,
           mapTypeControl: false
-        }
+        };
         var mapOptions2 = {
           center: new google.maps.LatLng(lat, lng),
           zoom: 16,
@@ -184,10 +184,11 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
           scrollwheel: false,
           zoomControl: false,
           disableDoubleClickZoom: true
-        }
+        };
 
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
         map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
+
         // Feature for the nearest shell station and current client
         //  Make an array of the LatLng's of the markers you want to show
         var LatLngList = new Array (new google.maps.LatLng ($glob_stations[0].lat,$glob_stations[0].lon), mapOptions.center);
@@ -371,7 +372,7 @@ function successFunction(position) {
                     }
                 }
                 // try to hide block if not exist special offers
-                initialize_google_map(glob_lat, glob_lon, glob_markers);
+                //initialize_google_map(glob_lat, glob_lon, glob_markers);
             } else {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
