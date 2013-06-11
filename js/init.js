@@ -157,34 +157,39 @@ function filter_stations(mas, self){
     }
     setTimeout(function(){move_sections(self, animation_ended)},0);
 }
-function initialize_google_map(lat, lng, markers, transition, _self) {
-        function mapLoadCounter(){
-            var currentCount = 0;
-            return function(){
-                currentCount++;
-                return currentCount;
-            };
-}
-        var countMap = mapLoadCounter();
-        var mapOptions = {
-          center: new google.maps.LatLng(lat, lng),
-          zoom: 12,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          mapTypeControl: false
-        };
-        var mapOptions2 = {
-          center: new google.maps.LatLng(lat, lng),
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.ROADMAP,
-          mapTypeControl: false,
-          draggable: false,
-          keyboardShortcuts: false,
-          panControl: false,
-          scaleControl: false,
-          scrollwheel: false,
-          zoomControl: false,
-          disableDoubleClickZoom: true
-        };
+//function initialize_google_map(lat, lng, markers, transition, _self) {
+function initialize_google_map() {
+    var lat = glob_lat;
+    var lng = glob_lon;
+    var markers = glob_markers;
+    var transition, _self;
+    var mapOptions = {
+      center: new google.maps.LatLng(lat, lng),
+      zoom: 12,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false
+    };
+    var mapOptions2 = {
+      center: new google.maps.LatLng(lat, lng),
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      draggable: false,
+      keyboardShortcuts: false,
+      panControl: false,
+      scaleControl: false,
+      scrollwheel: false,
+      zoomControl: false,
+      disableDoubleClickZoom: true
+    };
+
+    if( !map || !map2){
+        if( !map ){
+            $('#google_map_canvas').html('Initialize Google Maps');
+        }
+        if( !map2 ){
+            $('#contact_google_map').html('Initialize Google Maps');
+        }
 
         map = new google.maps.Map(document.getElementById('google_map_canvas'), mapOptions);
         map2 = new google.maps.Map(document.getElementById('contact_google_map'), mapOptions2);
@@ -227,10 +232,11 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
                 position: mapOptions.center,
                 icon: pinImage
             });
+
         var phone;
         var image = 'img/logo_mic.png';
-        var infowindow = new google.maps.InfoWindow(), marker, i;
-        for (i = 0; i < markers.length; i++) {
+        var infowindow = new google.maps.InfoWindow(), marker;
+        for (var i = 0; i < markers.length; i++) {
             phone = markers[i][3];
             marker = new google.maps.Marker({
                 id: "marker_"+markers[i][1]+"_"+markers[i][2],
@@ -249,14 +255,19 @@ function initialize_google_map(lat, lng, markers, transition, _self) {
             })(marker, i, phone));
 
         }
-        if (glob_preloader){
-            google.maps.event.addListenerOnce(map, 'idle', function(){
-            if (countMap() === 2){hide_preloader();}
-            });
-            google.maps.event.addListenerOnce(map2, 'idle', function(){
-                if (countMap() === 2){hide_preloader();}
-            });
-        }
+
+    }
+
+    map.setCenter( mapOptions.center );
+    map2.setCenter( mapOptions2.center );
+//        if (glob_preloader){
+//            google.maps.event.addListenerOnce(map, 'idle', function(){
+//            if (countMap() === 2){hide_preloader();}
+//            });
+//            google.maps.event.addListenerOnce(map2, 'idle', function(){
+//                if (countMap() === 2){hide_preloader();}
+//            });
+//        }
       }
 $(document).on(glob_event,".js_search_stations", function(){
     var $checkboxes = $(this).closest("section").find("input[type=checkbox]:checked");
@@ -367,7 +378,7 @@ function successFunction(position) {
                     });
 
                     var $special_offers = $(".js_move_to_top").find(".js_special_offer_info");
-                    for ( i=0; i<$special_offers.length; i++){
+                    for (var i=0; i<$special_offers.length; i++){
                         $special_offers[i].outerText = " <<  " +$special_offers[i].outerText+ "  >> "
                     }
                 }
@@ -377,7 +388,7 @@ function successFunction(position) {
                 add_no_location();
                 $(".js_wash_station").html("Kan ikke forbinde til server");
             }
-//            hide_preloader();
+            hide_preloader();
 
         }
         ,"json"
@@ -626,16 +637,6 @@ function activate_method(elem){
         }
 }
 
-//function activate_method(elem){
-//    var method = $(elem).data("method") ? $(elem).data("method") : null;
-//    console.log(method);
-//    try {
-//        method = eval(method);
-//        method(elem);
-//    } catch (e) {
-//        console.log(e);
-//    }
-//}
 
 function find_washer(elem){
     if($("#searching_results").length) {
@@ -1445,6 +1446,8 @@ $(document).ready(function(){
             move_sections($(elem), animation_ended)
         }
     });
+
+//    hide_preloader();
 
     /*.on("mouseup",function(event){
             event.stopPropagation();

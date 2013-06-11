@@ -52,8 +52,8 @@
                 <div class="sl_wheel_segments">
                     <a class="sl_part sl_part_t js_animate_rotation js_button_click" data-rotation="rotate_180" href="#profile"></a>
                     <a class="sl_part sl_part_r js_animate_rotation js_button_click" data-rotation="rotate_90" href="#wash_info"></a>
-                    <a class="sl_part sl_part_b js_animate_rotation js_button_click" data-rotation="rotate_0" href="#contact"></a>
-                    <a class="sl_part sl_part_l js_animate_rotation js_button_click" data-rotation="rotate_270" href="#find_washer" ></a>
+                    <a class="sl_part sl_part_b js_animate_rotation js_button_click" data-rotation="rotate_0" href="#contact" data-method="initialize_google_map"></a>
+                    <a class="sl_part sl_part_l js_animate_rotation js_button_click" data-rotation="rotate_270" href="#find_washer" data-method="initialize_google_map" ></a>
                 </div>
             </div>
             <div class="sl_box_location_txt">
@@ -615,7 +615,7 @@
                     </p>
                 </a>
             </div>
-            <div id="contact_google_map" style="height: 414px; width: 560px;"></div>
+            <div id="contact_google_map" class="sl_google_map_canvas" style="height: 414px; width: 560px;"></div>
             <!--<img src="img/map.jpg" alt="">-->
         </div>
     </div>
@@ -636,9 +636,7 @@
             FIND NÆRMESTE VASK
         </div>
         <div class="sl_price_box sl_simpl_style_11">
-            <div id="google_map_canvas" class="sl_google_map_canvas">
-
-            </div>
+            <div id="google_map_canvas" class="sl_google_map_canvas"></div>
 
             <!--<img src="img/map.jpg" id="searching_results" alt="">-->
             <div class="sl_title_pad3">
