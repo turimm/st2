@@ -323,9 +323,9 @@ function successFunction(position) {
 //    49.233292,28.466949
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    $.get(
-        glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
-        function(response){
+    $.ajax({
+        url: glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
+        success: function(response){
             if (response.length){
                  $glob_stations = response[0]["stations"];
                 // ---------------------------------------
@@ -375,7 +375,7 @@ function successFunction(position) {
                     fit :1,
                     width: "640",
                     speed: 500
-               });
+                });
                     $(".js_gallery").touchwipe({
                           wipeLeft: function() {
                                 $(".js_gallery").cycle("next");
@@ -398,13 +398,14 @@ function successFunction(position) {
             }
             hide_preloader();
 
-        }
-        ,"json"
-    ).error(function(){
-                    add_no_location();
-                    $(".js_wash_station").html("Kan ikke forbinde til server");
-                    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
-                });
+        },
+        error: function (request, status, error) {
+            add_no_location();
+            $(".js_wash_station").html("Kan ikke forbinde til server");
+            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+        },
+        dataType: 'jsonp'
+    });
 
 }
 
@@ -428,13 +429,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
+
 //        var position = {
 //            coords:{
 //                latitude: 49.233292,
 //                longitude: 28.466949
 //            }
 //        };
-//        successFunction(position);
+
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
