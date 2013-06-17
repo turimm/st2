@@ -23,7 +23,7 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-//var glob_url = "http://0.0.0.0:8000/shell/";
+//var glob_url = "http://10.0.9.16:8000/shell/";
 var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
@@ -325,7 +325,10 @@ function successFunction(position) {
     glob_lon = position.coords.longitude;
     $.ajax({
         url: glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
+        type: 'get',
+        dataType: 'jsonp',
         success: function(response){
+            console.log("response: ",response);
             if (response.length){
                  $glob_stations = response[0]["stations"];
                 // ---------------------------------------
@@ -400,17 +403,21 @@ function successFunction(position) {
 
         },
         error: function (request, status, error) {
+            console.log("request: ", request);
+            console.log("status: ", status);
+            console.log("error: ", error);
             add_no_location();
             $(".js_wash_station").html("Kan ikke forbinde til server");
             setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
-        },
-        dataType: 'jsonp'
+        }
+
     });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
+    console.log("err: ",err);
     add_no_location();
     if(err.code == 1) {
         $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
