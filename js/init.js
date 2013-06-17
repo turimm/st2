@@ -839,6 +839,7 @@ function set_profile(){
                         break;
                 }
             });
+            $button_user.closest("form").find("select[name=car_type]").find("option[value=" + parseInt(localStorage.getItem("car_type")) + "]").attr("selected", "selected");
         }
     }
 }
@@ -852,6 +853,7 @@ function setLocalStorage(data){
     localStorage.setItem('by_post', data.client.by_post);
     localStorage.setItem('code', data.client.code);
     localStorage.setItem('client_id', data.client.client_id);
+    localStorage.setItem('car_type', data.client.car_type);
 }
 var dots;
 
