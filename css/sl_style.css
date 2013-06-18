@@ -47,7 +47,8 @@
         margin: 0 auto;
         position: relative;
         width: 640px;
-        height: 1096px;
+        /*height: 1096px;*/
+        height: 1140px;
         background-color: #8d8d8d;
         background-image: -webkit-linear-gradient(bottom, #5f5f5f, #8d8d8d);
         background-image: -moz-linear-gradient(bottom, #5f5f5f, #8d8d8d);
@@ -459,7 +460,8 @@
         box-shadow: 0 9px 8px rgba(0,0,0,.44);
     }
     .sl_body {
-        height: 988px;
+        /*height: 988px;*/
+        height: 1045px;
     }
     .sl_circle_bg{
         background: url("img/circle_load.png") no-repeat;
@@ -1440,7 +1442,8 @@ div.js_move_to_top {
     -webkit-transform: translateZ(0);
     position: absolute;
     width: 640px;
-    height: 1096px;
+    /*height: 1096px;*/
+    height: 1140px;
     left: 640px;
     transition-property: left;
     transition-duration: .6s;
