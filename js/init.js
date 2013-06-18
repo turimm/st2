@@ -323,11 +323,17 @@ function successFunction(position) {
 //    49.233292,28.466949
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    $.ajax({
-        url: glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
-        type: 'get',
-        dataType: 'jsonp',
-        success: function(response){
+    var url = glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon;
+//    $.ajax({
+//        url: glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
+    $.getJSON(url,
+        function(response){
+//        crossDomain: true,
+//        dataType: 'jsonp',
+//        contentType: "application/json; charset=utf-8",
+//        success: function(response){
+//            console.log("response:", JSON.parse(response));
+//            alert("ajax success");
             console.log("response: ",response);
             if (response.length){
                  $glob_stations = response[0]["stations"];
@@ -401,7 +407,7 @@ function successFunction(position) {
             }
             hide_preloader();
 
-        }
+//        },
 //        error: function (request, status, error) {
 //            console.log("request: ", request);
 //            console.log("status: ", status);
@@ -411,7 +417,16 @@ function successFunction(position) {
 //            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
 //        }
 
-    });
+    })
+        .error(
+            function (request, status, error) {
+            console.log("request: ", request);
+            console.log("status: ", status);
+            console.log("error: ", error);
+            add_no_location();
+            $(".js_wash_station").html("Kan ikke forbinde til server");
+            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+        });
 
 }
 
