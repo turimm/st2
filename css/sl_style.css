@@ -1685,6 +1685,9 @@ to {background: #5a0000;}
     font-size: 23px;
     font-weight: bold;
 }
+select:focus{
+    outline: none;
+}
 
 
 
