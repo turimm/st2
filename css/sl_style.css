@@ -1674,7 +1674,17 @@ to {background: #5a0000;}
     /*margin-right: 0;*/
 /*}*/
 
-
+/*=== select ====*/
+.sl_select_style select{
+    width: 464px;
+    padding-right: 27px;
+    height: 58px;
+    background: transparent;
+    border: 0;
+    color: #363535;
+    font-size: 23px;
+    font-weight: bold;
+}
 
 
 
