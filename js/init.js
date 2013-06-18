@@ -402,14 +402,14 @@ function successFunction(position) {
             hide_preloader();
 
         },
-        error: function (request, status, error) {
-            console.log("request: ", request);
-            console.log("status: ", status);
-            console.log("error: ", error);
-            add_no_location();
-            $(".js_wash_station").html("Kan ikke forbinde til server");
-            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
-        }
+//        error: function (request, status, error) {
+//            console.log("request: ", request);
+//            console.log("status: ", status);
+//            console.log("error: ", error);
+//            add_no_location();
+//            $(".js_wash_station").html("Kan ikke forbinde til server");
+//            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+//        }
 
     });
 
