@@ -443,7 +443,8 @@
 
     .sl_bg_p1 {
         background-image: url("img/bg_1.jpg");
-        height: 942px;
+        /*height: 942px;*/
+        height: 985px;
     }
     .sl_bg_pt1 {
         padding-top: 155px;
