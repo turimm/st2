@@ -1677,13 +1677,17 @@ to {background: #5a0000;}
 /*=== select ====*/
 .sl_select_style select{
     width: 464px;
-    padding-right: 27px;
     height: 58px;
     background: transparent;
     border: 0;
     color: #363535;
+}
+.sl_select_style select, .sl_select_style option{
     font-size: 23px;
     font-weight: bold;
+    }
+.sl_select_style option{
+    background-color: #d4d4d4;
 }
 select:focus{
     outline: none;
