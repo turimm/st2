@@ -401,7 +401,7 @@ function successFunction(position) {
             }
             hide_preloader();
 
-        },
+        }
 //        error: function (request, status, error) {
 //            console.log("request: ", request);
 //            console.log("status: ", status);
