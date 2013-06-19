@@ -843,6 +843,7 @@ function setLocalStorage(data){
     localStorage.setItem('by_post', data.client.by_post);
     localStorage.setItem('code', data.client.code);
     localStorage.setItem('client_id', data.client.client_id);
+    localStorage.setItem('car_type', data.client.car_type);
 }
 var dots;
 
