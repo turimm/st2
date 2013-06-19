@@ -486,7 +486,7 @@ function slideOn(cur_elem, cur_limit_max, cur_limit_min, cur_axis, cur_callback 
             axis: (axis == "top" ? "y" : "x"),
             handle: ".js_move_to_top",
             grid: [25,25],
-            distance : 50,
+            distance : 30,
             start:function (event, ui) {
                 start_position = ui.position[axis];
                 if($(elem).removeClass("js_show_offer_information")){
