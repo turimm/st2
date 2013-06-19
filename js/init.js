@@ -23,7 +23,7 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-//var glob_url = "http://10.0.9.16:8000/shell/";
+//var glob_url = "http://0.0.0.0:8000/shell/";
 var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
@@ -323,16 +323,9 @@ function successFunction(position) {
 //    49.233292,28.466949
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    $.ajax({
-        url: glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
-        dataType: 'jsonp',
-        contentType: "application/json; charset=utf-8",
-        jsonp: false,
-        cache: false,
-        success: function(response){
-//            console.log("response:", JSON.parse(response));
-            alert("ajax success");
-            console.log("response: ",response);
+    $.get(
+        glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
+        function(response){
             if (response.length){
                  $glob_stations = response[0]["stations"];
                 // ---------------------------------------
@@ -382,7 +375,7 @@ function successFunction(position) {
                     fit :1,
                     width: "640",
                     speed: 500
-                });
+               });
                     $(".js_gallery").touchwipe({
                           wipeLeft: function() {
                                 $(".js_gallery").cycle("next");
@@ -405,23 +398,18 @@ function successFunction(position) {
             }
             hide_preloader();
 
-        },
-        error: function (request, status, error) {
-            console.log("request: ", request);
-            console.log("status: ", status);
-            console.log("error: ", error);
-            add_no_location();
-            $(".js_wash_station").html("Kan ikke forbinde til server");
-            setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
         }
-
-    });
+        ,"json"
+    ).error(function(){
+                    add_no_location();
+                    $(".js_wash_station").html("Kan ikke forbinde til server");
+                    setTimeout(function(){move_sections($(".sl_load_bar"), animation_ended)}, 500);
+                });
 
 }
 
 //TODO: NEED TO UPDATE TEXTS AND PLACES
 function errorFunction(err) {
-    console.log("err: ",err);
     add_no_location();
     if(err.code == 1) {
         $(".js_wash_station").html("GEOLOCATION ER <br />DEAKTIVERET");
@@ -440,14 +428,13 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-
 //        var position = {
 //            coords:{
 //                latitude: 49.233292,
 //                longitude: 28.466949
 //            }
 //        };
-
+//        successFunction(position);
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
@@ -843,7 +830,6 @@ function set_profile(){
                         break;
                 }
             });
-            $button_user.closest("form").find("select[name=car_type]").find("option[value=" + parseInt(localStorage.getItem("car_type")) + "]").attr("selected", "selected");
         }
     }
 }
@@ -857,7 +843,6 @@ function setLocalStorage(data){
     localStorage.setItem('by_post', data.client.by_post);
     localStorage.setItem('code', data.client.code);
     localStorage.setItem('client_id', data.client.client_id);
-    localStorage.setItem('car_type', data.client.car_type);
 }
 var dots;
 
@@ -1258,7 +1243,12 @@ $(document).ready(function(){
                     }
                     ,"json"
                 ).always(function(){setTimeout(function(){$preloader.hide();},0)})
-                    .error(function(){show_alert("Server is not responding")});
+                    .error(function (xhr, ajaxOptions, thrownError){
+                        console.log("xhr: ", xhr);
+                        console.log("ajaxOptions: ", ajaxOptions);
+                        console.log("thrownError: ", thrownError);
+                    show_alert("Server is not responding");
+                });
             }
             else{
                 transition_in_progress = true;
