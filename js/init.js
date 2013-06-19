@@ -428,14 +428,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-//        var position = {
-//            coords:{
-//                latitude: 49.233292,
-//                longitude: 28.466949
-//            }
-//        };
-//        successFunction(position);
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+        var position = {
+            coords:{
+                latitude: 49.233292,
+                longitude: 28.466949
+            }
+        };
+        successFunction(position);
+//        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
