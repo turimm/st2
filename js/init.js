@@ -80,8 +80,11 @@ function check_if_client_blocked(on_resume){
     }
 }
 function onResume(){
+    alert(1);
     check_if_client_blocked(true);
+    alert(2);
     glob_preloader = false;
+    alert(3);
     activate_position();
 }
 $.validator.addMethod('english_email', function(value) {
@@ -99,15 +102,10 @@ $.validator.addMethod('english_email', function(value) {
         }
     }
 function onDeviceReady() {
-    alert(1);
     check_if_client_blocked(false);
-    alert(2);
     glob_preloader = true;
-    alert(3);
     activate_position();
-    alert(4);
     document.addEventListener("resume", onResume, false);
-    alert(5);
 }
 
 
@@ -433,14 +431,14 @@ function errorFunction(err) {
 function activate_position() {
     if (navigator.geolocation) {
 //        Fake location:
-        var position = {
-            coords:{
-                latitude: 49.233292,
-                longitude: 28.466949
-            }
-        };
-        successFunction(position);
-//        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+//        var position = {
+//            coords:{
+//                latitude: 49.233292,
+//                longitude: 28.466949
+//            }
+//        };
+//        successFunction(position);
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
