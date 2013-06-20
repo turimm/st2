@@ -438,11 +438,15 @@ function activate_position() {
 //            }
 //        };
 //        successFunction(position);
+        alert(11);
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
+        alert(22);
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
+        alert(33);
         add_no_location();
+        alert(44);
     }
 }
 
