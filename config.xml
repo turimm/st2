@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
     <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap ="http://phonegap.com/ns/1.0" id="washtec" version="0.9">
         <name>WashTec</name>
+        <preference name="phonegap-version" value="2.7.0" />
         <preference name="orientation" value="portrait" />
         <preference name="show-splash-screen-spinner" value="false" />
         <preference name="auto-hide-splash-screen" value="false" />
