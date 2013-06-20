@@ -80,11 +80,8 @@ function check_if_client_blocked(on_resume){
     }
 }
 function onResume(){
-    show_alert(1);
     check_if_client_blocked(true);
-    show_alert(2);
     glob_preloader = false;
-    show_alert(3);
     activate_position();
 }
 $.validator.addMethod('english_email', function(value) {
@@ -94,8 +91,8 @@ $.validator.addMethod('english_email', function(value) {
 
    if (!DEBUG_MODE){
         document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        if (typeof navigator.device == undefined){
+        } else {
+            if (typeof navigator.device == undefined){
             document.addEventListener("deviceready", onDeviceReady, false);
         } else {
             onDeviceReady();
