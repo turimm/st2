@@ -767,21 +767,21 @@ function start_order(elem, variable){
         })
     }
 
-function hideSplashScreen(){
-     if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
-            }
-     else{
-         if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-     }
-}
+//function hideSplashScreen(){
+//     if (!DEBUG_MODE){
+//                setTimeout(function(){
+//                    navigator.splashscreen.hide();
+//                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
+//                        $(".js_load_bar").addClass("sl_load_bar");
+//                    }
+//                },0);
+//            }
+//     else{
+//         if (!$(".js_load_bar").hasClass("sl_load_bar")){
+//                        $(".js_load_bar").addClass("sl_load_bar");
+//                    }
+//     }
+//}
 function isLocalStorageAvailable() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
