@@ -1475,11 +1475,14 @@ $(document).ready(function(){
 //    animated for tachometer
 
     function addAngle( elem_ev, angle){
-        $(elem_ev).addClass(angle);
+        $(elem_ev).css({
+            WebKitTransform:"rotate("+ angle +"deg)"
+        });
     }
+
     $(".js_event").click(function(){
         var select_el = $(".sl_arrow_tachometer");
-        var add = "rotate_90";
+        var add = 90;
         addAngle(select_el, add);
     });
 });
