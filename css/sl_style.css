@@ -1339,20 +1339,16 @@
         background: url("img/background_tahometr.png") no-repeat;
     }
     .sl_bg_tachometer{
-        width: 281px;
-        height: 279px;
+        width: 282px;
+        height: 280px;
         position: absolute;
         left: 50%;
         top: 50%;
-        margin-left: -140px;
-        margin-top: -120px;
+        margin-left: -141px;
+        margin-top: -103px;
         z-index: 100;
     }
-    .sl_arrow_tachometer{
-        background: url("img/arrow_tahometr.png") no-repeat;
-        transform: rotate(30deg);
-        -webkit-transform: rotate(30deg);
-    }
+
     .sl_status_im {
 
     }
@@ -1713,8 +1709,15 @@ select:focus{
     outline: none;
 }
 
-
-
+/*===== arrow tachometer ======*/
+.sl_arrow_tachometer{
+    height: 264px;
+    width: 264px;
+    margin-left: 10px;
+    background: url("img/arrow_tahometr.png") no-repeat -10px -1px;;
+    transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    }
 
 
 
