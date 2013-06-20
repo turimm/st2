@@ -80,11 +80,8 @@ function check_if_client_blocked(on_resume){
     }
 }
 function onResume(){
-    show_alert(1);
     check_if_client_blocked(true);
-    show_alert(2);
     glob_preloader = false;
-    show_alert(3);
     activate_position();
 }
 $.validator.addMethod('english_email', function(value) {
@@ -94,8 +91,8 @@ $.validator.addMethod('english_email', function(value) {
 
    if (!DEBUG_MODE){
         document.addEventListener("deviceready", onDeviceReady, false);
-    } else {
-        if (typeof navigator.device == undefined){
+        } else {
+            if (typeof navigator.device == undefined){
             document.addEventListener("deviceready", onDeviceReady, false);
         } else {
             onDeviceReady();
@@ -315,19 +312,13 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-//    show_alert(glob_lat);
-//    show_alert(position.coords.latitude);
-//    show_alert(glob_lon);
-//    show_alert(position.coords.longitude);
 //    if (glob_lat && glob_lon && position && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
 //        show_alert("successFunction return false");
 //        return;
 //    }
 //    49.233292,28.466949
-    show_alert(0011);
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    show_alert(0022);
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
@@ -431,25 +422,20 @@ function errorFunction(err) {
 }
 
 function activate_position() {
-    if (navigator.geolocation) {
-//        Fake location:
-//        var position = {
-//            coords:{
-//                latitude: 49.233292,
-//                longitude: 28.466949
-//            }
-//        };
-//        successFunction(position);
-        show_alert(11);
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-    }
-    else{
-        show_alert(22);
-        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-        show_alert(33);
-        add_no_location();
-        show_alert(44);
-    }
+    var position = {
+            coords:{
+                latitude: 49.233292,
+                longitude: 28.466949
+            }
+        };
+        successFunction(position);
+//    if (navigator.geolocation) {
+////        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+//    }
+//    else{
+//        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
+//        add_no_location();
+//    }
 }
 
 var stop_timer = null;
@@ -781,21 +767,21 @@ function start_order(elem, variable){
         })
     }
 
-function hideSplashScreen(){
-     if (!DEBUG_MODE){
-                setTimeout(function(){
-                    navigator.splashscreen.hide();
-                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-                },0);
-            }
-     else{
-         if (!$(".js_load_bar").hasClass("sl_load_bar")){
-                        $(".js_load_bar").addClass("sl_load_bar");
-                    }
-     }
-}
+//function hideSplashScreen(){
+//     if (!DEBUG_MODE){
+//                setTimeout(function(){
+//                    navigator.splashscreen.hide();
+//                     if (!$(".js_load_bar").hasClass("sl_load_bar")){
+//                        $(".js_load_bar").addClass("sl_load_bar");
+//                    }
+//                },0);
+//            }
+//     else{
+//         if (!$(".js_load_bar").hasClass("sl_load_bar")){
+//                        $(".js_load_bar").addClass("sl_load_bar");
+//                    }
+//     }
+//}
 function isLocalStorageAvailable() {
         try {
             return 'localStorage' in window && window['localStorage'] !== null;
@@ -967,15 +953,15 @@ function clearInputPassword(form){
 
 $(document).ready(function(){
     set_profile();
-    $.preloadImage(
-        'css/img/bg_1.jpg',
-        function(){
-           hideSplashScreen();
-        },
-        function(){
-             hideSplashScreen();
-        }
-    );
+//    $.preloadImage(
+//        'css/img/bg_1.jpg',
+//        function(){
+//           hideSplashScreen();
+//        },
+//        function(){
+//             hideSplashScreen();
+//        }
+//    );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
 
     $(".js_password_items").buildSeparatedFields();
