@@ -953,15 +953,15 @@ function clearInputPassword(form){
 
 $(document).ready(function(){
     set_profile();
-    $.preloadImage(
-        'css/img/bg_1.jpg',
-        function(){
-           hideSplashScreen();
-        },
-        function(){
-             hideSplashScreen();
-        }
-    );
+//    $.preloadImage(
+//        'css/img/bg_1.jpg',
+//        function(){
+//           hideSplashScreen();
+//        },
+//        function(){
+//             hideSplashScreen();
+//        }
+//    );
     simulateTouchEvents(".js_move_to_top, .js_button_move");
 
     $(".js_password_items").buildSeparatedFields();
