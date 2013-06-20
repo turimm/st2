@@ -80,11 +80,11 @@ function check_if_client_blocked(on_resume){
     }
 }
 function onResume(){
-    alert(1);
+    show_alert(1);
     check_if_client_blocked(true);
-    alert(2);
+    show_alert(2);
     glob_preloader = false;
-    alert(3);
+    show_alert(3);
     activate_position();
 }
 $.validator.addMethod('english_email', function(value) {
@@ -324,10 +324,10 @@ function successFunction(position) {
 //        return;
 //    }
 //    49.233292,28.466949
-    alert(0011);
+    show_alert(0011);
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    alert(0022);
+    show_alert(0022);
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
@@ -440,15 +440,15 @@ function activate_position() {
 //            }
 //        };
 //        successFunction(position);
-        alert(11);
+        show_alert(11);
         navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
     }
     else{
-        alert(22);
+        show_alert(22);
         $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-        alert(33);
+        show_alert(33);
         add_no_location();
-        alert(44);
+        show_alert(44);
     }
 }
 
