@@ -1130,6 +1130,7 @@ $(document).ready(function(){
                     data += "&order="+JSON.stringify(order);
                 }
                 $preloader.show();
+                console.log("data for update: ", data);
                 $.post(
                     url,
                     data,
