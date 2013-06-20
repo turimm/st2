@@ -989,7 +989,6 @@ $(document).ready(function(){
         if( $form.valid() ){
             var data = $form.serialize();
             data += "&order="+JSON.stringify(order);
-            console.log("data for update: ", data);
             $.post(url, data,
                     function(response){
                         switch (response.status){
