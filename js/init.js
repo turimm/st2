@@ -312,19 +312,13 @@ $(document).on(glob_event,".js_search_stations", function(){
 
 /********************Work with position of user*****************************/
 function successFunction(position) {
-//    show_alert(glob_lat);
-//    show_alert(position.coords.latitude);
-//    show_alert(glob_lon);
-//    show_alert(position.coords.longitude);
 //    if (glob_lat && glob_lon && position && glob_lat == position.coords.latitude && glob_lon == position.coords.longitude){
 //        show_alert("successFunction return false");
 //        return;
 //    }
 //    49.233292,28.466949
-    show_alert(0011);
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
-    show_alert(0022);
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
@@ -428,25 +422,20 @@ function errorFunction(err) {
 }
 
 function activate_position() {
-    if (navigator.geolocation) {
-//        Fake location:
-//        var position = {
-//            coords:{
-//                latitude: 49.233292,
-//                longitude: 28.466949
-//            }
-//        };
-//        successFunction(position);
-        show_alert(11);
-        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-    }
-    else{
-        show_alert(22);
-        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-        show_alert(33);
-        add_no_location();
-        show_alert(44);
-    }
+    var position = {
+            coords:{
+                latitude: 49.233292,
+                longitude: 28.466949
+            }
+        };
+        successFunction(position);
+//    if (navigator.geolocation) {
+////        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+//    }
+//    else{
+//        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
+//        add_no_location();
+//    }
 }
 
 var stop_timer = null;
