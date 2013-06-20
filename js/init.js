@@ -324,8 +324,10 @@ function successFunction(position) {
 //        return;
 //    }
 //    49.233292,28.466949
+    alert(0011);
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
+    alert(0022);
     $.get(
         glob_url+"?lat=" + glob_lat + "&lon=" + glob_lon,
         function(response){
