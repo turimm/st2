@@ -6,7 +6,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="format-detection" content="telephone=no"/>
-    <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=0.42, maximum-scale=0.42 initial-scale=0.5"/>
+    <meta name="viewport" content="width=device-width, height=device-height, minimum-scale=0.5, maximum-scale=0.5 initial-scale=0.5"/>
     <link href="css/sl_rezet.css" rel="stylesheet">
     <link href="css/sl_style.css?v=4" rel="stylesheet">
     <script src="cordova-2.5.0.js"></script>
@@ -509,9 +509,17 @@
         <div class="sl_topbar_shadow"></div>
     </div>
     <div class="sl_body wmt_p_r sl_ss_41">
+        <!-- tachometer animation -->
+
         <div class="sl_ss_40 wmt_p_r">
-            <img class="sl_status_im" src="img/status.png" alt="">
+            <div class="sl_bg_tachometer">
+                <div class="sl_arrow_tachometer">
+                    <img class="sl_status_im" src="img/arrow_tahometr.png" alt="">
+                </div>
+            </div>
         </div>
+
+        <!-- end animation -->
         <form method="post" action="http://shell.wmt.dk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
             <div class="sl_right_navbox sl_ss_38">
                 <div class="sl_ss_42">VASK INFO</div>
