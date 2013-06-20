@@ -1472,6 +1472,16 @@ $(document).ready(function(){
             return false;
         });*/
 
+//    animated for tachometer
 
+    function addAngle( elem_ev, angle){
+        $(elem_ev).addClass(angle);
+    }
+    $(".js_event").click(function(){
+        var select_el = $(".sl_arrow_tachometer");
+        var add = "rotate_90";
+//        $(select_el).addClass(add);
+        addAngle(select_el, add);
+    });
 });
 
