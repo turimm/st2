@@ -1130,6 +1130,7 @@ $(document).ready(function(){
                     data += "&order="+JSON.stringify(order);
                 }
                 $preloader.show();
+                console.log("data for update: ", data);
                 $.post(
                     url,
                     data,
@@ -1473,16 +1474,16 @@ $(document).ready(function(){
 
 //    animated for tachometer
 
-    function addAngle( elem_ev, angle){
-        $(elem_ev).css({
+    function addAngle(angle){
+        var select_el = $(".sl_arrow_tachometer");
+        $(select_el).css({
             WebKitTransform:"rotate("+ angle +"deg)"
         });
     }
 
     $(".js_event").click(function(){
-        var select_el = $(".sl_arrow_tachometer");
-        var add = 90;
-        addAngle(select_el, add);
+        var add = -120;
+        addAngle(add);
     });
 });
 
