@@ -1479,7 +1479,7 @@ $(document).ready(function(){
     }
     $(".js_event").click(function(){
         var select_el = $(".sl_arrow_tachometer");
-        var add = $(".rotate_180");
+        var add = $("rotate_180");
         addAngle(select_el, add);
     });
 });
