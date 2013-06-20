@@ -1478,9 +1478,9 @@ $(document).ready(function(){
         $(elem_ev).addClass(angle);
     }
     $(".js_event").click(function(){
-//        var select_el = $(".sl_arrow_tachometer");
-//        var add = $("rotate_180");
-        $(".sl_arrow_tachometer").addClass("rotate_180");
+        var select_el = $(".sl_arrow_tachometer");
+        var add = "rotate_180";
+        $(select_el).addClass(add);
 //        addAngle(select_el, add);
     });
 });
