@@ -1338,7 +1338,7 @@
     .sl_bg_tachometer {
         background: url("img/background_tahometr.png") no-repeat;
     }
-    .sl_bg_tachometer, .sl_arrow_tachometer{
+    .sl_bg_tachometer{
         width: 281px;
         height: 279px;
         position: absolute;
@@ -1349,7 +1349,9 @@
         z-index: 100;
     }
     .sl_arrow_tachometer{
-
+        background: url("img/arrow_tahometr.png") no-repeat;
+        transform: rotate(30deg);
+        -webkit-transform: rotate(30deg);
     }
     .sl_status_im {
 
