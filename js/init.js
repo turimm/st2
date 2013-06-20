@@ -99,10 +99,15 @@ $.validator.addMethod('english_email', function(value) {
         }
     }
 function onDeviceReady() {
+    alert(1);
     check_if_client_blocked(false);
+    alert(2);
     glob_preloader = true;
+    alert(3);
     activate_position();
+    alert(4);
     document.addEventListener("resume", onResume, false);
+    alert(5);
 }
 
 
