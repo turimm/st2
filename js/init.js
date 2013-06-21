@@ -842,6 +842,7 @@ function set_profile(){
             });
             console.log($button_user.closest("form").find("select option:selected"));
             $button_user.closest("form").find("select option:selected").removeAttr("selected");
+            console.log($button_user.closest("form").find("select option:selected"));
             $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
         }
     }
