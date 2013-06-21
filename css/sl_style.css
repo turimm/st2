@@ -1710,13 +1710,13 @@ select:focus{
 }
 
 /*===== arrow tachometer ======*/
-.sl_arrow_tachometer{
+.sl_body .sl_ss_40.wmt_p_r .sl_bg_tachometer .sl_arrow_tachometer{
     height: 264px;
     width: 264px;
     margin-left: 10px;
     background: url("img/arrow_tahometr.png") no-repeat -10px -1px;
-    transform: rotate(-120deg)!important;
-    -webkit-transform: rotate(-120deg)!important;
+    transform: rotate(-120deg);
+    -webkit-transform: rotate(-120deg);
 }
 
 
