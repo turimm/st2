@@ -311,7 +311,14 @@
                     <input  class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:" value="">
                     <input class="sl_cred_numer" name="code" type="tel" maxlength="4" pattern="\d{4}" placeholder="CODE:">
                     <!--<input class="sl_cred_numer" name="code" type="number" maxlength="4" placeholder="CODE:">-->
-                    <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1">
+                    <div class="sl_cred_numer sl_select_style">
+                        <select name="car_type">
+                            <option value="0" selected="selected">SMALL</option>
+                            <option value="1">MEDIUM</option>
+                            <option value="2">LARGE</option>
+                        </select>
+                    </div>
+                    <input class="sl_check lastInForm" type="checkbox" name="send_news" id="c1" value="1">
                     <label class="sl_check_label" for="c1">
                         <span></span>
                         MODTAG NYHEDSBREV
