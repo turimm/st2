@@ -1477,17 +1477,13 @@ $(document).ready(function(){
     function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
         select_el.css({
-            WebKitTransform:"rotate("+ angle +"deg)!important;"
+            "-webkit-transform":"rotate("+ angle +"deg)!important;"
         });
     }
 
     $(".js_event").click(function(){
         var add = 90;
-//        addAngle(add);
-        $(".sl_arrow_tachometer").addClass('js_angle');
-        $('.js_angle').css({
-            "-webkit-transform":"rotate(90deg)"
-        });
+        addAngle(add);
     });
 });
 
