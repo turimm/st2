@@ -8,7 +8,7 @@
 
 
 function addAngle(angle){
-        var integer = parseInt(angle) - 120;
+        var integer = parseInt(angle);
         var angel_val = (integer * 240)/100;
         var select_el = $(".sl_arrow_tachometer");
         if(select_el.hasClass("sl_speedometer")){
