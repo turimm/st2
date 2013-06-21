@@ -1484,10 +1484,9 @@ $(document).ready(function(){
     $(".js_event").click(function(){
         var add = 90;
 //        addAngle(add);
-        var addClass =  $(".sl_arrow_tachometer").addClass('js_angle');
-        addClass.css({
-            "transform":"rotate(90deg)!important;",
-            "-webkit-transform":"rotate(90deg)!important;"
+        $(".sl_arrow_tachometer").addClass('js_angle');
+        $('.js_angle').css({
+            "-webkit-transform":"rotate(90deg)"
         });
     });
 });
