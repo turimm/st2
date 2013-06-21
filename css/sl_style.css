@@ -1714,8 +1714,10 @@ select:focus{
     height: 264px;
     width: 264px;
     margin-left: 10px;
-    background: url("img/arrow_tahometr.png") no-repeat -10px -1px;;
-    }
+    background: url("img/arrow_tahometr.png") no-repeat -10px -1px;
+    transform: rotate(-120deg)!important;
+    -webkit-transform: rotate(-120deg)!important;
+}
 
 
 
