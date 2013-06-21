@@ -1482,7 +1482,7 @@ $(document).ready(function(){
     }
 
     $(".js_event").click(function(){
-        var add = 120;
+        var add = 90;
         addAngle(add);
     });
 });
