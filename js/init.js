@@ -840,6 +840,7 @@ function set_profile(){
                         break;
                 }
             });
+            console.log($button_user.closest("form").find("select option:selected"));
             $button_user.closest("form").find("select option:selected").removeAttr("selected");
             $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
         }
@@ -1040,7 +1041,6 @@ $(document).ready(function(){
                                 if (!$login_email.hasClass("error")){$login_email.addClass("error");}
                                 break;
                             case "client_create":
-                                console.log(1043);
                                  move_sections($self, animation_ended);
                                 setLocalStorage(response);
                                 set_profile();
@@ -1197,8 +1197,7 @@ $(document).ready(function(){
                                 if (!$login_email.hasClass("error")){$login_email.addClass("error");}
                                 break;
                             case "client_create":
-                                console.log(1199);
-                                 move_sections($self, animation_ended);
+                                move_sections($self, animation_ended);
                                 setLocalStorage(response);
                                 set_profile();
                                 $preloader.hide();
