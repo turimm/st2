@@ -23,8 +23,8 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-var glob_url = "http://10.0.9.16:8000/shell/";
-//var glob_url = "http://shell.wmt.dk/shell/";
+//var glob_url = "http://0.0.0.0:8000/shell/";
+var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
@@ -1259,7 +1259,6 @@ $(document).ready(function(){
         if($(this).hasClass("js_update_profile")){$(this).attr("action", glob_url+"client/update/")}
         else if ($(this).hasClass("js_form_login")){ $(this).attr("action", glob_url+"client/login/"); }
         else if ($(this).hasClass("js_order_login")){ $(this).attr("action", glob_url+"order/create/"); }
-        else{$(this).find("input[name='email']").removeAttr("readonly");}
         $(this).validate({
             onKeyup : true,
             onSubmit: true,
@@ -1476,13 +1475,9 @@ $(document).ready(function(){
 
     function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
-         select_el.css({
-//            "-webkit-transform":"rotate("+ angle +"deg)"
-            "-webkit-transition": "all 2s, height 2s, -webkit-transform 2s;"
-        });
         select_el.css({
-            "-webkit-transform":"rotate("+ angle +"deg)"
-//            "-webkit-transition": "all 2s, height 2s, -webkit-transform 2s;"
+            "-webkit-transform":"rotate("+ angle +"deg)",
+            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
         });
     }
 
