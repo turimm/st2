@@ -841,7 +841,7 @@ function set_profile(){
                 }
             });
             $button_user.closest("form").find("select option:selected").removeAttr("selected");
-            $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+//            $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
         }
     }
 }
