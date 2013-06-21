@@ -1259,7 +1259,7 @@ $(document).ready(function(){
         if($(this).hasClass("js_update_profile")){$(this).attr("action", glob_url+"client/update/")}
         else if ($(this).hasClass("js_form_login")){ $(this).attr("action", glob_url+"client/login/"); }
         else if ($(this).hasClass("js_order_login")){ $(this).attr("action", glob_url+"order/create/"); }
-        else{$(this).find("input[name='email']").removeAttr("readonly");}s
+        else{$(this).find("input[name='email']").removeAttr("readonly");}
         $(this).validate({
             onKeyup : true,
             onSubmit: true,
