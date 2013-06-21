@@ -840,9 +840,9 @@ function set_profile(){
                         break;
                 }
             });
-            console.log($button_user.closest("form").find("select option:selected"));
-            $button_user.closest("form").find("select option:selected").removeAttr("selected");
-            console.log($button_user.closest("form").find("select option:selected"));
+//            console.log($button_user.closest("form").find("select option:selected"));
+//            $button_user.closest("form").find("select option:selected").removeAttr("selected");
+//            console.log($button_user.closest("form").find("select option:selected"));
             $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
         }
     }
