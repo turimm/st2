@@ -1718,6 +1718,17 @@ select:focus{
     transform: rotate(-120deg);
     -webkit-transform: rotate(-120deg);
 }
+@-webkit-keyframes rot_arrow {
+        0% {
+            -webkit-transform: rotate(-120deg)
+        }
+        100% {
+            -webkit-transform: rotate(120deg)
+        }
+}
+.rot_arrow{
+    -webkit-animation: rotateArrow .5s ease-in 1 forwards;
+}
 
 
 
