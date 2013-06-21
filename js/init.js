@@ -839,7 +839,7 @@ function set_profile(){
                         $(this).val(localStorage.getItem("code"));
                         break;
                     case "receive_email":
-                        if(localStorage.getItem("receive_email") === true){
+                        if(localStorage.getItem("receive_email") == true){
                             $(this).attr("checked", "checked");
                         }
                         break;
