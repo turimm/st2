@@ -1477,7 +1477,7 @@ $(document).ready(function(){
         var select_el = $(".sl_arrow_tachometer");
         select_el.css({
             "-webkit-transform":"rotate("+ angle +"deg)",
-            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
+            "-webkit-transition": "all 2s, height 2s, -webkit-transform 2s;"
         });
     }
 
