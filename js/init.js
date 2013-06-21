@@ -23,8 +23,8 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-//var glob_url = "http://0.0.0.0:8000/shell/";
-var glob_url = "http://shell.wmt.dk/shell/";
+var glob_url = "http://10.0.9.16:8000/shell/";
+//var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
