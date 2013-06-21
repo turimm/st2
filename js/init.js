@@ -840,7 +840,7 @@ function set_profile(){
                         break;
                     case "receive_email":
                         console.log("receive_email");
-                        if(localStorage.getItem("receive_email") == true){
+                        if(localStorage.getItem("receive_email") == "true"){
                             console.log("receive_email1");
                             console.log("receive_email2: ",  $(this));
                             $(this).attr("checked", "checked");
