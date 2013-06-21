@@ -1040,6 +1040,7 @@ $(document).ready(function(){
                                 if (!$login_email.hasClass("error")){$login_email.addClass("error");}
                                 break;
                             case "client_create":
+                                console.log(1043);
                                  move_sections($self, animation_ended);
                                 setLocalStorage(response);
                                 set_profile();
@@ -1196,6 +1197,7 @@ $(document).ready(function(){
                                 if (!$login_email.hasClass("error")){$login_email.addClass("error");}
                                 break;
                             case "client_create":
+                                console.log(1199);
                                  move_sections($self, animation_ended);
                                 setLocalStorage(response);
                                 set_profile();
