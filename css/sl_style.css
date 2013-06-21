@@ -1722,3 +1722,6 @@ select:focus{
 .sl_speedometer{
     -webkit-transition: all 2s, height 2s, -webkit-transform 2s;
 }
+.sl_width{
+    width: 400px;
+}
