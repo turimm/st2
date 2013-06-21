@@ -38,8 +38,8 @@ var $glob_stations = null;
 var glob_lat = "";
 var glob_lon = "";
 var glob_markers =[];
-//var glob_url = "http://0.0.0.0:8000/shell/";
-var glob_url = "http://shell.wmt.dk/shell/";
+var glob_url = "http://10.0.9.16:8000/shell/";
+//var glob_url = "http://shell.wmt.dk/shell/";
 
 /*Codes for order state*/
 var ORDER_IN_PROCESS = 1,
@@ -843,7 +843,7 @@ function set_profile(){
 //            console.log($button_user.closest("form").find("select option:selected"));
             if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
                 $button_user.closest("form").find("select option:selected").removeAttr("selected");
-                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+            $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
             }
 
         }
@@ -1067,7 +1067,7 @@ $(document).ready(function(){
                                 }
                                 $preloader.hide();
                                 break;
-                            case "client_update":
+//                            case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
                                 set_profile();
@@ -1223,7 +1223,7 @@ $(document).ready(function(){
                                 }
                                 $preloader.hide();
                                 break;
-                            case "client_update":
+//                            case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
                                 set_profile();
