@@ -6,6 +6,15 @@
  * To change this template use File | Settings | File Templates.
  */
 
+
+function addAngle(angle){
+        var select_el = $(".sl_arrow_tachometer");
+        select_el.css({
+            "-webkit-transform":"rotate("+ angle +"deg)",
+            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
+        });
+    }
+
 document.ontouchmove =  function(e){
     e.preventDefault();
 };
@@ -1473,13 +1482,7 @@ $(document).ready(function(){
 
 //    animated for tachometer
 
-    function addAngle(angle){
-        var select_el = $(".sl_arrow_tachometer");
-        select_el.css({
-            "-webkit-transform":"rotate("+ angle +"deg)",
-            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
-        });
-    }
+
 
     $(".js_event").click(function(){
         var add = 90;
