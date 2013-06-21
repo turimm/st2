@@ -118,7 +118,7 @@
         height: 45px;
         margin: 0 auto;
         background: url("img/title_yshadow.png") center top no-repeat;
-        padding-bottom: 14px;
+        /*padding-bottom: 14px;*/
     }
     .sl_price_box{
         padding: 0 60px;
@@ -155,7 +155,7 @@
     .sl_desc_box{
         padding: 30px 40px;
         border-radius: 16px;
-        margin-bottom: 20px;
+        margin-bottom: 32px;
         text-transform: uppercase;
 
         -webkit-box-shadow: 1px 2px 2px rgba(255,255,255,.2), inset 1px 2px 2px rgba(0,0,0,.77);
@@ -770,7 +770,8 @@
         color: #363535;
         padding: 0 5%;
         width: 90%;
-        margin-bottom: 23px;
+        /*margin-bottom: 23px;*/
+        margin-bottom: 13px;
 
         -webkit-box-shadow: 0 1px 1px rgba(255,255,255,.68), inset 0 2px 1px rgba(0,0,0,.71);
         -moz-box-shadow: 0 1px 1px rgba(255,255,255,.68), inset 0 2px 1px rgba(0,0,0,.71);
@@ -1368,7 +1369,7 @@
         text-shadow: 1px 0 0 #A2A2A2, 0 0 1px #A2A2A2;
     }
     .sl_ss_45 {
-        padding-top: 36px;
+        padding-top: 20px;
         padding-left: 36px;
     }
 /*------------BODYTOP--------------*/
@@ -1718,14 +1719,10 @@ select:focus{
     transform: rotate(-120deg);
     -webkit-transform: rotate(-120deg);
 }
-@-webkit-keyframes rot_arrow {
-        0% {
-            -webkit-transform: rotate(-120deg)
-        }
-        100% {
-            -webkit-transform: rotate(120deg)
-        }
-}
+
 .sl_speedometer{
     -webkit-transition: all 2s, height 2s, -webkit-transform 2s;
+}
+.sl_width select{
+    width: 400px;
 }
