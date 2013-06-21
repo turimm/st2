@@ -838,14 +838,18 @@ function set_profile(){
                     case "code":
                         $(this).val(localStorage.getItem("code"));
                         break;
+                    case "receive_email":
+                        if(localStorage.getItem("receive_email") === true){
+                            $(this).attr("checked", "checked");
+                        }
+                        break;
                 }
             });
 //            console.log($button_user.closest("form").find("select option:selected"));
             if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
                 $button_user.closest("form").find("select option:selected").removeAttr("selected");
-            $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
             }
-
         }
     }
 }
@@ -860,6 +864,7 @@ function setLocalStorage(data){
     localStorage.setItem('code', data.client.code);
     localStorage.setItem('client_id', data.client.client_id);
     localStorage.setItem('car_type', data.client.car_type);
+    localStorage.setItem('receive_email', data.client.receive_email);
 }
 var dots;
 
