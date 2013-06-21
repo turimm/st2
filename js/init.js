@@ -844,6 +844,8 @@ function set_profile(){
                             console.log("receive_email1");
                             console.log("receive_email2: ",  $(this));
                             $(this).attr("checked", "checked");
+                        }else{
+                            $(this).removeAttr("checked", "checked");
                         }
                         break;
                 }
