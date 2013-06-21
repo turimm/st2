@@ -1477,16 +1477,16 @@ $(document).ready(function(){
     function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
         select_el.css({
-            "-webkit-transform":"rotate("+angle+"deg)!important;"
+            WebKitTransform:"rotate("+ angle +"deg)!important;"
         });
     }
 
     $(".js_event").click(function(){
         var add = 90;
 //        addAngle(add);
-//        var select_el = $(".sl_arrow_tachometer");
-        $(".sl_arrow_tachometer").css({
-            "-webkit-transform":"rotate(90deg)!important;"
+        $(".sl_arrow_tachometer").addClass('js_angle');
+        $('.js_angle').css({
+            "-webkit-transform":"rotate(90deg)"
         });
     });
 });
