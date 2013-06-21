@@ -1477,18 +1477,18 @@ $(document).ready(function(){
     function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
         select_el.css({
-            WebKitTransform:"rotate("+ angle +"deg)!important;"
+            "-webkit-transform":"rotate("+ angle +"deg)",
+            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
         });
     }
 
     $(".js_event").click(function(){
         var add = 90;
-//        addAngle(add);
-//        $(".sl_arrow_tachometer").addClass('js_angle');
-        $('.sl_arrow_tachometer').css({
-            "-webkit-transform":"rotate("+ add +"deg)",
-            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
-        });
+        addAngle(add);
+//        $('.sl_arrow_tachometer').css({
+//            "-webkit-transform":"rotate("+ add +"deg)",
+//            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
+//        });
     });
 });
 
