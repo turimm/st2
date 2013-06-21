@@ -1718,14 +1718,7 @@ select:focus{
     transform: rotate(-120deg);
     -webkit-transform: rotate(-120deg);
 }
-@-webkit-keyframes rot_arrow {
-        0% {
-            -webkit-transform: rotate(-120deg)
-        }
-        100% {
-            -webkit-transform: rotate(120deg)
-        }
-}
+
 .sl_speedometer{
     -webkit-transition: all 2s, height 2s, -webkit-transform 2s;
 }
