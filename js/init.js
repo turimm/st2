@@ -1477,7 +1477,7 @@ $(document).ready(function(){
     function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
         select_el.css({
-            WebKitTransform:"rotate("+ angle +"deg)"
+            WebKitTransform:"rotate("+ angle +"deg)!important;"
         });
     }
 
