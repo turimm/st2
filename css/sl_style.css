@@ -1726,6 +1726,6 @@ select:focus{
             -webkit-transform: rotate(120deg)
         }
 }
-.sl_{
+.sl_speedometer{
     -webkit-transition: all 2s, height 2s, -webkit-transform 2s;
 }

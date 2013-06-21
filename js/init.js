@@ -9,9 +9,13 @@
 
 function addAngle(angle){
         var select_el = $(".sl_arrow_tachometer");
+        if(select_el.hasClass("sl_speedometer")){
+            select_el.removeClass("sl_speedometer");
+        }
+        select_el.addClass("sl_speedometer");
         select_el.css({
-            "-webkit-transform":"rotate("+ angle +"deg)",
-            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
+            "-webkit-transform":"rotate("+ angle +"deg)"
+//            "-webkit-animation": "rot_arrow .5s ease-in 1 forwards"
         });
     }
 
