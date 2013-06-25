@@ -718,6 +718,15 @@ function autofill_order(elem){
     $form.find('input[name=email]').val( localStorage.getItem("email") || '' );
     $form.find('input[name=by_post]').val( localStorage.getItem("by_post") || '' );
     $form.find('input[name=code]').val( '' );
+    if(localStorage.getItem("receive_email") == "true"){
+        $form.find('input[name=receive_email]').attr("checked", "checked");
+    }else{
+        $form.find('input[name=receive_email]').removeAttr("checked", "checked");
+    }
+    if( $form.find("select option:selected").val() != localStorage.getItem("car_type")){
+         $form.find("select option:selected").removeAttr("selected");
+         $form.find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+    }
 }
 
 function try_order(elem){
