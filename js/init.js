@@ -596,6 +596,10 @@ function move_sections(elem, callback){
         sections.removeClass("js_pushed").addClass("js_dissable");
     }
 
+    if(href=="#get_profile_info"){
+        autofill_order();
+    }
+
     if(activate_section.length && !activate_section.hasClass("js_activate")){
         var move_to_class = activate_section.hasClass("js_dissable") ? "js_pushed": "js_dissable";
         parent_section.removeClass("js_activate").addClass(move_to_class);
@@ -708,7 +712,7 @@ function show_offer(elem){
     $(".offer_information").parent().css({"display": "block"})
 }
 
-function autofill_order(elem){
+function autofill_order(){
     console.log("auto fill order!!");
     var $form = $('#id_order_form');
     $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
