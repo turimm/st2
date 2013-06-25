@@ -1134,6 +1134,7 @@ $(document).ready(function(){
 
     $("form").not('#id_order_form, #id_login_form').on("submit", function(){
 //    $("form").not('#id_login_form').on("submit", function(){
+        console.log("Form: ", $(this));
         if ($(this).valid()){
             if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
