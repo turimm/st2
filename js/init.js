@@ -1101,9 +1101,13 @@ $(document).ready(function(){
                                 $preloader.hide();
                                 break;
                             case "order_create":
+                                console.log("hasOwnProperty: ", response.hasOwnProperty("client"));
                                 if (response.hasOwnProperty("client")){
+                                    console.log(response);
                                     setLocalStorage(response);
+                                    console.log(1);
                                     set_profile();
+                                    console.log(2);
                                 }
                                 order = {};
                                 transition_in_progress = true;
