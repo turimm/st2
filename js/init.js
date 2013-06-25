@@ -599,10 +599,6 @@ function move_sections(elem, callback){
     if(href=="#get_profile_info"){
         autofill_order();
     }
-    if(href=="#profile"){
-        console.log("href==#profile");
-//        set_profile();
-    }
 
     if(activate_section.length && !activate_section.hasClass("js_activate")){
         var move_to_class = activate_section.hasClass("js_dissable") ? "js_pushed": "js_dissable";
@@ -622,6 +618,10 @@ function move_sections(elem, callback){
             $(".js_move_to_top").hide();
         }
 
+    }
+    if(href=="#profile"){
+        console.log("href==#profile");
+        set_profile();
     }
     callback(elem);
 }
@@ -866,10 +866,14 @@ function set_profile(){
                         break;
                 }
             });
-//            console.log($button_user.closest("form").find("select option:selected"));
-            if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
-                $button_user.closest("form").find("select option:selected").removeAttr("selected");
-                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+//            console.log($button_user.closest("form").find("select"));
+//            if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
+//                $button_user.closest("form").find("select option:selected").removeAttr("selected");
+//                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+//            }
+            if($("#js_profile_client").find("select option:selected").val() != localStorage.getItem("car_type")){
+                $("#js_profile_client").find("select option:selected").removeAttr("selected");
+                $("#js_profile_client").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
             }
         }
     }
