@@ -584,10 +584,7 @@ function move_sections(elem, callback){
     var parent_section = $(elem).parents("section");
     var href = get_href(elem);
 
-    if(href=="#profile"){
-        console.log("href==#profile");
-        set_profile();
-    }
+
 
     if ($(elem).is("section")){
         parent_section = $("section.js_activate");
@@ -624,6 +621,10 @@ function move_sections(elem, callback){
             $(".js_move_to_top").hide();
         }
 
+    }
+
+    if(href=="#profile"){
+        set_profile();
     }
 
     callback(elem);
@@ -727,13 +728,12 @@ function autofill_order(){
             phone: localStorage.getItem("phone"),
             email: localStorage.getItem("email"),
             by_post: localStorage.getItem("by_post"),
-            code: localStorage.getItem("code")
+//            code: localStorage.getItem("code")
+            receive_email_id: "receive_email_id_o"
         });
         var html = $(form_inputs);
-        console.log("html: ", html);
-        console.log("checkbox: ", html.find("input[name=receive_email]").attr("checked"));
         if(localStorage.getItem("receive_email") == "true"){
-            html.find("input[name=receive_email]").attr("checked", "checked");
+            html.find("input[name=receive_email]").prop("checked", "checked");
         }else{
             html.find("input[name=receive_email]").removeAttr("checked", "checked");
         }
@@ -858,7 +858,7 @@ function set_profile(){
             if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
             $button_user.text("UPDATE");
             var current_input;
-
+            $(".js_profile_form_inputs").html("");
             var form_inputs = render_to('templates/profile_form.html', {
                 first_name: localStorage.getItem("first_name"),
                 last_name: localStorage.getItem("last_name"),
@@ -866,13 +866,12 @@ function set_profile(){
                 phone: localStorage.getItem("phone"),
                 email: localStorage.getItem("email"),
                 by_post: localStorage.getItem("by_post"),
-                code: localStorage.getItem("code")
+                code: localStorage.getItem("code"),
+                receive_email_id: "receive_email_p"
             });
             var html = $(form_inputs);
-            console.log("html: ", html);
-            console.log("checkbox: ", html.find("input[name=receive_email]").attr("checked"));
             if(localStorage.getItem("receive_email") == "true"){
-                html.find("input[name=receive_email]").attr("checked", "checked");
+                html.find("input[name=receive_email]").prop("checked", "checked");
             }else{
                 html.find("input[name=receive_email]").removeAttr("checked", "checked");
             }
@@ -1083,6 +1082,7 @@ $(document).ready(function(){
         if( $form.valid() ){
             var data = $form.serialize();
             data += "&order="+JSON.stringify(order);
+            data += "&order_edit_form=1";
             $.post(url, data,
                     function(response){
                         switch (response.status){
@@ -1154,13 +1154,9 @@ $(document).ready(function(){
                                 $preloader.hide();
                                 break;
                             case "order_create":
-                                console.log("hasOwnProperty: ", response.hasOwnProperty("client"));
                                 if (response.hasOwnProperty("client")){
-                                    console.log(response);
                                     setLocalStorage(response);
-                                    console.log(1);
 //                                    set_profile();
-                                    console.log(2);
                                 }
                                 order = {};
                                 transition_in_progress = true;
@@ -1203,7 +1199,6 @@ $(document).ready(function(){
 
     $("form").not('#id_order_form, #id_login_form').on("submit", function(){
 //    $("form").not('#id_login_form').on("submit", function(){
-        console.log("Form: ", $(this));
         if ($(this).valid()){
             if ($(this).hasClass("js_form_client")){
                 var $preloader = $(".js_preloader");
@@ -1340,9 +1335,6 @@ $(document).ready(function(){
                     ,"json"
                 ).always(function(){setTimeout(function(){$preloader.hide();},0)})
                     .error(function (xhr, ajaxOptions, thrownError){
-                        console.log("xhr: ", xhr);
-                        console.log("ajaxOptions: ", ajaxOptions);
-                        console.log("thrownError: ", thrownError);
                     show_alert("Server is not responding");
                 });
             }
