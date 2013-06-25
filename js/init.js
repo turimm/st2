@@ -599,6 +599,9 @@ function move_sections(elem, callback){
     if(href=="#get_profile_info"){
         autofill_order();
     }
+    if(href=="#profile"){
+        set_profile();
+    }
 
     if(activate_section.length && !activate_section.hasClass("js_activate")){
         var move_to_class = activate_section.hasClass("js_dissable") ? "js_pushed": "js_dissable";
@@ -993,7 +996,7 @@ function clearInputPassword(form){
 
 
 $(document).ready(function(){
-    set_profile();
+//    set_profile();
     $.preloadImage(
         'css/img/bg_1.jpg',
         function(){
@@ -1068,7 +1071,7 @@ $(document).ready(function(){
                             case "client_create":
                                  move_sections($self, animation_ended);
                                 setLocalStorage(response);
-                                set_profile();
+//                                set_profile();
                                 $preloader.hide();
                                 break;
                             case "email_exist":
@@ -1092,7 +1095,7 @@ $(document).ready(function(){
                             case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
-                                set_profile();
+//                                set_profile();
                                 if (response.status ==="client_update"){
                                      clearInputPassword($self);
                                 }
@@ -1106,7 +1109,7 @@ $(document).ready(function(){
                                     console.log(response);
                                     setLocalStorage(response);
                                     console.log(1);
-                                    set_profile();
+//                                    set_profile();
                                     console.log(2);
                                 }
                                 order = {};
@@ -1229,7 +1232,7 @@ $(document).ready(function(){
                             case "client_create":
                                 move_sections($self, animation_ended);
                                 setLocalStorage(response);
-                                set_profile();
+//                                set_profile();
                                 $preloader.hide();
                                 break;
                             case "email_exist":
@@ -1253,7 +1256,7 @@ $(document).ready(function(){
                             case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
-                                set_profile();
+//                                set_profile();
                                 if (response.status ==="client_update"){
                                      clearInputPassword($self);
                                 }
@@ -1264,7 +1267,7 @@ $(document).ready(function(){
                             case "order_create":
                                 if (response.hasOwnProperty("client")){
                                     setLocalStorage(response);
-                                    set_profile();
+//                                    set_profile();
                                 }
                                 order = {};
                                 transition_in_progress = true;
