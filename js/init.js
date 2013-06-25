@@ -1077,7 +1077,7 @@ $(document).ready(function(){
                                 }
                                 $preloader.hide();
                                 break;
-//                            case "client_update":
+                            case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
                                 set_profile();
@@ -1234,7 +1234,7 @@ $(document).ready(function(){
                                 }
                                 $preloader.hide();
                                 break;
-//                            case "client_update":
+                            case "client_update":
                             case "login_success":
                                 setLocalStorage(response);
                                 set_profile();
