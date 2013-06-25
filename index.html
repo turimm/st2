@@ -302,29 +302,32 @@
             <!--<form method="post" action="#" data-method="update_profile" data-variable="true" class="js_form_client js_order_login" data-href="#thank_you">-->
             <form method="post" action="#" id="id_order_form"
                   data-method="update_profile" data-variable="true" class="" data-href="#thank_you">
-                <div class="sl_desc_box">
-                    <input type="hidden" name="order_edit_form" value="True">
-                    <input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:" value="">
-                    <input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:" value="">
-                    <input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:" value="">
-                    <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:" value="">
-                    <input readonly="readonly" class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:" value="">
-                    <!--<input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">-->
-                    <input  class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:" value="">
-                    <input class="sl_cred_numer" name="code" type="tel" maxlength="4" pattern="\d{4}" placeholder="CODE:">
-                    <!--<input class="sl_cred_numer" name="code" type="number" maxlength="4" placeholder="CODE:">-->
-                    <div class="sl_cred_numer sl_select_style sl_width">
-                        <select name="car_type">
-                            <option value="0">SMALL</option>
-                            <option value="1">MEDIUM</option>
-                            <option value="2">LARGE</option>
-                        </select>
-                    </div>
-                    <input class="sl_check lastInForm" type="checkbox" name="receive_email" id="c1" value="1">
-                    <label class="sl_check_label" for="c1">
-                        <span></span>
-                        MODTAG NYHEDSBREV
-                    </label>
+                <div class="js_order_form_inputs sl_desc_box">
+                    <!--<div class="">-->
+
+                <!--</div>-->
+                    <!--<input type="hidden" name="order_edit_form" value="True">-->
+                    <!--<input class="sl_cred_numer" name="first_name" type="text" placeholder="FORNAVN:" value="">-->
+                    <!--<input class="sl_cred_numer" name="last_name" type="text" placeholder="EFTERNAVN:" value="">-->
+                    <!--<input class="sl_cred_numer" name="address" type="text" placeholder="ADRESSE:" value="">-->
+                    <!--<input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:" value="">-->
+                    <!--<input readonly="readonly" class="sl_cred_numer" name="email" type="text" placeholder="EMAIL:" value="">-->
+                    <!--&lt;!&ndash;<input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">&ndash;&gt;-->
+                    <!--<input  class="sl_cred_numer" name="phone" type="tel" placeholder="TELEFONNUMMER:" value="">-->
+                    <!--<input class="sl_cred_numer" name="code" type="tel" maxlength="4" pattern="\d{4}" placeholder="CODE:">-->
+                    <!--&lt;!&ndash;<input class="sl_cred_numer" name="code" type="number" maxlength="4" placeholder="CODE:">&ndash;&gt;-->
+                    <!--<div class="sl_cred_numer sl_select_style sl_width">-->
+                        <!--<select name="car_type">-->
+                            <!--<option value="0">SMALL</option>-->
+                            <!--<option value="1">MEDIUM</option>-->
+                            <!--<option value="2">LARGE</option>-->
+                        <!--</select>-->
+                    <!--</div>-->
+                    <!--<input class="sl_check lastInForm" type="checkbox" name="receive_email" id="c1" value="1">-->
+                    <!--<label class="sl_check_label" for="c1">-->
+                        <!--<span></span>-->
+                        <!--MODTAG NYHEDSBREV-->
+                    <!--</label>-->
                 </div>
                 <a href="#thank_you" class="sl_buy_btn check_form js_button_click"></a>
             </form>
@@ -529,7 +532,11 @@
 
         <!-- end animation -->
         <form method="post" action="http://shell.wmt.dk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
-            <div class="js_profile_form_inputs sl_right_navbox sl_ss_38">
+            <div class="sl_right_navbox sl_ss_38">
+                <div class="sl_ss_42">VASK INFO</div>
+                <div class="js_profile_form_inputs">
+
+                </div>
 
             </div>
             <div  class="wmt_clear sl_ss_45" >

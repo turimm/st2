@@ -720,24 +720,46 @@ function show_offer(elem){
 }
 
 function autofill_order(){
-    console.log("auto fill order!!");
-    var $form = $('#id_order_form');
-    $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
-    $form.find('input[name=last_name]').val( localStorage.getItem("last_name") || '' );
-    $form.find('input[name=address]').val( localStorage.getItem("address") || '' );
-    $form.find('input[name=phone]').val( localStorage.getItem("phone") || '' );
-    $form.find('input[name=email]').val( localStorage.getItem("email") || '' );
-    $form.find('input[name=by_post]').val( localStorage.getItem("by_post") || '' );
-    $form.find('input[name=code]').val( '' );
-    if(localStorage.getItem("receive_email") == "true"){
-        $form.find('input[name=receive_email]').attr("checked", "checked");
-    }else{
-        $form.find('input[name=receive_email]').removeAttr("checked", "checked");
-    }
-    if( $form.find("select option:selected").val() != localStorage.getItem("car_type")){
-         $form.find("select option:selected").removeAttr("selected");
-         $form.find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
-    }
+        var form_inputs = render_to('templates/profile_form.html', {
+            first_name: localStorage.getItem("first_name"),
+            last_name: localStorage.getItem("last_name"),
+            address: localStorage.getItem("address"),
+            phone: localStorage.getItem("phone"),
+            email: localStorage.getItem("email"),
+            by_post: localStorage.getItem("by_post"),
+            code: localStorage.getItem("code")
+        });
+        var html = $(form_inputs);
+        console.log("html: ", html);
+        console.log("checkbox: ", html.find("input[name=receive_email]").attr("checked"));
+        if(localStorage.getItem("receive_email") == "true"){
+            html.find("input[name=receive_email]").attr("checked", "checked");
+        }else{
+            html.find("input[name=receive_email]").removeAttr("checked", "checked");
+        }
+        if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
+            html.find("select option:selected").removeAttr("selected");
+            html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
+        }
+        $(".js_order_form_inputs").html(html);
+//    console.log("auto fill order!!");
+//    var $form = $('#id_order_form');
+//    $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
+//    $form.find('input[name=last_name]').val( localStorage.getItem("last_name") || '' );
+//    $form.find('input[name=address]').val( localStorage.getItem("address") || '' );
+//    $form.find('input[name=phone]').val( localStorage.getItem("phone") || '' );
+//    $form.find('input[name=email]').val( localStorage.getItem("email") || '' );
+//    $form.find('input[name=by_post]').val( localStorage.getItem("by_post") || '' );
+//    $form.find('input[name=code]').val( '' );
+//    if(localStorage.getItem("receive_email") == "true"){
+//        $form.find('input[name=receive_email]').attr("checked", "checked");
+//    }else{
+//        $form.find('input[name=receive_email]').removeAttr("checked", "checked");
+//    }
+//    if( $form.find("select option:selected").val() != localStorage.getItem("car_type")){
+//         $form.find("select option:selected").removeAttr("selected");
+//         $form.find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+//    }
 }
 
 function try_order(elem){
@@ -846,17 +868,19 @@ function set_profile(){
                 by_post: localStorage.getItem("by_post"),
                 code: localStorage.getItem("code")
             });
-
+            var html = $(form_inputs);
+            console.log("html: ", html);
+            console.log("checkbox: ", html.find("input[name=receive_email]").attr("checked"));
             if(localStorage.getItem("receive_email") == "true"){
-                form_inputs.find("input[name=receive_email]").attr("checked", "checked");
+                html.find("input[name=receive_email]").attr("checked", "checked");
             }else{
-                $(this).removeAttr("checked", "checked");
+                html.find("input[name=receive_email]").removeAttr("checked", "checked");
             }
-            if(form_inputs.find("select option:selected").val() != localStorage.getItem("car_type")){
-                form_inputs.find("select option:selected").removeAttr("selected");
-                form_inputs.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
+            if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
+                html.find("select option:selected").removeAttr("selected");
+                html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
             }
-            $(".js_profile_form_inputs").html(form_inputs);
+            $(".js_profile_form_inputs").html(html);
 
 //            $button_user.closest("form").find("input").each(function(){
 //                current_input = $(this).attr("name");
