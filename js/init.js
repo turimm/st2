@@ -709,6 +709,7 @@ function show_offer(elem){
 }
 
 function autofill_order(elem){
+    console.log("auto fill order!!");
     var $form = $('#id_order_form');
     $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
     $form.find('input[name=last_name]').val( localStorage.getItem("last_name") || '' );
@@ -808,6 +809,7 @@ function set_profile(){
      if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
     else{
         if (localStorage.length){
+            console.log("set_profile!!!");
             $("#payment_login").attr("href","#order_login");
             var $button_user = $("#js_client_login");
             var $parent  = $button_user.parent(); // link
@@ -839,10 +841,7 @@ function set_profile(){
                         $(this).val(localStorage.getItem("code"));
                         break;
                     case "receive_email":
-                        console.log("receive_email");
                         if(localStorage.getItem("receive_email") == "true"){
-                            console.log("receive_email1");
-                            console.log("receive_email2: ",  $(this));
                             $(this).attr("checked", "checked");
                         }else{
                             $(this).removeAttr("checked", "checked");
