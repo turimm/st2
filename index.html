@@ -529,27 +529,8 @@
 
         <!-- end animation -->
         <form method="post" action="http://shell.wmt.dk/shell/client/" class="should_not_be_reseted js_form_client" id="js_profile_client">
-            <div class="sl_right_navbox sl_ss_38">
-                <div class="sl_ss_42">VASK INFO</div>
-                <input class="sl_cred_numer sl_ss_43" type="text" name="first_name" placeholder="FORNAVN:">
-                <input class="sl_cred_numer sl_ss_43" type="text" name="last_name" placeholder="EFTERNAVN:">
-                <input class="sl_cred_numer sl_ss_43" type="text" name="address" placeholder="ADRESSE:">
-                <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:">
-                <input readonly="readonly" class="sl_cred_numer sl_ss_43" type="text" name="email" placeholder="EMAIL:">
-                <input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4">
-                <input class="sl_cred_numer sl_ss_43 lastInForm" type="tel" name="phone" placeholder="TELEFONNUMMER:">
-                <div class="sl_cred_numer sl_select_style">
-                    <select name="car_type">
-                        <option value="0">SMALL</option>
-                        <option value="1">MEDIUM</option>
-                        <option value="2">LARGE</option>
-                    </select>
-                </div>
-                <input class="sl_check lastInForm" type="checkbox" name="receive_email" id="c2" value="1">
-                <label class="sl_check_label" for="c2">
-                    <span></span>
-                    MODTAG NYHEDSBREV
-                </label>
+            <div class="js_profile_form_inputs sl_right_navbox sl_ss_38">
+
             </div>
             <div  class="wmt_clear sl_ss_45" >
                 <a class="sl_btn wmt_f_l sl_ss_44 js_button_click" href="#shell_login">
