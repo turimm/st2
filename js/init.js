@@ -600,7 +600,8 @@ function move_sections(elem, callback){
         autofill_order();
     }
     if(href=="#profile"){
-        set_profile();
+        console.log("href==#profile");
+//        set_profile();
     }
 
     if(activate_section.length && !activate_section.hasClass("js_activate")){
