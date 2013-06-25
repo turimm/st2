@@ -866,14 +866,10 @@ function set_profile(){
                         break;
                 }
             });
-//            console.log($button_user.closest("form").find("select"));
-//            if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
-//                $button_user.closest("form").find("select option:selected").removeAttr("selected");
-//                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
-//            }
-            if($("#js_profile_client").find("select option:selected").val() != localStorage.getItem("car_type")){
-                $("#js_profile_client").find("select option:selected").removeAttr("selected");
-                $("#js_profile_client").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
+//            console.log($button_user.closest("form").find("select option:selected"));
+            if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
+                $button_user.closest("form").find("select option:selected").removeAttr("selected");
+                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
             }
         }
     }
