@@ -625,9 +625,7 @@ function move_sections(elem, callback){
     }
 
     if(href=="#profile"){
-        console.log(1);
         set_profile();
-        console.log(2);
     }
 
     callback(elem);
@@ -745,24 +743,6 @@ function autofill_order(){
             html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
         }
         $(".js_order_form_inputs").html(html);
-//    console.log("auto fill order!!");
-//    var $form = $('#id_order_form');
-//    $form.find('input[name=first_name]').val( localStorage.getItem("first_name") || '' );
-//    $form.find('input[name=last_name]').val( localStorage.getItem("last_name") || '' );
-//    $form.find('input[name=address]').val( localStorage.getItem("address") || '' );
-//    $form.find('input[name=phone]').val( localStorage.getItem("phone") || '' );
-//    $form.find('input[name=email]').val( localStorage.getItem("email") || '' );
-//    $form.find('input[name=by_post]').val( localStorage.getItem("by_post") || '' );
-//    $form.find('input[name=code]').val( '' );
-//    if(localStorage.getItem("receive_email") == "true"){
-//        $form.find('input[name=receive_email]').attr("checked", "checked");
-//    }else{
-//        $form.find('input[name=receive_email]').removeAttr("checked", "checked");
-//    }
-//    if( $form.find("select option:selected").val() != localStorage.getItem("car_type")){
-//         $form.find("select option:selected").removeAttr("selected");
-//         $form.find("select option[value=" + localStorage.getItem("car_type") + "]").attr("selected", "selected");
-//    }
 }
 
 function try_order(elem){
@@ -877,7 +857,6 @@ function set_profile(){
             }
             $(".js_profile_form_inputs").html(html);
 //        if (localStorage.length){
-            console.log("set_profile!!!");
             $("#payment_login").attr("href","#order_login");
             var $button_user = $("#js_client_login");
             var $parent  = $button_user.parent(); // link
