@@ -625,7 +625,9 @@ function move_sections(elem, callback){
     }
 
     if(href=="#profile"){
+        console.log(1);
         set_profile();
+        console.log(2);
     }
 
     callback(elem);
@@ -849,9 +851,32 @@ function isLocalStorageAvailable() {
         }
 }
 function set_profile(){
-     if (!isLocalStorageAvailable()){show_alert("Your browser do not support LocalStorage technology")}
-    else{
-        if (localStorage.length){
+     if (!isLocalStorageAvailable()){
+         show_alert("Your browser do not support LocalStorage technology")
+     }else{
+//         $(".js_profile_form_inputs").html("");
+         var form_inputs = render_to('templates/profile_form.html', {
+                first_name: localStorage.getItem("first_name"),
+                last_name: localStorage.getItem("last_name"),
+                address: localStorage.getItem("address"),
+                phone: localStorage.getItem("phone"),
+                email: localStorage.getItem("email"),
+                by_post: localStorage.getItem("by_post"),
+                code: localStorage.getItem("code"),
+                receive_email_id: "receive_email_p"
+            });
+            var html = $(form_inputs);
+            if(localStorage.getItem("receive_email") == "true"){
+                html.find("input[name=receive_email]").prop("checked", "checked");
+            }else{
+                html.find("input[name=receive_email]").removeAttr("checked", "checked");
+            }
+            if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
+                html.find("select option:selected").removeAttr("selected");
+                html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
+            }
+            $(".js_profile_form_inputs").html(html);
+//        if (localStorage.length){
             console.log("set_profile!!!");
             $("#payment_login").attr("href","#order_login");
             var $button_user = $("#js_client_login");
@@ -859,39 +884,8 @@ function set_profile(){
             if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
             $button_user.text("UPDATE");
             var current_input;
-            $(".js_profile_form_inputs").html("");
-            if(localStorage.getItem("email")){
-                    var form_inputs = render_to('templates/profile_form.html', {
-                    first_name: localStorage.getItem("first_name"),
-                    last_name: localStorage.getItem("last_name"),
-                    address: localStorage.getItem("address"),
-                    phone: localStorage.getItem("phone"),
-                    email: localStorage.getItem("email"),
-                    by_post: localStorage.getItem("by_post"),
-                    code: localStorage.getItem("code"),
-                    receive_email_id: "receive_email_p"
-                });
-                var html = $(form_inputs);
-                if(localStorage.getItem("receive_email") == "true"){
-                    html.find("input[name=receive_email]").prop("checked", "checked");
-                }else{
-                    html.find("input[name=receive_email]").removeAttr("checked", "checked");
-                }
-                if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
-                    html.find("select option:selected").removeAttr("selected");
-                    html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
-                }
-                $(".js_profile_form_inputs").html(html);
-            }else{
-                $.ajax({
-                    url: "templates/profile_form.html",
-                    success: function(html) {
-                        $(".js_profile_form_inputs").html(html);
-                    },
-                    async:false
-            //        isLocal: true
-                });
-            }
+
+
 
 
 //            $button_user.closest("form").find("input").each(function(){
@@ -932,7 +926,16 @@ function set_profile(){
 //                $button_user.closest("form").find("select option:selected").removeAttr("selected");
 //                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
 //            }
-        }
+//        }else{
+//            $.ajax({
+//                    url: "templates/profile_form.html",
+//                    success: function(html) {
+//                        $(".js_profile_form_inputs").html(html);
+//                    },
+//                    async:false
+//            //        isLocal: true
+//                });
+//        }
     }
 }
 
