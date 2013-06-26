@@ -332,7 +332,6 @@ function successFunction(position) {
 //        return;
 //    }
 //    49.233292,28.466949
-    show_alert("successFunction!!");
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
     $.get(
@@ -856,65 +855,14 @@ function set_profile(){
                 html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
             }
             $(".js_profile_form_inputs").html(html);
-//        if (localStorage.length){
+        if (localStorage.length){
             $("#payment_login").attr("href","#order_login");
             var $button_user = $("#js_client_login");
             var $parent  = $button_user.parent(); // link
             if (!$parent.hasClass("js_update_profile")){$parent.addClass("js_update_profile")}
             $button_user.text("UPDATE");
             var current_input;
-
-
-
-
-//            $button_user.closest("form").find("input").each(function(){
-//                current_input = $(this).attr("name");
-//                switch (current_input){
-//                    case "first_name":
-//                        $(this).val(localStorage.getItem("first_name"));
-//                        break;
-//                    case "last_name":
-//                        $(this).val(localStorage.getItem("last_name"));
-//                        break;
-//                    case "address":
-//                        $(this).val(localStorage.getItem("address"));
-//                        break;
-//                    case "phone":
-//                        $(this).val(localStorage.getItem("phone"));
-//                        break;
-//                    case "email":
-//                        $(this).val(localStorage.getItem("email"));
-//                        break;
-//                    case "by_post":
-//                        $(this).val(localStorage.getItem("by_post"));
-//                        break;
-//                    case "code":
-//                        $(this).val(localStorage.getItem("code"));
-//                        break;
-//                    case "receive_email":
-//                        if(localStorage.getItem("receive_email") == "true"){
-//                            $(this).attr("checked", "checked");
-//                        }else{
-//                            $(this).removeAttr("checked", "checked");
-//                        }
-//                        break;
-//                }
-//            });
-//            console.log($button_user.closest("form").find("select option:selected"));
-//            if($button_user.closest("form").find("select option:selected").val() != localStorage.getItem("car_type")){
-//                $button_user.closest("form").find("select option:selected").removeAttr("selected");
-//                $button_user.closest("form").find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
-//            }
-//        }else{
-//            $.ajax({
-//                    url: "templates/profile_form.html",
-//                    success: function(html) {
-//                        $(".js_profile_form_inputs").html(html);
-//                    },
-//                    async:false
-//            //        isLocal: true
-//                });
-//        }
+        }
     }
 }
 
