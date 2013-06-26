@@ -768,17 +768,12 @@ function try_order(elem){
 }
 function render_to(url_to_template, locals){
     var strReturn = "";
-    show_alert("11");
     $.ajax({
         url: url_to_template,
         success: function(html) {
-            show_alert("22");
             var tmpl = swig.compile(html);
-            show_alert("33");
             locals['filename'] = locals.hasOwnProperty("filename") ? locals.filename : url_to_template;
-            show_alert("44");
             strReturn = tmpl(locals);
-            show_alert("55");
         },
         async:false
 //        isLocal: true
@@ -865,27 +860,39 @@ function set_profile(){
             $button_user.text("UPDATE");
             var current_input;
             $(".js_profile_form_inputs").html("");
-            var form_inputs = render_to('templates/profile_form.html', {
-                first_name: localStorage.getItem("first_name"),
-                last_name: localStorage.getItem("last_name"),
-                address: localStorage.getItem("address"),
-                phone: localStorage.getItem("phone"),
-                email: localStorage.getItem("email"),
-                by_post: localStorage.getItem("by_post"),
-                code: localStorage.getItem("code"),
-                receive_email_id: "receive_email_p"
-            });
-            var html = $(form_inputs);
-            if(localStorage.getItem("receive_email") == "true"){
-                html.find("input[name=receive_email]").prop("checked", "checked");
+            if(localStorage.getItem("email")){
+                    var form_inputs = render_to('templates/profile_form.html', {
+                    first_name: localStorage.getItem("first_name"),
+                    last_name: localStorage.getItem("last_name"),
+                    address: localStorage.getItem("address"),
+                    phone: localStorage.getItem("phone"),
+                    email: localStorage.getItem("email"),
+                    by_post: localStorage.getItem("by_post"),
+                    code: localStorage.getItem("code"),
+                    receive_email_id: "receive_email_p"
+                });
+                var html = $(form_inputs);
+                if(localStorage.getItem("receive_email") == "true"){
+                    html.find("input[name=receive_email]").prop("checked", "checked");
+                }else{
+                    html.find("input[name=receive_email]").removeAttr("checked", "checked");
+                }
+                if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
+                    html.find("select option:selected").removeAttr("selected");
+                    html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
+                }
+                $(".js_profile_form_inputs").html(html);
             }else{
-                html.find("input[name=receive_email]").removeAttr("checked", "checked");
+                $.ajax({
+                    url: "templates/profile_form.html",
+                    success: function(html) {
+                        $(".js_profile_form_inputs").html(html);
+                    },
+                    async:false
+            //        isLocal: true
+                });
             }
-            if(html.find("select option:selected").val() != localStorage.getItem("car_type")){
-                html.find("select option:selected").removeAttr("selected");
-                html.find("select option[value=" + localStorage.getItem("car_type") + "]").prop("selected", "selected");
-            }
-            $(".js_profile_form_inputs").html(html);
+
 
 //            $button_user.closest("form").find("input").each(function(){
 //                current_input = $(this).attr("name");
