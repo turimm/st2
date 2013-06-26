@@ -3,7 +3,7 @@
     <input class="sl_cred_numer sl_ss_43" type="text" name="last_name" placeholder="EFTERNAVN:" value="{% if last_name %}{{ last_name }}{% endif %}">
     <input class="sl_cred_numer sl_ss_43" type="text" name="address" placeholder="ADRESSE:" value="{% if address %}{{ address }}{% endif %}">
     <input class="sl_cred_numer sl_ss_43" type="text" name="by_post" placeholder="BY/POSTNUMMER:" value="{% if by_post %}{{ by_post }}{% endif %}">
-    <input readonly="readonly" class="sl_cred_numer sl_ss_43" type="text" name="email" placeholder="EMAIL:" value="{% if email %}{{ email }}{% endif %}">
+    <input {% if email %} readonly="readonly" {% endif %} class="sl_cred_numer sl_ss_43" type="text" name="email" placeholder="EMAIL:" value="{% if email %}{{ email }}{% endif %}">
     <input class="sl_cred_numer sl_ss_43" type="password" pattern="\d*" name="code" placeholder="KODE:" maxlength="4" value="{% if code %}{{ code }}{% endif %}">
     <input class="sl_cred_numer sl_ss_43 lastInForm" type="tel" name="phone" placeholder="TELEFONNUMMER:" value="{% if phone %}{{ phone }}{% endif %}">
     <div class="sl_cred_numer sl_select_style">
