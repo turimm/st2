@@ -767,12 +767,17 @@ function try_order(elem){
 }
 function render_to(url_to_template, locals){
     var strReturn = "";
+    show_alert("11");
     $.ajax({
         url: url_to_template,
         success: function(html) {
+            show_alert("22");
             var tmpl = swig.compile(html);
+            show_alert("33");
             locals['filename'] = locals.hasOwnProperty("filename") ? locals.filename : url_to_template;
+            show_alert("44");
             strReturn = tmpl(locals);
+            show_alert("55");
         },
         async:false
 //        isLocal: true
