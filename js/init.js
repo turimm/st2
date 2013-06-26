@@ -332,6 +332,7 @@ function successFunction(position) {
 //        return;
 //    }
 //    49.233292,28.466949
+    show_alert("successFunction!!");
     glob_lat = position.coords.latitude;
     glob_lon = position.coords.longitude;
     $.get(
