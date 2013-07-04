@@ -443,14 +443,14 @@ function activate_position() {
                 longitude: 28.466949
             }
         };
-        successFunction(position);
-//    if (navigator.geolocation) {
-////        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
-//    }
-//    else{
-//        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
-//        add_no_location();
-//    }
+//        successFunction(position);
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(successFunction, errorFunction);
+    }
+    else{
+        $(".js_wash_station").text("Enheden understøtter ikke geolocation");
+        add_no_location();
+    }
 }
 
 var stop_timer = null;
